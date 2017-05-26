@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Api &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Technical Notes" href="https://tzyluen.github.io/tags/api/index.xml" />
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+    <li class="pure-menu-item">
+      <a class="pure-menu-link" href="https://tzyluen.github.io/tags/api/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+    </li>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Api</h1>
+</div>
+
+<div class="content">
+  
+    <article>
+  <header>
+    <h2><a href="https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/">Scanning malicious urls (PhantomJS &#43; Google Safe Browsing API)</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>11 Nov 2015</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/web">web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/js">js</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/malware">malware</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/google">google</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/api">api</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  My examples are in JS, on PhantomJS headless browser, it could be easily adapted to other languages. The script traverses a webpage and harvests all the URLs therein to check for malware/malicious sites through the Google Safe Browsing API.
+192.168.1.9:~$ phantomjs chk-malinks.js http://some.malware.site 1: hshd.io 2: sourceforge.net 3: popup.taboola.com 4: www.geeksvip.com 5: my.hear.com ... 159: nba1001.net 160: www.pressroomvip.com 161: tracking.lifestylejournal.com 162: dsct2.com 163: www.historynut.com 164: www.buro247.my gsafe response json:{ &quot;matches&quot;: [ { &quot;threatType&quot;: &quot;MALWARE&quot;, &quot;platformType&quot;: &quot;ANY_PLATFORM&quot;, &quot;threat&quot;: { &quot;url&quot;: &quot;nba1001.
+  </p>
+
+  
+  <footer>
+    <a href="https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>

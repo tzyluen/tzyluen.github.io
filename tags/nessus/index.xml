@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nessus on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/nessus/index.xml</link>
+    <description>Recent content in Nessus on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/nessus/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scan a network for vulnerability with Nessus</title>
+      <link>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</guid>
+      <description>
+
+&lt;h1 id=&#34;scan-a-network&#34;&gt;Scan a network&lt;/h1&gt;
+
+&lt;p&gt;Target: 192.168.1.0/24&lt;/p&gt;
+
+&lt;p&gt;Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-01&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;advanced-scans&#34;&gt;Advanced Scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Advanced Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt;, and &lt;code&gt;targets&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Configure the rest of the settings:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once all is set, save and simply launch the scan.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;basic-network-scans&#34;&gt;Basic network scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Basic Network Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and &lt;code&gt;targets&lt;/code&gt;, then save.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;From the &lt;code&gt;My Scans&lt;/code&gt; folder, select a task from the list to launch the scan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once the scan complete, the status bar will changed to checked.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-06.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;results&#34;&gt;Results&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The scan results are grouped by host, and vulnerabilities (color-coded by severity).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To prepare both summary and technical reports to circulate among teams, use the Export &amp;rarr; PDF (or HTML, CSV, Nessus, Nessus DB)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clicking the vulnerabilities bar will drill-down to the next-level of 192.168.1.1 vulnerabilities:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-07.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The next level of drill-down will display the list of vulnerabilities exposed by Nessus on target 192.168.1.1, and clicking the specific vulnerability will drill-down to the attack vectors info:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-10.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-10&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The description of the vulnerability, the recommended solution, and the payload used during the scan are documented:&lt;/p&gt;
+
+&lt;p&gt;i. Description of the vulnerability and the attack vector.&lt;/p&gt;
+
+&lt;p&gt;ii. The recommended solution.&lt;/p&gt;
+
+&lt;p&gt;iii. The attack code/payload during the scan.&lt;/p&gt;
+
+&lt;p&gt;iv. Network port used for this attack.&lt;/p&gt;
+
+&lt;p&gt;v. A summarize of the risk factor information.&lt;/p&gt;
+
+&lt;p&gt;vi. Vulnerability information on known exploit availability and publication date.&lt;/p&gt;
+
+&lt;p&gt;vii. Reference information from the CVE (Common Vulnerabilities and Exposures) network.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-11.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-11&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;exports&#34;&gt;Exports&lt;/h2&gt;
+
+&lt;h3 id=&#34;executive-report&#34;&gt;Executive Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate an executive report, choose:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-08.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;technical-report&#34;&gt;Technical Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate a technical report, choose &lt;code&gt;Custom&lt;/code&gt;, select &lt;code&gt;Vulnerabilities&lt;/code&gt; to include the data, and group by &lt;code&gt;Host&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-09.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-09&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.tenable.com/products/nessus-vulnerability-scanner&#34;&gt;https://www.tenable.com/products/nessus-vulnerability-scanner&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

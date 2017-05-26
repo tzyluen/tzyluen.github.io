@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Firewall: iptables/ufw enablement &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Firewall: iptables/ufw enablement</h1>
+  <h2></h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>15 Nov 2015</time>
+  </div>
+
+  
+
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/firewall">firewall</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+    <div id="TableOfContents" class="toc col-lg-offset-6">
+      <h2>Table of Contents</h2>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#iptables">Iptables</a></li>
+<li><a href="#enabling-ufw-uncomplicated-firewall">Enabling ufw (uncomplicated firewall)</a>
+<ul>
+<li><a href="#manage-ufw-by-predefined-service-names">Manage <code>ufw</code> by predefined service names</a></li>
+<li><a href="#extended-syntax">Extended syntax</a></li>
+<li><a href="#reorders-rirewall-rules">Reorders rirewall rules</a></li>
+<li><a href="#difference-between-deny-and-reject">Difference between: DENY and REJECT</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+    <hr>
+    
+
+  
+
+<h1 id="iptables">Iptables</h1>
+
+<p>List the configured rules:</p>
+
+<pre><code class="language-bash"># iptables -L
+# iptables -L -t nat
+</code></pre>
+
+<p><code>iptables</code> contains 5 tables, (<code>-t</code>, <code>--tables</code>): <code>raw</code>, <code>filter</code>, <code>nat</code>, <code>mangle</code> and <code>security</code>. In common use cases, <code>filter</code> and <code>nat</code> is used, where filter is associated with the firewall and nat is used for network address translation such as port forwarding.</p>
+
+<hr />
+
+<h1 id="enabling-ufw-uncomplicated-firewall">Enabling ufw (uncomplicated firewall)</h1>
+
+<pre><code class="language-bash"># ufw enable
+# ufw disable
+</code></pre>
+
+<p>Check the service is running:</p>
+
+<pre><code class="language-bash"># systemctl list-unit-files ufw.service
+# systemctl status ufw
+</code></pre>
+
+<p>Check the default rules:</p>
+
+<pre><code class="language-bash"># ufw status verbose
+# ufw show raw
+</code></pre>
+
+<p>Set the default rules:</p>
+
+<pre><code class="language-bash"># ufw default deny incoming
+# ufw default allow outgoing
+</code></pre>
+
+<p>firewall rules are read from top-to-bottom, left-to-right; therefore, once a rule is matched the others will not be evaluated, so put specific rules first.</p>
+
+<h2 id="manage-ufw-by-predefined-service-names">Manage <code>ufw</code> by predefined service names</h2>
+
+<pre><code class="language-bash"># ufw app list          // list application profiles
+# ufw app info SSH      // show information on profile SSH
+</code></pre>
+
+<pre><code class="language-bash"># ufw allow &lt;service_name&gt;
+# ufw deny &lt;service_name&gt;       // will drop the connection immediately, client will get the timeout response
+# ufw reject &lt;service_name&gt;     // will drop the connection immediately
+</code></pre>
+
+<h2 id="extended-syntax">Extended syntax</h2>
+
+<pre><code class="language-bash"># ufw allow from &lt;ip_addr&gt;/[subnet] to any app &lt;service_name&gt;
+</code></pre>
+
+<p>For example, SSH service:</p>
+
+<pre><code class="language-bash"># ufw allow ssh                 // open port 22(SSH) for incoming,
+# ufw delete allow ssh          // and to delete the opened ssh rules
+</code></pre>
+
+<p>WWW service:</p>
+
+<pre><code class="language-bash"># ufw allow from 192.168.1.1/24 to any app WWW
+# ufw delete allow from 192.168.1.1/24 to any app WWW
+</code></pre>
+
+<p>Use numeric port, open port 3000 (ntop-ng) to 192.168.1.7 only:</p>
+
+<pre><code class="language-bash"># ufw allow from 192.168.1.7 to any port 3000
+</code></pre>
+
+<h2 id="reorders-rirewall-rules">Reorders rirewall rules</h2>
+
+<p>Rules are read from top-to-bottom, left-to-right, so rule (8) will not work:</p>
+
+<pre><code class="language-bash"># ufw status numbered
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] WWW                        ALLOW IN    192.168.1.0/24            
+[ 2] SSH                        ALLOW IN    192.168.1.0/24            
+[ 3] 3000                       ALLOW IN    192.168.1.7               
+[ 4] 8001                       ALLOW IN    192.168.1.7               
+[ 5] 8005                       ALLOW IN    192.168.1.7               
+[ 6] 8080                       ALLOW IN    192.168.1.7               
+[ 7] 1313                       ALLOW IN    192.168.1.7               
+[ 8] Anywhere                   REJECT IN   192.168.1.4
+</code></pre>
+
+<p>Delete rule (8) and recrete/insert to rule (1):</p>
+
+<pre><code class="language-bash"># ufw delete 8
+# ufw insert 1 reject from 192.168.1.4 to any
+Rule inserted
+# ufw status numbered
+Status: active
+
+     To                         Action      From
+     --                         ------      ----
+[ 1] Anywhere                   REJECT IN   192.168.1.4               
+[ 2] WWW                        ALLOW IN    192.168.1.0/24            
+[ 3] SSH                        ALLOW IN    192.168.1.0/24            
+[ 4] 3000                       ALLOW IN    192.168.1.7               
+[ 5] 8001                       ALLOW IN    192.168.1.7               
+[ 6] 8005                       ALLOW IN    192.168.1.7               
+[ 7] 8080                       ALLOW IN    192.168.1.7               
+[ 8] 1313                       ALLOW IN    192.168.1.7               
+</code></pre>
+
+<hr />
+
+<h2 id="difference-between-deny-and-reject">Difference between: DENY and REJECT</h2>
+
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>DENY</strong></td>
+<td><ul><li>uses the DROP from the iptables, it silently discards the incoming packets.</li><li>will keep the sender waiting until connection attempt times out.</li></ul></td>
+</tr>
+
+<tr>
+<td><strong>REJECT</strong></td>
+<td><ul><li>uses the REJECT from the iptables, it sends back an error (RST) packet to the sender of the rejected packet.</li><li>effect immediately with connection refused message.</li></ul></td>
+</tr>
+</tbody>
+</table>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/">Scanning malicious urls (PhantomJS &#43; Google Safe Browsing API)</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/hping3-use-cases/">Hping3 use cases</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/hping3-use-cases/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

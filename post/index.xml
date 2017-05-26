@@ -1,0 +1,1662 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Technical Notes</title>
+    <link>https://tzyluen.github.io/post/index.xml</link>
+    <description>Recent content in Posts on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <lastBuildDate>Fri, 31 Mar 2017 00:00:00 +0800</lastBuildDate>
+    <atom:link href="https://tzyluen.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scan a network for vulnerability with Nessus</title>
+      <link>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</guid>
+      <description>
+
+&lt;h1 id=&#34;scan-a-network&#34;&gt;Scan a network&lt;/h1&gt;
+
+&lt;p&gt;Target: 192.168.1.0/24&lt;/p&gt;
+
+&lt;p&gt;Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-01&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;advanced-scans&#34;&gt;Advanced Scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Advanced Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt;, and &lt;code&gt;targets&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Configure the rest of the settings:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once all is set, save and simply launch the scan.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;basic-network-scans&#34;&gt;Basic network scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Basic Network Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and &lt;code&gt;targets&lt;/code&gt;, then save.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;From the &lt;code&gt;My Scans&lt;/code&gt; folder, select a task from the list to launch the scan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once the scan complete, the status bar will changed to checked.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-06.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;results&#34;&gt;Results&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The scan results are grouped by host, and vulnerabilities (color-coded by severity).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To prepare both summary and technical reports to circulate among teams, use the Export &amp;rarr; PDF (or HTML, CSV, Nessus, Nessus DB)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clicking the vulnerabilities bar will drill-down to the next-level of 192.168.1.1 vulnerabilities:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-07.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The next level of drill-down will display the list of vulnerabilities exposed by Nessus on target 192.168.1.1, and clicking the specific vulnerability will drill-down to the attack vectors info:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-10.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-10&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The description of the vulnerability, the recommended solution, and the payload used during the scan are documented:&lt;/p&gt;
+
+&lt;p&gt;i. Description of the vulnerability and the attack vector.&lt;/p&gt;
+
+&lt;p&gt;ii. The recommended solution.&lt;/p&gt;
+
+&lt;p&gt;iii. The attack code/payload during the scan.&lt;/p&gt;
+
+&lt;p&gt;iv. Network port used for this attack.&lt;/p&gt;
+
+&lt;p&gt;v. A summarize of the risk factor information.&lt;/p&gt;
+
+&lt;p&gt;vi. Vulnerability information on known exploit availability and publication date.&lt;/p&gt;
+
+&lt;p&gt;vii. Reference information from the CVE (Common Vulnerabilities and Exposures) network.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-11.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-11&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;exports&#34;&gt;Exports&lt;/h2&gt;
+
+&lt;h3 id=&#34;executive-report&#34;&gt;Executive Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate an executive report, choose:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-08.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;technical-report&#34;&gt;Technical Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate a technical report, choose &lt;code&gt;Custom&lt;/code&gt;, select &lt;code&gt;Vulnerabilities&lt;/code&gt; to include the data, and group by &lt;code&gt;Host&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-09.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-09&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.tenable.com/products/nessus-vulnerability-scanner&#34;&gt;https://www.tenable.com/products/nessus-vulnerability-scanner&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deep packet inspection</title>
+      <link>https://tzyluen.github.io/post/deep-packet-inspection/</link>
+      <pubDate>Fri, 24 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/deep-packet-inspection/</guid>
+      <description>
+
+&lt;p&gt;Port-independent, P2P, and encrypted protocols and packets have made the conventional network traffics analysis that based on packet header (transport protocol and application ports) obsolete. Deep Packet Inspection (DPI) technology can be used to identify and classify these encrypted, port-independent, P2P protocols.&lt;/p&gt;
+
+&lt;p&gt;This post explore the popular open source implementations:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;nDPI library [1]&lt;/li&gt;
+&lt;li&gt;ndpi-netfilter [2]&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Other similar open source DPI tools are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;L7-filter [3], open source, GPLv2.&lt;/li&gt;
+&lt;li&gt;Libprotoident [4], open source, LGPL.&lt;/li&gt;
+&lt;li&gt;PACE (Protocol and Application Classification Engine) [5], commercial.&lt;/li&gt;
+&lt;li&gt;NBAR (Network Based Application Recognition) by Cisco [6], commercial.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; ndpi-netfilter tested only on Ubuntu 14.04.1 LTS (kernel 3.13.0-37-generic). During the initial experiment of this setup on machine with kernel v4.x, it did not work. The following Debian/wheezy machine with kernel v3.2 were used instead:&lt;/p&gt;
+
+&lt;p&gt;OS/kernel version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tzy@192.168.1.12:~$ uname -a
+Linux blackstar 3.2.0-4-amd64 #1 SMP Debian 3.2.63-2+deb7u2 x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;ndpi&#34;&gt;nDPI&lt;/h1&gt;
+
+&lt;h2 id=&#34;build-and-install-ndpi-netfilter&#34;&gt;Build and install ndpi-netfilter&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Download ndpi-netfilter from &lt;a href=&#34;https://github.com/betolj/ndpi-netfilter&#34;&gt;https://github.com/betolj/ndpi-netfilter&lt;/a&gt; and extract to &lt;code&gt;/usr/src&lt;/code&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Install dependencies:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# apt-get install linux-source
+root@192.168.1.12:~# apt-get install libtool
+root@192.168.1.12:~# apt-get install autoconf
+root@192.168.1.12:~# apt-get install pkg-config
+root@192.168.1.12:~# apt-get install subversion
+root@192.168.1.12:~# apt-get install libpcap-dev 
+root@192.168.1.12:~# apt-get install iptables-dev 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Build and install nDPI:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# cd /usr/src/ndpi-netfilter-master
+root@192.168.1.12:/usr/src/ndpi-netfilter-master# tar xvzf nDPI.tar.gz
+root@192.168.1.12:/usr/src/ndpi-netfilter-master# cd nDPI
+root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# ./autogen.sh
+root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# make
+root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Build and install ndpi-netfilter:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# cd ..
+root@192.168.1.12:~# NDPI_PATH=/usr/src/ndpi-netfilter-master/nDPI make
+root@192.168.1.12:~# make modules_install
+root@192.168.1.12:~# cp /usr/src/ndpi-netfilter-master/ipt/libxt_ndpi.so /lib/xtables/
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
+
+&lt;h2 id=&#34;realtime-capture&#34;&gt;Realtime capture&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Runs SSH server 192.168.1.12 on port &lt;code&gt;26/tcp&lt;/code&gt; instead of the default &lt;code&gt;22/tcp&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ndpi-deep-packet-inspection-03.png&#34; alt=&#34;ndpi-deep-packet-inspection-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;From a client host 192.168.1.9, port scans 192.168.1.12, it shows as &lt;code&gt;26/tcp rsftp&lt;/code&gt; service:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ndpi-deep-packet-inspection-04.png&#34; alt=&#34;ndpi-deep-packet-inspection-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;SSH on non-standard port 26, and non-port based packets e.g., Facebook, Twitter, GMail, Youtube, Google, Apple, Cloudflare and etc were detected.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ndpi-deep-packet-inspection-02.png&#34; alt=&#34;ndpi-deep-packet-inspection-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;iptables-netfilter&#34;&gt;Iptables/netfilter&lt;/h2&gt;
+
+&lt;p&gt;To filter port-independent packets, get the list of supported protocols as shown below. Below are some popular protocols supported by ndpi:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# iptables -m ndpi -h
+...
+ndpi match options:
+--ssh Match for SSH protocol packets.
+--gnutella Match for GNUTELLA protocol packets.
+--edonkey Match for EDONKEY protocol packets.
+--facebook Match for FACEBOOK protocol packets.
+--twitter Match for TWITTER protocol packets.
+--webm Match for WEBM protocol packets.
+--quic Match for QUIC protocol packets.
+--whatsapp Match for WHATSAPP protocol packets.
+--whatsapp_voice Match for WHATSAPP_VOICE protocol packets.
+--snapchat Match for SNAPCHAT protocol packets.
+--youtube Match for YOUTUBE protocol packets.
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ssh&#34;&gt;SSH&lt;/h3&gt;
+
+&lt;p&gt;To drop all incoming ssh packets, do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# iptables -I INPUT -m ndpi --ssh -j DROP
+
+iptables -A INPUT -m limit --limit 2/min -j LOG --log-prefix &amp;quot;[IPTABLES-INPUT-DROPPED] &amp;quot; --log-level 4
+iptables -A OUTPUT -m limit --limit 2/min -j LOG --log-prefix &amp;quot;[IPTABLES-OUTPUT-DROPPED] &amp;quot; --log-level 4
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the last two lines are for logging purposes.&lt;/p&gt;
+
+&lt;h3 id=&#34;youtube&#34;&gt;Youtube&lt;/h3&gt;
+
+&lt;p&gt;To drop all incoming youtube based packets, do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;iptables -A INPUT -m ndpi --youtube -j DROP
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;social-networks&#34;&gt;Social Networks&lt;/h3&gt;
+
+&lt;p&gt;To drop all incoming and outgoing social networks, do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;iptables -A INPUT -m ndpi --twitter -j DROP
+iptables -A OUTPUT -m ndpi --twitter -j DROP
+iptables -A INPUT -m ndpi --facebook -j DROP
+iptables -A OUTPUT -m ndpi --facebook -j DROP
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] nDPI -  &lt;a href=&#34;http://www.ntop.org/products/deep-packet-inspection/ndpi/&#34;&gt;http://www.ntop.org/products/deep-packet-inspection/ndpi/&lt;/a&gt; &lt;br&gt;
+[2] ndpi-netfilter - &lt;a href=&#34;https://github.com/betolj/ndpi-netfilter/README&#34;&gt;https://github.com/betolj/ndpi-netfilter/README&lt;/a&gt; &lt;br&gt;
+[3] L7-filter - &lt;a href=&#34;http://l7-filter.clearos.com&#34;&gt;http://l7-filter.clearos.com&lt;/a&gt; &lt;br&gt;
+[4] Libprotoident - &lt;a href=&#34;https://research.wand.net.nz/software/libprotoident.php&#34;&gt;https://research.wand.net.nz/software/libprotoident.php&lt;/a&gt; &lt;br&gt;
+[5] PACE (Protocol and Application Classification Engine) - &lt;a href=&#34;https://www.ipoque.com/products/dpi-engine-rsrpace-2&#34;&gt;https://www.ipoque.com/products/dpi-engine-rsrpace-2&lt;/a&gt; &lt;br&gt;
+[6] NBAR (Network Based Application Recognition) - &lt;a href=&#34;http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html&#34;&gt;http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scan the Internet with masscan</title>
+      <link>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</guid>
+      <description>
+
+&lt;p&gt;Base system used to perform the scans:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# uname -a
+Linux kali 4.9.0-kali3-amd64 #1 SMP Debian 4.9.13-1kali2 (2017-03-07) x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;scan-large-ip-block&#34;&gt;Scan large IP block&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan the entire 175.0.0.0/8 for port 22, 80, 445&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-00.png&#34; alt=&#34;scan-the-internet-with-masscan-00&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; It&amp;rsquo;s risky to perform such as scan as it may trigger some IDS/IPS and get your IP blocked/blacklisted from accessing them permanently.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan a Yahoo IP block for port tcp/80:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Trace the Yahoo&amp;rsquo;s IP block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# mtr -y1 yahoo.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-01.png&#34; alt=&#34;scan-the-internet-with-masscan-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan the entire IP block (32768 of hosts):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-02.png&#34; alt=&#34;scan-the-internet-with-masscan-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;exclude-ip-blocks-of-sensitive-part-of-the-internet&#34;&gt;Exclude IP blocks of sensitive part of the Internet:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Ensure the &lt;code&gt;excludefile&lt;/code&gt; is defined in &lt;code&gt;/etc/masscan/masscan.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;excludefile=/etc/masscan/exclude.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Append the following into the exclude list to prevent scanning them by accident:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-03.png&#34; alt=&#34;scan-the-internet-with-masscan-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Or, for a non-persistent exclude list, use &lt;code&gt;--excludefile&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.0.0.0/8 -p80 --rate 10000 --excludefile exclude.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;include-ip-blocks-for-targeted-ip-blocks&#34;&gt;Include IP blocks for targeted IP blocks:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Similar to &lt;code&gt;excludefile&lt;/code&gt;, the file format for the include list:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Include list:
+# For targeting organizations or verticals with multiple blocks
+75.0.0.0/8               # AT&amp;amp; Internet Services
+175.145.0.0/16           # TMNet
+    
+# Private IPv4 addresses, to scan entire organization network
+192.168.0.0/16           # class C
+172.16.0.0/12            # class B
+10.0.0.0/8               # class A
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan with the include file option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -p80 --includefile include.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;transmission-rates&#34;&gt;Transmission Rates&lt;/h1&gt;
+
+&lt;p&gt;Depends on network infrastructure and NIC, it can be scaled up to 25 million packets/second.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The default transmit rate is 100 packets/second. Takes approx. 6 minutes to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-04.png&#34; alt=&#34;scan-the-internet-with-masscan-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;With 10,000 packets/second takes approx. 8 seconds to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-05.png&#34; alt=&#34;scan-the-internet-with-masscan-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Known max. transmission rates are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Windows - 250,000 packets/second&lt;/li&gt;
+&lt;li&gt;Linux - 2,500,000 packets/second&lt;/li&gt;
+&lt;li&gt;PF_RING driver - 25,000,000 packets/second&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;specify-ports-and-ranges&#34;&gt;Specify ports and ranges&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 1000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-06.png&#34; alt=&#34;scan-the-internet-with-masscan-06&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;banners&#34;&gt;Banners&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Grab the banners, i.e., HTTP server version, title, and etc.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 10000 --banners
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some interesting information:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-08.png&#34; alt=&#34;scan-the-internet-with-masscan-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;output-formats&#34;&gt;Output formats&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Sets the output format to binary &lt;code&gt;-oB&lt;/code&gt; and saves the output in the given filename, which can be read with &lt;code&gt;--readscan&lt;/code&gt;, and optionally output into a new format later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-oB: binary
+-oL: list
+-oG: grepable
+-oX: xml
+
+masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 -oB 175-145-0-0-masscan.bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-07.png&#34; alt=&#34;scan-the-internet-with-masscan-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Read the saved binary file into new &lt;code&gt;xml&lt;/code&gt; format file that can be used for parsing and reporting:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 --readscan 175-145-0-0-masscan.bin -oX 175-145-0-0-masscan.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;save-amp-manage-the-conf-for-different-scanning-strategies-amp-objectives&#34;&gt;Save &amp;amp; manage the conf for different scanning strategies &amp;amp; objectives&lt;/h1&gt;
+
+&lt;p&gt;Save the configuration into a file. Multiple conf files for different objectives and strategies. For example, a configuration file for a particular ip block, i.e.,&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Save the current settings into a conf file (&lt;code&gt;--echo&lt;/code&gt; and redirect to &lt;code&gt;175-145-0-0.conf&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 --echo &amp;gt; 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use the saved profile for the same objective:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -c 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Port-knocking</title>
+      <link>https://tzyluen.github.io/post/port-knocking/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/port-knocking/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &amp;ldquo;knock&amp;rdquo; sequences of port-hits.&lt;/p&gt;
+
+&lt;p&gt;A client system makes these port-hits by sending a TCP (or UDP) packet to a port on the server. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access. The primary benefit is that it suppresses the regular port scan and appears as not availale.&lt;/p&gt;
+
+&lt;p&gt;Essentially, the port-knocking strategy is security by obscurity.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;enabling-knockd&#34;&gt;Enabling knockd&lt;/h1&gt;
+
+&lt;p&gt;A prerequisite to enable port-knocking is &lt;code&gt;iptables&lt;/code&gt;. The &lt;code&gt;knockd&lt;/code&gt; is a small port-knock daemon that implements the port-knock server, dynamically manipulate the firewall rules to open and close ports.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo apt-get install knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the default configuration, enable the service at init and set the target network interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo vim /etc/default/knockd
+...
+START_KNOCKD=1
+KNOCKD_OPTS=&amp;quot;-i enp0s3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the desired port-knocking sequence &lt;code&gt;1300&lt;/code&gt;, &lt;code&gt;8888&lt;/code&gt;, &lt;code&gt;9394&lt;/code&gt; in &lt;code&gt;/etc/knockd.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[options]
+        #UseSyslog
+        logfile     = /var/log/knockd.log
+
+[openSSH]
+        #sequence    = 1300:tcp,8888:udp,9394:tcp
+        sequence    = 1300,8888,9394
+        seq_timeout = 10
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+
+[closeSSH]
+        sequence    = 9394,8888,1300
+        seq_timeout = 10
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start the service:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo systemctl start knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;port-knocking&#34;&gt;Port-knocking&lt;/h1&gt;
+
+&lt;h2 id=&#34;using-knock&#34;&gt;Using Knock&lt;/h2&gt;
+
+&lt;p&gt;The utility from the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;h3 id=&#34;open-the-port&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300 8888 9394
+hitting tcp 192.168.1.9:1300
+hitting tcp 192.168.1.9:8888
+hitting tcp 192.168.1.9:9394
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; it&amp;rsquo;s possible to combine TCP and UDP port:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300:tcp 8888:udp 9394:tcp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;close-the-port&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 9394 8888 1300
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-hping3-nmap&#34;&gt;Using Hping3 / Nmap&lt;/h2&gt;
+
+&lt;p&gt;The following comes handy for any remote system to makes port-hits without install the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S: set SYN tcp flag
+-p: port
+-c: count, stop after sending (and receiving) count response packets
+hping3 -S -p $ARG -c 1 $HOST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A simple shell script &lt;code&gt;port-knocking.sh&lt;/code&gt; to knocks target host &lt;code&gt;$HOST&lt;/code&gt; of &lt;code&gt;$@&lt;/code&gt; (list of sequences) iteratively.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/sh
+HOST=$1
+shift
+for ARG in &amp;quot;$@&amp;quot;
+do
+    hping3 -S -p $ARG -c 1 $HOST
+    #nmap -Pn --host-timeout 100 --max-retries 0 -p $ARG $HOST
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;open-the-port-1&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Initial state - 192.168.1.9 port 22/tcp closed:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-01.png&#34; alt=&#34;port-knocking-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Connection timed out:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-02.png&#34; alt=&#34;port-knocking-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Knocks and opens 192.168.1.9:22 with SYN tcpflag and port 1300, 8888, 9394 sequence:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-03.png&#34; alt=&#34;port-knocking-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Connects to the host:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-05.png&#34; alt=&#34;port-knocking-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 1
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 2
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 3
+[2016-09-03 18:20] 192.168.1.11: openSSH: OPEN SESAME
+[2016-09-03 18:20] openSSH: running command: /sbin/iptables -A INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;close-the-port-1&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Runs the &lt;code&gt;port-knocking.sh&lt;/code&gt; script and pass the close port sequence 9394, 8888, 1300:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-04.png&#34; alt=&#34;port-knocking-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 1
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 2
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 3
+[2016-09-03 19:37] 192.168.1.11: closeSSH: OPEN SESAME
+[2016-09-03 19:37] closeSSH: running command: /sbin/iptables -D INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;alternative&#34;&gt;Alternative&lt;/h1&gt;
+
+&lt;p&gt;There are a lot of existing implementations available to support various platforms [1].
+For instance, a more advanced &lt;code&gt;fwknop&lt;/code&gt; [2] which implements an authorization scheme known as Single Packet Authorization (SPA) for strong service concealment.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://www.portknocking.org/view/implementations&#34;&gt;http://www.portknocking.org/view/implementations&lt;/a&gt; &lt;br&gt;
+[2] &lt;a href=&#34;https://github.com/mrash/fwknop&#34;&gt;https://github.com/mrash/fwknop&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SQL injection with sqlmap</title>
+      <link>https://tzyluen.github.io/post/sql-injection-with-sqlmap/</link>
+      <pubDate>Sat, 07 May 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/sql-injection-with-sqlmap/</guid>
+      <description>
+
+&lt;h1 id=&#34;scan-for-vulnerability&#34;&gt;Scan for vulnerability&lt;/h1&gt;
+
+&lt;h2 id=&#34;create-a-http-request-file&#34;&gt;Create a HTTP request file&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;code&gt;-r&lt;/code&gt; option instead of passing long parameters of &lt;code&gt;--url&lt;/code&gt;, &lt;code&gt;--user-agent&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; use packet capture utility such as &lt;code&gt;ngrep&lt;/code&gt; to facilitate the process.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;sqlmap -r REQUESTFILE ...
+-r REQUESTFILE      Load HTTP request from a file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-01.png&#34; alt=&#34;sql-injection-with-sqlmap-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clean-up the trailing &lt;code&gt;.&lt;/code&gt; (non-printable char displayed by &lt;code&gt;ngrep&lt;/code&gt;), and write to a file e.g., &lt;code&gt;mutillidae-login.request&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-02.png&#34; alt=&#34;sql-injection-with-sqlmap-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;scan-the-target&#34;&gt;Scan the target&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Launch the scan with the &lt;code&gt;-r&lt;/code&gt; and use the request file created above, it will take some time:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r -mutillidae-login.request --batch --banner
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-03.png&#34; alt=&#34;sql-injection-with-sqlmap-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once a vulnerability is found, it will print the parameter that&amp;rsquo;s vulnerable, the injection type, and the payload used to carried out the injection. The following scan results indicate total of three type of injections found.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;boolean-based blind&lt;/li&gt;
+&lt;li&gt;error-based&lt;/li&gt;
+&lt;li&gt;AND/OR time-based blind&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-04.png&#34; alt=&#34;sql-injection-with-sqlmap-04&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the &lt;code&gt;--technique&lt;/code&gt; option can be used to specifically target one type of attack.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt; --technique=BEUSTQ,
+   B=boolean-based blind, E=error-based, U=union-query-based, S=stacked queries,
+   T=time-based blind, Q=inline queries
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;explore-the-vulnerable-target-s-databases-and-system&#34;&gt;Explore the vulnerable target&amp;rsquo;s databases and system&lt;/h2&gt;
+
+&lt;p&gt;Once entered the system:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Crack the passwords&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --passwords
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-05.png&#34; alt=&#34;sql-injection-with-sqlmap-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List the databases:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --dbs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-06.png&#34; alt=&#34;sql-injection-with-sqlmap-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List the tables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --tables -D nowasp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-07.png&#34; alt=&#34;sql-injection-with-sqlmap-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Dump the &lt;code&gt;nowasp.accounts&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --dump -T accounts -D nowasp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-08.png&#34; alt=&#34;sql-injection-with-sqlmap-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;some-other-commonly-used-options-to-explore-the-system&#34;&gt;Some other commonly used options to explore the system:&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --current-user
+$ sqlmap -r mutillidae-login.request --privileges
+$ sqlmap -r mutillidae-login.request --dbms=mysql -D mysql --sql-query=&amp;quot;select user,password from mysql.user order by user desc&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;os-shell-access&#34;&gt;OS Shell Access&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; see section &lt;a href=&#34;#capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/a&gt; to retrieve the payloads.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --os-shell
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-09.png&#34; alt=&#34;sql-injection-with-sqlmap-09&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;behind-the-scene&#34;&gt;Behind the scene&lt;/h3&gt;
+
+&lt;p&gt;The file stager (1) &lt;code&gt;tmpuntbv.php&lt;/code&gt; is first uploaded to the &lt;code&gt;/var/www/html&lt;/code&gt; as explained in section &lt;a href=&#34;#capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then, the backdoor (2) &lt;code&gt;tmpbyovw.php&lt;/code&gt; is uploaded to the server through &lt;code&gt;tmpuntbv.php&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-14.png&#34; alt=&#34;sql-injection-with-sqlmap-14&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All shell commands&amp;rsquo; requests are made through the backdoor script &lt;code&gt;tmpbyovw.php&lt;/code&gt; to 192.168.1.9 and results are returned to the 192.168.1.11.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-13.png&#34; alt=&#34;sql-injection-with-sqlmap-13&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;speedup-the-process-and-specify-custom-injection-payloads&#34;&gt;Speedup the process and specify custom injection payloads&lt;/h2&gt;
+
+&lt;p&gt;To speedup the process, pass as many parameters to shorten the processing time. For examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-p TESTPARAMETER      Testable parameter(s)
+--dbms=DBMS           Force back-end DBMS to this value
+--technique=TECH      SQL injection techniques to use (default &amp;quot;BEUSTQ&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/h1&gt;
+
+&lt;p&gt;From the sqlmap stdout, pins down the files (payloads) uploaded:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-10.png&#34; alt=&#34;sql-injection-with-sqlmap-10&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;with-ngrep&#34;&gt;with Ngrep&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ngrep -d eth0 -qt -W byline &amp;quot;^GET | ^POST&amp;quot; &amp;quot;port 80 and host 192.168.1.11&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Look for the files uploaded described above:
+&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-11.png&#34; alt=&#34;sql-injection-with-sqlmap-11&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;with-wireshark&#34;&gt;with Wireshark&lt;/h2&gt;
+
+&lt;p&gt;Use the following filters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Capture filter: not broadcast and not multicast and host 192.168.1.11
+Display filter (1): http contains &amp;quot;tmpuntbv.php&amp;quot;
+Display filter (2): http contains &amp;quot;tmpbyovw.php&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From the matching packet, &lt;code&gt;Follow&lt;/code&gt; &amp;rarr; &lt;code&gt;HTTP Stream&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-12.png&#34; alt=&#34;sql-injection-with-sqlmap-12&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;decode-the-payload&#34;&gt;Decode the payload&lt;/h2&gt;
+
+&lt;p&gt;Unquote the url strings with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import sys
+import urlparse
+import codecs
+buf = urlparse.unquote(sys.argv[1])
+print buf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;produces,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-15.png&#34; alt=&#34;sql-injection-with-sqlmap-15&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;and decodes the hex (starting from &lt;del&gt;0x&lt;/del&gt;3c3f&amp;hellip; until &amp;hellip;3e0a) with,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;payload = sys.argv[1]
+print codecs.decode(payload, &amp;quot;hex&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;produces,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-16.png&#34; alt=&#34;sql-injection-with-sqlmap-16&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;the code basically handling file uploads and also change the uploaded files permission to &lt;code&gt;0755&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Wireshark: A quick troubleshoot on slow network (1)</title>
+      <link>https://tzyluen.github.io/post/wireshark-a-quick-troubleshoot-on-slow-network-1/</link>
+      <pubDate>Sat, 23 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/wireshark-a-quick-troubleshoot-on-slow-network-1/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Runs wireshark and starts capturing the network packets until the statistic builds.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;quick-drill-into-errors-and-connection-issues&#34;&gt;Quick drill into errors and connection issues&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Analyze&lt;/code&gt; &amp;rarr; &lt;code&gt;Expert Info&lt;/code&gt;, a high number of errors and warnings indicates problems.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-03.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;identify-the-protocols-with-high-traffic&#34;&gt;Identify the protocols with high traffic&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Statistics&lt;/code&gt; &amp;rarr; &lt;code&gt;Protocol Hierarchy&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-01.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Observes the resulting Protocol Hierarchy Statistic and pins down the suspicious/troubling protocol (e.g., high percentage of P2P or broadcast), right-click and select &lt;code&gt;Apply As Filter&lt;/code&gt; &amp;rarr; &lt;code&gt;Selected&lt;/code&gt; to apply the filter for further analysis.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;get-the-connection-speed-to-a-site&#34;&gt;Get the connection speed to a site&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use a display filter such as &lt;code&gt;ip.addr == 192.168.1.7 &amp;amp;&amp;amp; ip.addr == 202.170.56.12 &amp;amp;&amp;amp; tcp.port == 22&lt;/code&gt; to filter the SSH traffic of the target site.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-05.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Navigates to Wireshark menu &lt;code&gt;Statistics&lt;/code&gt; &amp;rarr; &lt;code&gt;Flow Graph&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Select show only &lt;code&gt;Displayed packets&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Right-click on the TCP flow diagram and zoom to increase the details of the packet.&lt;/li&gt;
+&lt;li&gt;Observe the connection establishment timestamp and response time. High number of retransmissions, and re-established connections indicate problems.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-06.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;get-the-time-spent-in-waiting-for-a-response&#34;&gt;Get the time spent in waiting for a response&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To show the time difference from the previous packet, add the &lt;code&gt;Delta time&lt;/code&gt; into the display columns. From the column displays, right-click and select &lt;code&gt;Column Preferences&lt;/code&gt; &amp;rarr; add a new column and set the type as &lt;code&gt;Delta time&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-04.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;identify-the-bad-packets-tcp-errors-ratio&#34;&gt;Identify the bad packets (TCP errors) ratio&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Statistics&lt;/code&gt; &amp;rarr; &lt;code&gt;I/O Graph&lt;/code&gt;. Customizes the IO graphs with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;TCP errors (&lt;code&gt;tcp.analysis.flags&lt;/code&gt;) to filters the bad TCP packets.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Retransmission (&lt;code&gt;tcp.analysis.retransmission || tcp.analysis.fast_retransmission&lt;/code&gt;) filters the retransmitted packets.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A consistently high TCP errors and retransmission ratio often indicate problems. For instance, approx. half of the total packets were indicated in figure below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-02.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ngrep: quick peek at http traffic</title>
+      <link>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</link>
+      <pubDate>Sat, 16 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</guid>
+      <description>
+
+&lt;h3 id=&#34;quick-peek&#34;&gt;Quick peek:&lt;/h3&gt;
+
+&lt;p&gt;Monitor activities on device &lt;code&gt;eth0 port 80&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-W byline&lt;/code&gt;: linefeeds (LF) are printed as linefeeds, more readable.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-qt&lt;/code&gt;: quiet mode and print human-readable timestamp.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -W byline -qt port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;sorts-out-unique-user-agent-devices&#34;&gt;Sorts out unique User-Agent (devices):&lt;/h3&gt;
+
+&lt;p&gt;In corporate environment, desktop/laptop OS build is often standardized. However, with the BYOD initiative, the network has becomes even more vulnerable. To quickly identify the type of devices on the network, we could do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ngrep -qt -W single -d eth0 -P~ &#39;User-Agent:&#39; &#39;port 80&#39; &amp;gt; http-user-agent.txt
+$ sed &#39;s/.*User-Agent/User-Agent/&#39; http-user-agent.txt | sed &#39;s/~.*//&#39; | sed &#39;/^$/d&#39; &amp;gt; user-agents.txt
+$ cat user-agents.txt | sort | uniq -c | sort -rn
+  28 User-Agent: Chrome 20.0.1092.0 (Win 7)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6
+   7 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36
+   5 User-Agent: Chrome 15.0.874.120 (Vista)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2
+   4 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or use &lt;code&gt;tshark&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo tshark -i eth0 -f &amp;quot;port 80&amp;quot; -Y &amp;quot;http contains \&amp;quot;User-Agent:\&amp;quot;&amp;quot; -Tfields -e http.user_agent &amp;gt; user-agents.txt
+$ cat user-agents.txt | sort | uniq -c | sort -rn
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;monitor-the-occurrence-of-the-keywords&#34;&gt;Monitor the occurrence of the keywords:&lt;/h3&gt;
+
+&lt;p&gt;Capture network traffic matches tcp port 80 (HTTP) on GET/POST methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -q -i &amp;quot;^GET |^POST &amp;quot; tcp and port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Monitor the occurrence of the words &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;pass&lt;/code&gt;, case insensitive:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -wi &#39;user | pass&#39; port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Read from a pcap file, search for &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt; requests:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -I capture.pcap | grep &#39;GET\|POST&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;ip-address&#34;&gt;IP address:&lt;/h3&gt;
+
+&lt;p&gt;Matches all headers containing pattern string &amp;lsquo;HTTP&amp;rsquo; sent to/from ip address starting with 172.16&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -I capture.pcap &#39;HTTP&#39; &#39;host 172.16&#39; | grep &#39;GET\|POST&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ngrep-quick-peek-at-http-traffic-01.png&#34; alt=&#34;ngrep-quick-peek-at-http-traffic-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;dns&#34;&gt;DNS:&lt;/h3&gt;
+
+&lt;p&gt;Capture incoming/outgoing to/from eth0 matches DNS queries/responses&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -d eth0 udp and port 53
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Extract files from captured network traffic pcap (2)</title>
+      <link>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-2/</link>
+      <pubDate>Sat, 09 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-2/</guid>
+      <description>
+
+&lt;h1 id=&#34;tcpxtract&#34;&gt;Tcpxtract&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Supports 26 file formats, extensible (&lt;code&gt;/etc/tcpxtract.conf&lt;/code&gt;), however it requires the clear start and end markers.&lt;/li&gt;
+&lt;li&gt;Supports only TCP packets, no UDP.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Live capture from an interface and extract:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkdir -p /tmp/enp0s3-tcpxtract-output
+$ sudo tcpxtract -d enp0s3 -o /tmp/enp0s3-tcpxtract-output
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Extract from pcap file:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-tcpxtract-01.png&#34; alt=&#34;extracting-files-tcpxtract-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;tcpextract&#34;&gt;Tcpextract&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Similar to both &lt;code&gt;tcpflow&lt;/code&gt; and &lt;code&gt;tcpxtract&lt;/code&gt;, it extracts all files it recognized from a pcap file or interface.&lt;/li&gt;
+&lt;li&gt;Extracts files with their original names, instead of the index names i.e., 0000001.htm.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo apt-get install python-nids
+$ git clone https://github.com/faust/tcpextract.git
+$ cd tcpextract/
+$ sudo python setup.py install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, it is not well supported, or unstable.  It failed to extract http traffic during the experiment:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-tcpextract-01.png&#34; alt=&#34;extracting-files-tcpextract-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So, converts &lt;code&gt;pcapng&lt;/code&gt; to &lt;code&gt;pcap&lt;/code&gt; file format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ editcap http_espn.pcapng http_espn.pcap
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After a few attempt, it still failed silently with zero file extracted.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Extract files from captured network traffic pcap (1)</title>
+      <link>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-1/</link>
+      <pubDate>Sat, 02 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-1/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;The process is mostly the same in network packets data-carving:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Gain access and collect the raw bytes&lt;/li&gt;
+&lt;li&gt;Strip the protocol information&lt;/li&gt;
+&lt;li&gt;Extract and write the data to file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The difference of these tools are the capability i.e., supported protocols and file formats.&lt;/p&gt;
+
+&lt;h1 id=&#34;wireshark&#34;&gt;Wireshark&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;HTTP objects/files:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Navigate to &lt;code&gt;File&lt;/code&gt; &amp;rarr; &lt;code&gt;Export Objects&lt;/code&gt; and select the type, currently it supports four protocols:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-01.png&#34; alt=&#34;extracting-files-wireshark-export-http-object-list-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then select the target filename followed by &lt;code&gt;Save&lt;/code&gt; or simply &lt;code&gt;Save All&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-02.png&#34; alt=&#34;extracting-files-wireshark-export-http-object-list-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;List of exported objects and the respective file types:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-03.png&#34; alt=&#34;extracting-files-wireshark-export-http-object-list-03&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Alternatively, the &lt;code&gt;Follow&lt;/code&gt; &amp;rarr; &lt;code&gt;TCP Stream&lt;/code&gt; can also be used to extract raw files from the stream:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-01.png&#34; alt=&#34;extracting-files-wireshark-follow-tcp-stream-01&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-02.png&#34; alt=&#34;extracting-files-wireshark-follow-tcp-stream-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Binary files:&lt;/strong&gt;
+In real world scenario, malware often spread through http protocol, thus we could search the common strings used by malware such as &lt;code&gt;GetProcAddress&lt;/code&gt;, &lt;code&gt;ExitProcess&lt;/code&gt; and etc. (statistically reported in paper by Gong et al. [1]).&lt;/p&gt;
+
+&lt;p&gt;Use the display filter &lt;code&gt;http contains &amp;quot;GetProcAddress&amp;quot;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-01.png&#34; alt=&#34;extracting-files-wireshark-binary-files-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are multiple ways to export the packets (binary file):&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Export Objects &amp;rarr; HTTP, and select the file from the list:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-03.png&#34; alt=&#34;extracting-files-wireshark-binary-files-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Export Packet Bytes:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-05.png&#34; alt=&#34;extracting-files-wireshark-binary-files-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Once the binary is obtained, we could use hex editor to view the binary file, and locate the matching strings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ xxd mal.bin |less
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-02.png&#34; alt=&#34;extracting-files-wireshark-binary-files-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;MD5 checksum:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-04.png&#34; alt=&#34;extracting-files-wireshark-binary-files-04&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;tcpflow-foremost&#34;&gt;Tcpflow &amp;amp; Foremost&lt;/h1&gt;
+
+&lt;p&gt;Assuming the pcap file &lt;code&gt;192.168.1.0.pcap&lt;/code&gt; contains the packets captured from the &lt;code&gt;192.168.1.0/24&lt;/code&gt; network, we could use &lt;code&gt;tcpflow&lt;/code&gt; to export the data streams into individual files by ip-addresses:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-foremost-01.png&#34; alt=&#34;extracting-files-wireshark-foremost-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Tcpflow&lt;/code&gt; only handles the direction of the data streams, and if the target binary files were not split into individual files by &lt;code&gt;tcpflow&lt;/code&gt;, we could use foremost to complement the processes:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; add the following line to &lt;code&gt;/etc/foremost.conf&lt;/code&gt; to add Mach-O binary file format&amp;rsquo;s signature.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin    n    4096000    \xCF\xFA\xED\xFE\x07\x00
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[filetype]  [case-sensitivity]  [upper-limit-for-size]  [signature header]  [footer]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Concatenate the data files generated by tcpflow into a single file:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-foremost-02.png&#34; alt=&#34;extracting-files-wireshark-foremost-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Parse the file with &lt;code&gt;Foremost&lt;/code&gt;, followed by validation with md5sum which yielded identical result to previous value of &lt;code&gt;mal.bin&lt;/code&gt; file shown above in &lt;code&gt;192.168.1.7&lt;/code&gt;:
+&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-foremost-03.png&#34; alt=&#34;extracting-files-wireshark-foremost-03&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code&gt;tcpflow&lt;/code&gt; only support TCP packets, it doesn not handle UDP packets. To separate the packets not processed by &lt;code&gt;tcpflow&lt;/code&gt;, use the &lt;code&gt;-w&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; -w filename.pcap
+    Write packets that were not processed to filename.pcap. Typically this will be UDP packets.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] Gong, M., Girkar, U., &amp;amp; Xie, B. Classifying Windows Malware with Static Analysis. &lt;br&gt;
+[2] &lt;a href=&#34;https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562&#34;&gt;https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562&lt;/a&gt; &lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Wireshark: Changing the default column display</title>
+      <link>https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/</link>
+      <pubDate>Sat, 26 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/</guid>
+      <description>
+
+&lt;p&gt;The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: &lt;code&gt;No (Packet number)&lt;/code&gt;, &lt;code&gt;Time&lt;/code&gt;, &lt;code&gt;Source&lt;/code&gt;, &lt;code&gt;Destination&lt;/code&gt;, &lt;code&gt;Protocol&lt;/code&gt;, &lt;code&gt;Length&lt;/code&gt;, and &lt;code&gt;Info&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-01.png&#34; alt=&#34;changing-wireshark-columns-settings-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;changing-the-column-display&#34;&gt;Changing the column display&lt;/h1&gt;
+
+&lt;p&gt;To change the default column display, navigate to &lt;code&gt;Preferences&lt;/code&gt; :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-02.png&#34; alt=&#34;changing-wireshark-columns-settings-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;From the &lt;code&gt;Preferences&lt;/code&gt;, expands &lt;code&gt;Appearance&lt;/code&gt; and select &lt;code&gt;Columns&lt;/code&gt;, then add the new desired column e.g., &lt;code&gt;Src port&lt;/code&gt; of type &lt;code&gt;Src port (unresolved)&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-03.png&#34; alt=&#34;changing-wireshark-columns-settings-03&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The following shows the final column settings, &lt;code&gt;No (Packet number)&lt;/code&gt; and &lt;code&gt;Length&lt;/code&gt; are removed, &lt;code&gt;Source&lt;/code&gt; and &lt;code&gt;Destination&lt;/code&gt; addresses changed to &lt;code&gt;unresolved&lt;/code&gt; to shows actual ip address. Additionally, two new columns: &lt;code&gt;Src port&lt;/code&gt; and &lt;code&gt;Dst port&lt;/code&gt; (both &lt;code&gt;unresolved&lt;/code&gt;) are added to shows actual port number.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-04.png&#34; alt=&#34;changing-wireshark-columns-settings-04&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;changing-the-time-display-format&#34;&gt;Changing the Time Display Format&lt;/h1&gt;
+
+&lt;p&gt;The default format is &amp;lsquo;&lt;code&gt;Seconds Since Beginning of Capture&lt;/code&gt;&amp;rsquo; which isn&amp;rsquo;t useful if the time of the day is of interest. To change it, navigate to &lt;code&gt;View&lt;/code&gt; &amp;rarr; &lt;code&gt;Time Display Format&lt;/code&gt;, and select  &lt;code&gt;Date and Time of Day&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-05.png&#34; alt=&#34;changing-wireshark-columns-settings-05&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Also, change the time precision to &lt;code&gt;Seconds&lt;/code&gt; to shorten the space required:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-06.png&#34; alt=&#34;changing-wireshark-columns-settings-06&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;adding-http-server-names&#34;&gt;Adding HTTP Server Names&lt;/h1&gt;
+
+&lt;p&gt;Set the display filter as &amp;apos;&lt;code&gt;http.request&lt;/code&gt;&amp;apos; to only display HTTP requests. Then, from the &lt;code&gt;Packet Details&lt;/code&gt; pane, expand the &lt;code&gt;Hypertext Transfer Protocol&lt;/code&gt; and right-click &lt;code&gt;Host&lt;/code&gt; from the HTTP header and select &lt;code&gt;Apply as Column&lt;/code&gt; :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-07.png&#34; alt=&#34;changing-wireshark-columns-settings-07&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The host from the HTTP requests (both GET and POST) will now shown as a column. The final column settings are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Time (Date and Time of Day): YYYY-MM-DD HH:MM:SS&lt;/li&gt;
+&lt;li&gt;Source Address (unresolved)&lt;/li&gt;
+&lt;li&gt;Source Port (unresolved)&lt;/li&gt;
+&lt;li&gt;Destination Address (unresolved)&lt;/li&gt;
+&lt;li&gt;Destination Port (unresolved)&lt;/li&gt;
+&lt;li&gt;Protocol&lt;/li&gt;
+&lt;li&gt;Host&lt;/li&gt;
+&lt;li&gt;Info&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-08.png&#34; alt=&#34;changing-wireshark-columns-settings-08&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;adding-https-server-names&#34;&gt;Adding HTTPS Server Names&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use a display filter such as &lt;code&gt;tcp.port == 443&lt;/code&gt; to narrow down the HTTPS traffic.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Look for &lt;code&gt;TLS&lt;/code&gt; or &lt;code&gt;Client Hello&lt;/code&gt; from the Protocol and Info columns.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Expand the &lt;code&gt;Secure Sockets Layer&lt;/code&gt; &amp;rarr; &lt;code&gt;TLSv1.2 Record Layer&lt;/code&gt; &amp;rarr; &lt;code&gt;Handshake Protocol&lt;/code&gt; &amp;rarr; &lt;code&gt;Extension: server_name&lt;/code&gt; &amp;rarr; &lt;code&gt;Server Name Indication extension&lt;/code&gt;, select the &lt;code&gt;Server Name&lt;/code&gt; field.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Then, right-click on the field and select &lt;code&gt;Apply as Column&lt;/code&gt;:&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-09.png&#34; alt=&#34;changing-wireshark-columns-settings-09&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use the &lt;code&gt;ssl.handshake.extensions_server_name&lt;/code&gt; display filter to query server names from the HTTPS traffic:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/changing-wireshark-columns-settings-10.png&#34; alt=&#34;changing-wireshark-columns-settings-10&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Encrypting DNS traffic</title>
+      <link>https://tzyluen.github.io/post/encrypting-dns-traffic/</link>
+      <pubDate>Sat, 19 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/encrypting-dns-traffic/</guid>
+      <description>
+
+&lt;h1 id=&#34;dnscrypt&#34;&gt;DNSCrypt&lt;/h1&gt;
+
+&lt;p&gt;can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.&lt;/p&gt;
+
+&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# apt-get install dnscrypt-proxy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;select-a-resolver&#34;&gt;Select a resolver&lt;/h2&gt;
+
+&lt;p&gt;Note: An up-to-date dnscrypt-resolvers.csv is also available from &lt;a href=&#34;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&#34;&gt;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Select a resolver from &lt;code&gt;/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Filter and print the list of resolvers from the dnscrypt-resolvers.csv&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;{print $1 &amp;quot;|&amp;quot; $4 &amp;quot;|&amp;quot; $12}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Get a distinct list by country:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;!($4 in arr){print $4} {arr[$4]++}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Pick a reliable server such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;fvz-anyone (by OpenNIC)&lt;/li&gt;
+&lt;li&gt;fvz-anyone-ipv6&lt;/li&gt;
+&lt;li&gt;adguard-dns-family-ns1 (Adguard DNS with safesearch and adult content blocking)&lt;/li&gt;
+&lt;li&gt;adguard-dns-ns1 (Remove ads and protect your computer from malware)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update the dnscrypt-proxy.conf with the target resolver:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ vim /etc/dnscrypt-proxy/dnscrypt-proxy.conf
+...
+ResolverName fvz-anyone
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;modify-resolv-conf&#34;&gt;Modify resolv.conf&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Modify the resolv.conf file and replace the current resolver addresses with address that the dnscrypt-proxy daemon listening on, as defined in the following files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/etc/dnscrypt-proxy/dnscrypt-proxy.conf
+/etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;resolv.conf:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nameserver 127.0.2.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;start-systemd-service&#34;&gt;Start systemd service&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo systemctl start dnscrypt-proxy
+$ sudo systemctl status dnscrypt-proxy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;verify-the-dns-traffic-is-encrypted&#34;&gt;Verify the DNS traffic is encrypted&lt;/h2&gt;
+
+&lt;p&gt;Use wireshark and set the capture filter as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host 192.168.1.9 and not broadcast
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And set the display filter as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip.addr == 185.121.177.177
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: fvz-anyone resolver ip address is 185.121.177.177&lt;/p&gt;
+
+&lt;p&gt;The encrypted DNS traffic will appear as malformed packet (in red) and was mistakenly identified as QUIC protocol during the test:
+&lt;img src=&#34;https://tzyluen.github.io/img/dnscrypt-encrypted-traffic-wireshark-01.png&#34; alt=&#34;dnscrypt-encrypted-traffic-wireshark-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>DNS resolution benchmark</title>
+      <link>https://tzyluen.github.io/post/dns-resolution-benchmark/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/dns-resolution-benchmark/</guid>
+      <description>
+
+&lt;h1 id=&#34;dig-grep&#34;&gt;dig &amp;amp; grep&lt;/h1&gt;
+
+&lt;p&gt;A straightforward way is by using the &lt;code&gt;dig&lt;/code&gt; util from the &lt;code&gt;dnsutils&lt;/code&gt; package and grep the results. This works well for quick debug on-the-go:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# apt-get install dnsutils
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ dig @202.188.0.132 archive.org | grep &amp;quot;Query time:&amp;quot;
+;; Query time: 356 msec
+
+$ dig @8.8.8.8 archive.org | grep &amp;quot;Query time:&amp;quot;
+;; Query time: 48 msec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;202.188.0.132&lt;/code&gt; is ISP TMnet&amp;rsquo;s name server, and &lt;code&gt;8.8.8.8&lt;/code&gt; is from Google public name server.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;namebench&#34;&gt;namebench&lt;/h1&gt;
+
+&lt;p&gt;is a DNS benchmark utility allows user to search for the fastest DNS servers available. It combines data from web browser history, tcpdump output, and standardized datasets to make recommendation.  It comes with console and GUI mode. To tweak the benchmark settings, edit the file &lt;code&gt;/etc/namebench/namebench.cfg&lt;/code&gt;. For example, to limit the name servers to test by opting the &amp;lsquo;&lt;code&gt;include global DNS providers&lt;/code&gt;&amp;rsquo; only, add the desired name servers into the &lt;code&gt;[global]&lt;/code&gt; section, and excludes the &amp;lsquo;&lt;code&gt;include regional DNS services&lt;/code&gt;&amp;rsquo; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[global]
+...
+51 58.6.115.42=OpenNIC
+52 58.6.115.43=OpenNIC_2
+53 72.14.189.120=OpenNIC_3
+54 195.46.39.39=SafeDNS
+55 195.46.39.40=SafeDNS_2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To run in &lt;strong&gt;console mode&lt;/strong&gt;, pass additional parameters i.e.,:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-r RUN_COUNT, --runs=RUN_COUNT: Number of test runs to perform on each nameserver.
+-z CONFIG, --config=CONFIG: Config file to use.
+-x, --no_gui: Disable GUI
+-i INPUT_SOURCE, --input=INPUT_SOURCE: Import hostnames from an filename or application (alexa...
+-t TEMPLATE, --template=TEMPLATE: ascii, html...
+
+$ namebench -z /etc/namebench/namebench.cfg -x -i alexa -t ascii
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The benchmark result report in &lt;code&gt;ascii&lt;/code&gt; format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Fastest individual response (in milliseconds):
+----------------------------------------------
+Google Public DN #### 18.82386
+SYS-192.168.1.1  ##### 22.26114
+OpenDNS-2        ###### 27.55594
+OpenDNS          ###### 27.99487
+UltraDNS         ########### 57.75499
+UltraDNS-2       #################################### 191.39409
+DynGuide         ##################################### 196.90704
+SafeDNS_2        ##################################################### 285.64906
+
+Mean response (in milliseconds):
+--------------------------------
+SYS-192.168.1.1  ########### 96.45
+OpenDNS          ############## 121.70
+Google Public DN ############## 123.50
+OpenDNS-2        ############### 130.10
+UltraDNS         ############################# 250.59
+DynGuide         #################################### 319.88
+UltraDNS-2       ######################################## 348.53
+SafeDNS_2        ##################################################### 473.00
+.
+. &amp;lt;snipped&amp;gt;
+.
+Recommended configuration (fastest + nearest):
+----------------------------------------------
+nameserver 192.168.1.1     # SYS-192.168.1.1  
+nameserver 8.8.4.4         # Google Public DNS-2  
+nameserver 208.67.222.222  # OpenDNS-2  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For &lt;strong&gt;GUI mode&lt;/strong&gt;, simply invoke the program and select the desired options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ namebench
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The GUI mode will generate a report in HTML format and plot a set of comprehensive charts to depict the performance of each tested DNS server.&lt;/p&gt;
+
+&lt;p&gt;The following shows the overall result and it recommends:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart05-recommendation.png&#34; alt=&#34;dns-benchmark-namebench-chart01-mean-response-duration&#34; style=&#34;width: 700px;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Mean Response Duration:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart01-mean-response-duration.png&#34; alt=&#34;dns-benchmark-namebench-chart01-mean-response-duration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Fastest Invidual Response Duration:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart02-fastest-individual-response-duration.png&#34; alt=&#34;dns-benchmark-namebench-chart02-fastest-individual-response-duration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Response Distribution (first 200ms):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart03-response-distribution-chart-first200ms.png&#34; alt=&#34;dns-benchmark-namebench-chart03-response-distribution-chart-first200ms&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Response Distribution (full):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart04-response-distribution-chart-full.png&#34; alt=&#34;dns-benchmark-namebench-chart04-response-distribution-chart-full&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Killing TCP connections</title>
+      <link>https://tzyluen.github.io/post/killing-tcp-connections/</link>
+      <pubDate>Sat, 05 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/killing-tcp-connections/</guid>
+      <description>
+
+&lt;h1 id=&#34;tcpkill&#34;&gt;Tcpkill&lt;/h1&gt;
+
+&lt;p&gt;enables priviledged user to kill TCP connections, it uses the tcpdump expression. It&amp;rsquo;s part of the &lt;strong&gt;dsniff&lt;/strong&gt; package. The default degree of brute force to use in killing a connection is 3, fast connections may require a higher number in order to land a RST in the moving receive window.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tcpkill [-i interface] [-1...9] expression
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For example, to kill the established and also to prevent any connections from 192.168.1.7 (client) to 192.168.1.9 (server) on port 22, use the following parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo /usr/sbin/tcpkill -i enp0s3 src 192.168.1.7 and dst port 22
+tcpkill: listening on enp0s3 [src 192.168.1.7 and dst port 22] 
+192.168.1.7:57502 &amp;gt; 192.168.1.9:22: R 462778052:462778052(0) win 0
+192.168.1.7:57502 &amp;gt; 192.168.1.9:22: R 462782148:462782148(0) win 0
+192.168.1.7:57502 &amp;gt; 192.168.1.9:22: R 462790340:462790340(0) win 0
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On the receiving end 192.168.1.7 (client), connection is killed and new connection is denied:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ wpacket_write_wait: Connection to 192.168.1.9: Broken pipe
+192.168.1.7:~$ 
+192.168.1.7:~$ ssh tzy@192.168.1.9
+192.168.1.9&#39;s password: 
+ssh_dispatch_run_fatal: Connection to 192.168.1.9: Broken pipe
+192.168.1.7:~$ 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;gdb&#34;&gt;GDB&lt;/h1&gt;
+
+&lt;p&gt;If only the socket required to close but the process must keep alive, we could attach the process under a debugger and close the FD (file descriptor).&lt;/p&gt;
+
+&lt;p&gt;To illustrate, open a simple client (192.168.1.7) and server (192.168.1.9) TCP connection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ ncat -v -l -p 9999
+Ncat: Version 7.40 ( https://nmap.org/ncat )
+Ncat: Listening on :::9999
+Ncat: Listening on 0.0.0.0:9999
+Ncat: Connection from 192.168.1.7.
+Ncat: Connection from 192.168.1.7:65253.
+hello world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.7:~$ nc 192.168.1.9 9999
+hello world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ netstat -ptuW
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 192.168.1.9:9999        192.168.1.7:65253       ESTABLISHED 4050/ncat           
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Locate and identify the target socket&amp;rsquo;s file, &lt;code&gt;$pid&lt;/code&gt;, i.e., &lt;code&gt;4050&lt;/code&gt; and also the &lt;code&gt;FD&lt;/code&gt;, i.e., &lt;code&gt;5u&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ lsof -np $pid 
+COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
+ncat    4050  tzy    5u  IPv4  31028      0t0    TCP 192.168.1.9:9999-&amp;gt;192.168.1.7:65253 (ESTABLISHED)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then attach the process to gdb, close the socket with the &lt;code&gt;FD&lt;/code&gt; identifier and detach the debugger with quit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ gdb -p $pid
+...
+(gdb) call close(5u)
+$1 = 0
+(gdb) quit
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tracing malicious network traffic</title>
+      <link>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</link>
+      <pubDate>Sat, 27 Feb 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</guid>
+      <description>
+
+&lt;h1 id=&#34;nettop&#34;&gt;Nettop&lt;/h1&gt;
+
+&lt;p&gt;Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - &lt;a href=&#34;https://tzyluen.github.io/post/sniff-dns-queries/&#34;&gt;Sniff DNS queries&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png&#34; alt=&#34;dnstop-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Under macOS, the &lt;code&gt;nettop&lt;/code&gt; util provides list of sockets and routes in details that help to trace down the process that established the connection to the unknown domain:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# use keys to toggle:
+# d, delta output
+# c, collapse all
+# e, expand all
+# j, bring up the column selection menu
+# h, help
+$ nettop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/macos-nettop-monitoring-01.jpg&#34; alt=&#34;macos-nettop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;google-transparency-report-safe-browsing-tool&#34;&gt;Google Transparency Report: Safe Browsing Tool&lt;/h2&gt;
+
+&lt;p&gt;Since the process is from Firefox on port https (443), the Google Transparency Report &lt;a href=&#34;https://www.google.com/transparencyreport/safebrowsing/diagnostic/&#34;&gt;Safe Browsing tool&lt;/a&gt; can be used to check if the site is malicious and unsafe.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;netstat&#34;&gt;Netstat&lt;/h1&gt;
+
+&lt;p&gt;On linux, &lt;code&gt;ss&lt;/code&gt; or &lt;code&gt;netstat&lt;/code&gt; can be used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -l, --listening       display listening sockets
+# -n, --numeric         don&#39;t resolve service names
+# -p, --program         show the pid/name of the program
+# -r, --resolve         resolve numeric address/ports
+# -t, --tcp             display only TCP sockets
+# -u, --udp             display only UDP sockets
+
+$ ss -rptu
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-ss-monitoring-01.png&#34; alt=&#34;linux-ss-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Similarly, &lt;code&gt;netstat&lt;/code&gt; would work too:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# to see non-owned process info
+$ sudo netstat -ptuW
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-netstat-monitoring-01.png&#34; alt=&#34;linux-netstat-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;flowtop&#34;&gt;Flowtop&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;flowtop&lt;/code&gt; from the &lt;code&gt;netsniff-ng&lt;/code&gt; package also works:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-flowtop-monitoring-01.png&#34; alt=&#34;linux-flowtop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Sniff DNS queries</title>
+      <link>https://tzyluen.github.io/post/sniff-dns-queries/</link>
+      <pubDate>Sat, 20 Feb 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/sniff-dns-queries/</guid>
+      <description>
+
+&lt;h1 id=&#34;dnstop&#34;&gt;Dnstop&lt;/h1&gt;
+
+&lt;p&gt;is a console libpcap application that displays various tables of DNS traffic on a network including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Source IP addresses&lt;/li&gt;
+&lt;li&gt;Destination IP addresses&lt;/li&gt;
+&lt;li&gt;Query types&lt;/li&gt;
+&lt;li&gt;Top level domains&lt;/li&gt;
+&lt;li&gt;Second level domains&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# dnstop enp0s3 -l 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png&#34; alt=&#34;dnstop-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;ctrl-r&lt;/code&gt; to reset the counter/refresh the history to get the latest queries.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;tcpdump&#34;&gt;Tcpdump&lt;/h1&gt;
+
+&lt;p&gt;Capture packets on port 53 (DNS):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-i: interface
+-v: verbose
+-s: snaplen, snap n bytes length from each packet (default 262144).
+    setting lowest n to prevent packet lost.
+-n: do not convert addresses/ports to names.
+-w: write the raw packets to file.
+
+# tcpdump -i eth0 -v -s0 port 53 -w /tmp/dns-queries.pcap
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+Got 223
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Read from captured raw pcap file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-q: quick/quiet/shorter output. Less protocol information.
+-A: print the payload in ASCII.
+-X: print the payload in hex and ASCII.
+-tttt: print a human readable timestamp, preceded by the date, on each dump line.
+-r: read packets from file.
+
+# tcpdump -ns 0 -A -tttt -r /tmp/dns-queries.pcap
+
+2016-04-03 19:15:28.673885 IP 192.168.1.7.50906 &amp;gt; 192.168.1.1.53: 25364+ A? www.reddit.com. (32)
+E..&amp;lt;......l............5.(.|c............www.reddit.com.....
+
+2016-04-03 19:15:28.737323 IP 192.168.1.1.53 &amp;gt; 192.168.1.7.50906: 25364 5/0/0 CNAME reddit.map.fastly.net., A 151.101.1.140, A 151.101.65.140, A 151.101.129.140, A 151.101.193.140 (131)
+E.....@.@............5.....%c............www.reddit.com.............. ...reddit.map.fastly.net..,...........e...,...........eA..,...........e...,...........e..
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;wireshark-tshark&#34;&gt;Wireshark / Tshark&lt;/h1&gt;
+
+&lt;p&gt;The console version of Wireshark comes handy to quickly monitor the traffic on port 53. It works the same as the capture and display filters from Wireshark.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-f: capture filter
+-Y: display filter
+$ tshark -i enp0s3 -f &amp;quot;udp port 53&amp;quot; -Y &amp;quot;dns.qry.type == 1 and dns.flags.response == 0&amp;quot;
+Capturing on &#39;enp0s3&#39;
+    1 0.000000000  192.168.1.7 → 192.168.1.1  DNS 72 Standard query 0xcb2a A slashdot.org
+...
+   18 3.274217622  192.168.1.7 → 192.168.1.1  DNS 70 Standard query 0x1c9f A reddit.com
+   21 3.367215915  192.168.1.7 → 192.168.1.1  DNS 74 Standard query 0x931d A www.reddit.com
+...
+   51 8.045870811  192.168.1.7 → 192.168.1.1  DNS 71 Standard query 0xf2b0 A youtube.com
+   52 8.057876881  192.168.1.7 → 192.168.1.1  DNS 83 Standard query 0x5358 A youtube-ui.l.google.com
+...
+   65 10.438546212  192.168.1.7 → 192.168.1.1  DNS 72 Standard query 0xfab8 A facebook.com
+   67 10.479990482  192.168.1.7 → 192.168.1.1  DNS 74 Standard query 0x7b3d A www.google.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &amp;lsquo;&lt;code&gt;dns.qry.type == A&lt;/code&gt;&amp;rsquo; will throws &amp;lsquo;&lt;code&gt;tshark: &amp;quot;A&amp;quot; cannot be found among the possible values for dns.qry.type.&lt;/code&gt;&amp;rsquo;. The decimal value for a type &amp;lsquo;A&amp;rsquo; DNS query type is 1.&lt;/p&gt;
+
+&lt;p&gt;Type ID in decimal - &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;https://en.wikipedia.org/wiki/List_of_DNS_record_types&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

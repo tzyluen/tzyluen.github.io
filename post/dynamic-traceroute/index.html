@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="mtr - a network diagnostic tool">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Dynamic Traceroute &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Dynamic Traceroute</h1>
+  <h2>mtr - a network diagnostic tool</h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>06 Feb 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/traceroute">traceroute</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+
+  
+
+<h3 id="mtr">mtr</h3>
+
+<p>Often times, troublesome networks won&rsquo;t show up in the results of a few packets. <code>mtr</code> combines the functionality of the <code>traceroute</code> and <code>ping</code> utils and enables user to constantly poll a remote server to see the latency and performance changes over time. It&rsquo;s not installed by default on most linux systems, simply get it from the distribution and package manager of choice:</p>
+
+<pre><code class="language-bash">$ sudo apt-get install mtr
+</code></pre>
+
+<p>To debug remotely over ssh where no GUI is available, use the <code>--curses</code> or <code>-t</code> option:</p>
+
+<pre><code class="language-bash">$ mtr --curses
+$ mtr -t
+</code></pre>
+
+<p>Use <code>'h'</code> key for help to switch/toggle the views, or cycle the view during the runtime with <code>y</code> key.</p>
+
+<p>Network block mode with <code>mtr -t -y1</code>:</p>
+
+<p><img src="https://tzyluen.github.io/img/mtr-traceroute-network-block-mode.jpg" alt="mtr-traceroute-network-block-mode" /></p>
+
+<p>Country code mode with <code>mtr -t -y2</code>:</p>
+
+<p><img src="https://tzyluen.github.io/img/mtr-traceroute-country-mode.jpg" alt="mtr-traceroute-country-mode" /></p>
+
+<p>A very useful feature is the <code>--report</code> option, which generate a statistical report based on the number of cycles of traceroute to the target.</p>
+
+<pre><code class="language-bash"># -c COUNT:  the number of report cycles
+# -r, --report: generate a statistical report
+# -w, --report-wide: (do not truncate hostnames)
+
+$ mtr -c 30 --report youku.com
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/mtr-traceroute-report-mode.png" alt="mtr-traceroute-report-mode" /></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/reading-traceroute/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/reading-traceroute/">Reading Traceroute</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/">Capture network traffic on WLAN (macOS)</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

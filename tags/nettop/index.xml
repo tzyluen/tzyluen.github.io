@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nettop on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/nettop/index.xml</link>
+    <description>Recent content in Nettop on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/nettop/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tracing malicious network traffic</title>
+      <link>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</link>
+      <pubDate>Sat, 27 Feb 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</guid>
+      <description>
+
+&lt;h1 id=&#34;nettop&#34;&gt;Nettop&lt;/h1&gt;
+
+&lt;p&gt;Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - &lt;a href=&#34;https://tzyluen.github.io/post/sniff-dns-queries/&#34;&gt;Sniff DNS queries&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png&#34; alt=&#34;dnstop-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Under macOS, the &lt;code&gt;nettop&lt;/code&gt; util provides list of sockets and routes in details that help to trace down the process that established the connection to the unknown domain:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# use keys to toggle:
+# d, delta output
+# c, collapse all
+# e, expand all
+# j, bring up the column selection menu
+# h, help
+$ nettop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/macos-nettop-monitoring-01.jpg&#34; alt=&#34;macos-nettop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;google-transparency-report-safe-browsing-tool&#34;&gt;Google Transparency Report: Safe Browsing Tool&lt;/h2&gt;
+
+&lt;p&gt;Since the process is from Firefox on port https (443), the Google Transparency Report &lt;a href=&#34;https://www.google.com/transparencyreport/safebrowsing/diagnostic/&#34;&gt;Safe Browsing tool&lt;/a&gt; can be used to check if the site is malicious and unsafe.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;netstat&#34;&gt;Netstat&lt;/h1&gt;
+
+&lt;p&gt;On linux, &lt;code&gt;ss&lt;/code&gt; or &lt;code&gt;netstat&lt;/code&gt; can be used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -l, --listening       display listening sockets
+# -n, --numeric         don&#39;t resolve service names
+# -p, --program         show the pid/name of the program
+# -r, --resolve         resolve numeric address/ports
+# -t, --tcp             display only TCP sockets
+# -u, --udp             display only UDP sockets
+
+$ ss -rptu
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-ss-monitoring-01.png&#34; alt=&#34;linux-ss-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Similarly, &lt;code&gt;netstat&lt;/code&gt; would work too:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# to see non-owned process info
+$ sudo netstat -ptuW
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-netstat-monitoring-01.png&#34; alt=&#34;linux-netstat-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;flowtop&#34;&gt;Flowtop&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;flowtop&lt;/code&gt; from the &lt;code&gt;netsniff-ng&lt;/code&gt; package also works:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-flowtop-monitoring-01.png&#34; alt=&#34;linux-flowtop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

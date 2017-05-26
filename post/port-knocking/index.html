@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="a stealth method to open ports for incoming connections">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Port-knocking &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Port-knocking</h1>
+  <h2>a stealth method to open ports for incoming connections</h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>03 Sep 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/linux">linux</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/port-scanning">port-scanning</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/firewall">firewall</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/stealth">stealth</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/port-knocking">port-knocking</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+    <div id="TableOfContents" class="toc col-lg-offset-6">
+      <h2>Table of Contents</h2>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#enabling-knockd">Enabling knockd</a></li>
+<li><a href="#port-knocking">Port-knocking</a>
+<ul>
+<li><a href="#using-knock">Using Knock</a>
+<ul>
+<li><a href="#open-the-port">Open the port</a></li>
+<li><a href="#close-the-port">Close the port</a></li>
+</ul></li>
+<li><a href="#using-hping3-nmap">Using Hping3 / Nmap</a>
+<ul>
+<li><a href="#open-the-port-1">Open the port</a></li>
+<li><a href="#close-the-port-1">Close the port</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#alternative">Alternative</a></li>
+</ul>
+</nav>
+    </div>
+    <hr>
+    
+
+  
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &ldquo;knock&rdquo; sequences of port-hits.</p>
+
+<p>A client system makes these port-hits by sending a TCP (or UDP) packet to a port on the server. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access. The primary benefit is that it suppresses the regular port scan and appears as not availale.</p>
+
+<p>Essentially, the port-knocking strategy is security by obscurity.</p>
+
+<hr />
+
+<h1 id="enabling-knockd">Enabling knockd</h1>
+
+<p>A prerequisite to enable port-knocking is <code>iptables</code>. The <code>knockd</code> is a small port-knock daemon that implements the port-knock server, dynamically manipulate the firewall rules to open and close ports.</p>
+
+<ol>
+<li><p>Install:</p>
+
+<pre><code class="language-bash">192.168.1.9:~$ sudo apt-get install knockd
+</code></pre></li>
+
+<li><p>Set the default configuration, enable the service at init and set the target network interface:</p>
+
+<pre><code class="language-bash">192.168.1.9:~$ sudo vim /etc/default/knockd
+...
+START_KNOCKD=1
+KNOCKD_OPTS=&quot;-i enp0s3&quot;
+</code></pre></li>
+
+<li><p>Set the desired port-knocking sequence <code>1300</code>, <code>8888</code>, <code>9394</code> in <code>/etc/knockd.conf</code>:</p>
+
+<pre><code class="language-bash">[options]
+        #UseSyslog
+        logfile     = /var/log/knockd.log
+
+[openSSH]
+        #sequence    = 1300:tcp,8888:udp,9394:tcp
+        sequence    = 1300,8888,9394
+        seq_timeout = 10
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+
+[closeSSH]
+        sequence    = 9394,8888,1300
+        seq_timeout = 10
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+</code></pre></li>
+
+<li><p>Start the service:</p>
+
+<pre><code class="language-bash">192.168.1.9:~$ sudo systemctl start knockd
+</code></pre></li>
+</ol>
+
+<hr />
+
+<h1 id="port-knocking">Port-knocking</h1>
+
+<h2 id="using-knock">Using Knock</h2>
+
+<p>The utility from the <code>knockd</code> package.</p>
+
+<h3 id="open-the-port">Open the port</h3>
+
+<pre><code class="language-bash">192.168.1.11:~$ knock -v 192.168.1.9 1300 8888 9394
+hitting tcp 192.168.1.9:1300
+hitting tcp 192.168.1.9:8888
+hitting tcp 192.168.1.9:9394
+</code></pre>
+
+<p><strong>Note:</strong> it&rsquo;s possible to combine TCP and UDP port:</p>
+
+<pre><code class="language-bash">192.168.1.11:~$ knock -v 192.168.1.9 1300:tcp 8888:udp 9394:tcp
+</code></pre>
+
+<h3 id="close-the-port">Close the port</h3>
+
+<pre><code class="language-bash">192.168.1.11:~$ knock -v 192.168.1.9 9394 8888 1300
+</code></pre>
+
+<h2 id="using-hping3-nmap">Using Hping3 / Nmap</h2>
+
+<p>The following comes handy for any remote system to makes port-hits without install the <code>knockd</code> package.</p>
+
+<pre><code class="language-bash">-S: set SYN tcp flag
+-p: port
+-c: count, stop after sending (and receiving) count response packets
+hping3 -S -p $ARG -c 1 $HOST
+</code></pre>
+
+<p>A simple shell script <code>port-knocking.sh</code> to knocks target host <code>$HOST</code> of <code>$@</code> (list of sequences) iteratively.</p>
+
+<pre><code class="language-bash">#!/bin/sh
+HOST=$1
+shift
+for ARG in &quot;$@&quot;
+do
+    hping3 -S -p $ARG -c 1 $HOST
+    #nmap -Pn --host-timeout 100 --max-retries 0 -p $ARG $HOST
+done
+</code></pre>
+
+<h3 id="open-the-port-1">Open the port</h3>
+
+<ol>
+<li><p>Initial state - 192.168.1.9 port 22/tcp closed:</p>
+
+<p><img src="https://tzyluen.github.io/img/port-knocking-01.png" alt="port-knocking-01" /></p>
+
+<p>Connection timed out:</p>
+
+<p><img src="https://tzyluen.github.io/img/port-knocking-02.png" alt="port-knocking-02" /></p></li>
+
+<li><p>Knocks and opens 192.168.1.9:22 with SYN tcpflag and port 1300, 8888, 9394 sequence:</p>
+
+<p><img src="https://tzyluen.github.io/img/port-knocking-03.png" alt="port-knocking-03" /></p></li>
+
+<li><p>Connects to the host:</p>
+
+<p><img src="https://tzyluen.github.io/img/port-knocking-05.png" alt="port-knocking-05" /></p></li>
+
+<li><p>The <code>/var/log/knockd.log</code> entries:</p>
+
+<pre><code class="language-bash">...
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 1
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 2
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 3
+[2016-09-03 18:20] 192.168.1.11: openSSH: OPEN SESAME
+[2016-09-03 18:20] openSSH: running command: /sbin/iptables -A INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+</code></pre></li>
+</ol>
+
+<h3 id="close-the-port-1">Close the port</h3>
+
+<ol>
+<li><p>Runs the <code>port-knocking.sh</code> script and pass the close port sequence 9394, 8888, 1300:</p>
+
+<p><img src="https://tzyluen.github.io/img/port-knocking-04.png" alt="port-knocking-04" /></p></li>
+
+<li><p>The <code>/var/log/knockd.log</code> entries:</p>
+
+<pre><code class="language-bash">...
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 1
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 2
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 3
+[2016-09-03 19:37] 192.168.1.11: closeSSH: OPEN SESAME
+[2016-09-03 19:37] closeSSH: running command: /sbin/iptables -D INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+</code></pre></li>
+</ol>
+
+<hr />
+
+<h1 id="alternative">Alternative</h1>
+
+<p>There are a lot of existing implementations available to support various platforms [1].
+For instance, a more advanced <code>fwknop</code> [2] which implements an authorization scheme known as Single Packet Authorization (SPA) for strong service concealment.</p>
+
+<hr />
+
+<p><strong>References:</strong></p>
+
+<p>[1] <a href="http://www.portknocking.org/view/implementations">http://www.portknocking.org/view/implementations</a> <br>
+[2] <a href="https://github.com/mrash/fwknop">https://github.com/mrash/fwknop</a></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/sql-injection-with-sqlmap/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/sql-injection-with-sqlmap/">SQL injection with sqlmap</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/scan-the-internet-with-masscan/">Scan the Internet with masscan</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/scan-the-internet-with-masscan/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

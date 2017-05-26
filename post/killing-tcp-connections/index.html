@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Killing TCP connections &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Killing TCP connections</h1>
+  <h2></h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>05 Mar 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/linux">linux</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/gdb">gdb</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+    <div id="TableOfContents" class="toc col-lg-offset-6">
+      <h2>Table of Contents</h2>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#tcpkill">Tcpkill</a></li>
+<li><a href="#gdb">GDB</a></li>
+</ul>
+</nav>
+    </div>
+    <hr>
+    
+
+  
+
+<h1 id="tcpkill">Tcpkill</h1>
+
+<p>enables priviledged user to kill TCP connections, it uses the tcpdump expression. It&rsquo;s part of the <strong>dsniff</strong> package. The default degree of brute force to use in killing a connection is 3, fast connections may require a higher number in order to land a RST in the moving receive window.</p>
+
+<pre><code class="language-bash">tcpkill [-i interface] [-1...9] expression
+</code></pre>
+
+<p>For example, to kill the established and also to prevent any connections from 192.168.1.7 (client) to 192.168.1.9 (server) on port 22, use the following parameters:</p>
+
+<pre><code class="language-bash">192.168.1.9:~$ sudo /usr/sbin/tcpkill -i enp0s3 src 192.168.1.7 and dst port 22
+tcpkill: listening on enp0s3 [src 192.168.1.7 and dst port 22] 
+192.168.1.7:57502 &gt; 192.168.1.9:22: R 462778052:462778052(0) win 0
+192.168.1.7:57502 &gt; 192.168.1.9:22: R 462782148:462782148(0) win 0
+192.168.1.7:57502 &gt; 192.168.1.9:22: R 462790340:462790340(0) win 0
+...
+</code></pre>
+
+<p>On the receiving end 192.168.1.7 (client), connection is killed and new connection is denied:</p>
+
+<pre><code class="language-bash">192.168.1.9:~$ wpacket_write_wait: Connection to 192.168.1.9: Broken pipe
+192.168.1.7:~$ 
+192.168.1.7:~$ ssh tzy@192.168.1.9
+192.168.1.9's password: 
+ssh_dispatch_run_fatal: Connection to 192.168.1.9: Broken pipe
+192.168.1.7:~$ 
+</code></pre>
+
+<hr />
+
+<h1 id="gdb">GDB</h1>
+
+<p>If only the socket required to close but the process must keep alive, we could attach the process under a debugger and close the FD (file descriptor).</p>
+
+<p>To illustrate, open a simple client (192.168.1.7) and server (192.168.1.9) TCP connection:</p>
+
+<pre><code class="language-bash">192.168.1.9:~$ ncat -v -l -p 9999
+Ncat: Version 7.40 ( https://nmap.org/ncat )
+Ncat: Listening on :::9999
+Ncat: Listening on 0.0.0.0:9999
+Ncat: Connection from 192.168.1.7.
+Ncat: Connection from 192.168.1.7:65253.
+hello world
+</code></pre>
+
+<pre><code class="language-bash">192.168.1.7:~$ nc 192.168.1.9 9999
+hello world
+</code></pre>
+
+<pre><code class="language-bash">192.168.1.9:~$ netstat -ptuW
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 192.168.1.9:9999        192.168.1.7:65253       ESTABLISHED 4050/ncat           
+...
+</code></pre>
+
+<p>Locate and identify the target socket&rsquo;s file, <code>$pid</code>, i.e., <code>4050</code> and also the <code>FD</code>, i.e., <code>5u</code></p>
+
+<pre><code class="language-bash">192.168.1.9:~$ lsof -np $pid 
+COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
+ncat    4050  tzy    5u  IPv4  31028      0t0    TCP 192.168.1.9:9999-&gt;192.168.1.7:65253 (ESTABLISHED)
+</code></pre>
+
+<p>Then attach the process to gdb, close the socket with the <code>FD</code> identifier and detach the debugger with quit:</p>
+
+<pre><code class="language-bash">192.168.1.9:~$ gdb -p $pid
+...
+(gdb) call close(5u)
+$1 = 0
+(gdb) quit
+</code></pre>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/tracing-malicious-network-traffic/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/tracing-malicious-network-traffic/">Tracing malicious network traffic</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/dns-resolution-benchmark/">DNS resolution benchmark</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/dns-resolution-benchmark/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

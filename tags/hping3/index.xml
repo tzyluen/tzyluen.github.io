@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hping3 on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/hping3/index.xml</link>
+    <description>Recent content in Hping3 on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/hping3/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Traceroute, Firewalls &amp; Geo-IP</title>
+      <link>https://tzyluen.github.io/post/traceroute-firewalls-geoip/</link>
+      <pubDate>Sun, 24 Jan 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/traceroute-firewalls-geoip/</guid>
+      <description>
+
+&lt;h1 id=&#34;traceroute&#34;&gt;Traceroute&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;Traceroute&lt;/code&gt; is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with &lt;code&gt;ping&lt;/code&gt;. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&amp;rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Mode:
+-I, --icmp      Use ICMP ECHO for tracerouting
+-T, --tcp       Use TCP SYN for tracerouting (default port is 80)
+-U, --udp       Use UDP to particular port for tracerouting
+                (instead of increasing the port per each probe), default port is 53
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;icmp-mode&#34;&gt;ICMP mode:&lt;/h2&gt;
+
+&lt;p&gt;Default &lt;code&gt;traceroute&lt;/code&gt; uses &lt;code&gt;ICMP ECHO&lt;/code&gt; packets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ traceroute &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;udp-mode&#34;&gt;UDP mode:&lt;/h2&gt;
+
+&lt;p&gt;Default dest port is 53 (DNS).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ traceroute -U &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons, the default traceroute&amp;rsquo;s UDP packets and ICMP Echo packets are often blocked. To evade firewalls, the following techniques can be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-mode&#34;&gt;TCP mode:&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;tcptraceroute&lt;/code&gt; or &lt;code&gt;-T&lt;/code&gt; of the &lt;code&gt;traceroute&lt;/code&gt; uses TCP SYN packets (SYN packet is the first step TCP three-way handshake), which usually not blocked by firewalls, and as long as the destination port is opened. To specify the dest port, uses -p 80 (HTTP) or 443 (HTTPS), that normally allowed to egress for probes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ tcptraceroute &amp;lt;target&amp;gt;
+$ sudo traceroute -T &amp;lt;target&amp;gt;
+
+# -w: wait 10 secs before timeout
+# -q: set the number of probe packets per hop, default is 3, hence RTT1, RTT2, RTT3
+$ traceroute -w 10 -q 3 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/plain-traceroute-my.png&#34; alt=&#34;plain-traceroute-my&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With ICMP Echo request, the packet was blocked after 58.27.14.58. With TCP SYN handshake, it passed two more hops.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/tcp-traceroute-my.png&#34; alt=&#34;tcp-traceroute-my&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;output-format-explanation&#34;&gt;Output format explanation:&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;           v--- the router/ip-addr traversed by the packet 
+[Hop]     [Hostname/(IP-addr)]      [RTT1]  [RTT2]  [RTT3]
+ ^--- transit no. of the route       ^---- round-trip time
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The round-trip time is the latency (delay between sending the packet and getting the response).&lt;/p&gt;
+
+&lt;p&gt;By default, traceroute sends 3 packets per TTL increment. Each column [RTT1]&amp;hellip;[RTT3] corresponds to the time it took to get response (round-trip time). 3 different packets give a better sampling of the latency, it also helps for situation where multi-path exist (different link). For instance, the packet is routed to different link in hop 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;2  175.137.109.62 (175.137.109.62)  38.360 ms       [RTT1]
+   175.137.109.70 (175.137.109.70)  38.219 ms       [RTT2]
+   175.137.109.62 (175.137.109.62)  38.123 ms       [RTT3]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Another common scenario is timeout/packet dropped. For instance, 2 out of 3 traceroute packets were dropped/timeout in hop 4:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;4  10.55.32.88 (10.55.32.88)   113.878 ms * *
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;hping3&#34;&gt;Hping3&lt;/h1&gt;
+
+&lt;p&gt;The &amp;apos;traceroute &amp;lt;target&amp;gt;&amp;apos; equivalent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -V: verbose
+# -1: icmp
+# hping3 --traceroute -V -1 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP/UDP mode:&lt;/strong&gt; hping3 traceroute on port 80, 443, 53, useful to identify where the packet is blocked:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -S: set SYN flag
+# -p: port
+# hping3 --traceroute -S -p 443 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port80-my.png&#34; alt=&#34;hping3-traceroute-syn-port-80-my&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port443-my.png&#34; alt=&#34;hping3-traceroute-syn-port-443-my&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port53-my.png&#34; alt=&#34;hping3-traceroute-syn-port-53-my&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;intrace&#34;&gt;InTrace&lt;/h1&gt;
+
+&lt;p&gt;Traceroute-like enumerates IP hops by exploiting existing TCP connections.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# intrace -i eth0 -h &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Establish a TCP connection to port 80:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-ncat-usm-my-port80.png&#34; alt=&#34;intrace-ncat-usm-my-port80&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And it&amp;rsquo;s capable to identified the target host is behind a NAT:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-usm-my.png&#34; alt=&#34;intrace-usm-my&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Traceroute to remotely initiated connections:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-netstat-tanp-local.png&#34; alt=&#34;intrace-netstat-tanp-local&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/intrace-remote-initiated-connection.png&#34; alt=&#34;intrace-remote-initiated-connection&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;nmap-traceroute-geolocation-script&#34;&gt;Nmap: traceroute-geolocation script&lt;/h1&gt;
+
+&lt;p&gt;Pinpoint the nodes and traverse the network path with geo location. Nmap &lt;code&gt;traceroute-geolocation.nse&lt;/code&gt; supports geolocation, it lists the geographic locations of each hop and output the results to KML format plottable on Google Maps.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# nmap --traceroute --script traceroute-geolocation.nse \
+&amp;gt; --script-args &#39;traceroute-geolocation.kmlfile=&amp;lt;target&amp;gt;.kml&#39; &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/nmap-traceroute-nsysu.jpg&#34; alt=&#34;nmap-traceroute-nsysu&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/nmap-traceroute-nsysu-gmap.png&#34; alt=&#34;nmap-traceroute-nsysu-gmap&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hping3 use cases</title>
+      <link>https://tzyluen.github.io/post/hping3-use-cases/</link>
+      <pubDate>Sat, 21 Nov 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/hping3-use-cases/</guid>
+      <description>
+
+&lt;h1 id=&#34;hping3-and-the-firewall&#34;&gt;hping3 and the firewall&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Mode
+  default mode     TCP
+  -0  --rawip      RAW IP mode
+  -1  --icmp       ICMP mode
+  -2  --udp        UDP mode
+  -8  --scan       SCAN mode.
+                   Example: hping --scan 1-30,70-90 -S www.target.host
+  -9  --listen     listen mode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;icmp-mode&#34;&gt;ICMP mode:&lt;/h2&gt;
+
+&lt;p&gt;The typical &lt;code&gt;ping&lt;/code&gt; utility and the hping3 equivalent, sending ICMP-echo and receiving ICMP-reply:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ping google.com -c 3
+PING google.com (216.58.196.14) 56(84) bytes of data.
+64 bytes from google.com (216.58.196.14): icmp_seq=1 ttl=57 time=23.0 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=2 ttl=57 time=21.9 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=3 ttl=57 time=25.3 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 21.960/23.479/25.386/1.436 ms
+
+
+$ ping utm.my -c 5
+PING utm.my (161.139.21.51) 56(84) bytes of data.
+
+--- utm.my ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 4103ms
+
+
+$ sudo hping3 -1 utm.my -c 5
+HPING utm.my (eth0 161.139.21.51): icmp mode set, 28 headers + 0 data bytes
+
+--- utm.my hping statistic ---
+5 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the default ping &amp;lsquo;ICMP echo&amp;rsquo; request was blocked, use other modes and ports.&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-mode&#34;&gt;TCP mode:&lt;/h2&gt;
+
+&lt;p&gt;TCP ping to port 80&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S, set SYN flag
+-p, set port number
+-c, count
+
+$ sudo hping3 -S utm.my -p 80 -c 3
+HPING utm.my (enp0s3 161.139.21.51): S set, 40 headers + 0 data bytes
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=0 win=14600 rtt=27.6 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=1 win=14600 rtt=31.4 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=2 win=14600 rtt=135.1 ms
+
+--- utm.my hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 27.6/64.7/135.1 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the ping responses with &lt;strong&gt;&lt;code&gt;flags=SA&lt;/code&gt;&lt;/strong&gt;, the abbreviated flags are &lt;strong&gt;&lt;code&gt;SYN/ACK&lt;/code&gt;&lt;/strong&gt; from the TCP flags:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Flag&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CWR&lt;/td&gt;
+&lt;td&gt;Congestion Window Reduced (CWR) flag is set by the sending host to indicate that it received a TCP segment with the ECE flag set.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ECE (ECN-Echo)&lt;/td&gt;
+&lt;td&gt;indicate that the TCP peer is ECN capable during 3-way handshake.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;URG&lt;/td&gt;
+&lt;td&gt;indicates that the URGent pointer field is significant&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ACK&lt;/td&gt;
+&lt;td&gt;indicates that the ACKnowledgment field is significant (Sometimes abbreviated by tcpdump as &amp;ldquo;.&amp;rdquo;)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;PSH&lt;/td&gt;
+&lt;td&gt;Push function&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RST&lt;/td&gt;
+&lt;td&gt;Reset the connection (Seen on rejected connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SYN&lt;/td&gt;
+&lt;td&gt;Synchronize sequence numbers (Seen on new connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;FIN&lt;/td&gt;
+&lt;td&gt;No more data from sender (Seen after a connection is closed)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;source: &lt;a href=&#34;https://doc.pfsense.org/index.php/What_are_TCP_Flags&#34;&gt;https://doc.pfsense.org/index.php/What_are_TCP_Flags&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;udp-mode&#34;&gt;UDP mode:&lt;/h2&gt;
+
+&lt;p&gt;UDP ping to port 53 (DNS)&lt;/p&gt;
+
+&lt;p&gt;If port 53 (DNS) is not filtered, but closed/not listening on the server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53                         ALLOW IN    Anywhere                  
+53 (v6)                    ALLOW IN    Anywhere (v6)             
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# nmap -sT -sU 192.168.1.9
+...
+Not shown: 999 open|filtered ports, 995 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+53/tcp   closed domain
+80/tcp   open   http
+3000/tcp closed ppp
+8080/tcp open   http-proxy
+53/udp   closed domain
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the TCP responses with &lt;code&gt;RA&lt;/code&gt;, similarly the UDP ping also reponse and both with 0 packet loss.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=21027 sport=53 flags=RA seq=0 win=0 rtt=5.8 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 5.8/5.8/5.8 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=2391 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 30.5/30.5/30.5 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Likewise, if port 53 (DNS) is filtered (rejected), the response flags would also be &lt;code&gt;RA&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53/tcp                     REJECT IN   Anywhere                  
+53/udp                     REJECT IN   Anywhere                  
+53/tcp (v6)                REJECT IN   Anywhere (v6)             
+53/udp (v6)                REJECT IN   Anywhere (v6)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=0 sport=53 flags=RA seq=0 win=0 rtt=6.2 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 6.2/6.2/6.2 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=1480 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 63.7/63.7/63.7 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scan-mode&#34;&gt;SCAN mode:&lt;/h2&gt;
+
+&lt;p&gt;low-level automated port scanner (port range), possible to uncover subtle aspects of hosts behind the firewall.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -8 21-80 -S 192.168.1.9
+Scanning 192.168.1.9 (192.168.1.9), port 21-80
+60 ports to scan, use -V to see all the replies
++----+-----------+---------+---+-----+-----+-----+
+|port| serv name |  flags  |ttl| id  | win | len |
++----+-----------+---------+---+-----+-----+-----+
+   22 ssh        : .S..A...  64     0 29200    46
+   80 http       : .S..A...  64     0 29200    46
+All replies received. Done.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

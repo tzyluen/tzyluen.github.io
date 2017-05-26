@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Port Scanning on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/port-scanning/index.xml</link>
+    <description>Recent content in Port Scanning on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/port-scanning/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scan a network for vulnerability with Nessus</title>
+      <link>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</link>
+      <pubDate>Fri, 31 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</guid>
+      <description>
+
+&lt;h1 id=&#34;scan-a-network&#34;&gt;Scan a network&lt;/h1&gt;
+
+&lt;p&gt;Target: 192.168.1.0/24&lt;/p&gt;
+
+&lt;p&gt;Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-01&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;advanced-scans&#34;&gt;Advanced Scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Advanced Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt;, and &lt;code&gt;targets&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Configure the rest of the settings:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once all is set, save and simply launch the scan.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;basic-network-scans&#34;&gt;Basic network scans&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Basic Network Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and &lt;code&gt;targets&lt;/code&gt;, then save.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;From the &lt;code&gt;My Scans&lt;/code&gt; folder, select a task from the list to launch the scan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once the scan complete, the status bar will changed to checked.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-06.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;results&#34;&gt;Results&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The scan results are grouped by host, and vulnerabilities (color-coded by severity).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;To prepare both summary and technical reports to circulate among teams, use the Export &amp;rarr; PDF (or HTML, CSV, Nessus, Nessus DB)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clicking the vulnerabilities bar will drill-down to the next-level of 192.168.1.1 vulnerabilities:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-07.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The next level of drill-down will display the list of vulnerabilities exposed by Nessus on target 192.168.1.1, and clicking the specific vulnerability will drill-down to the attack vectors info:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-10.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-10&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The description of the vulnerability, the recommended solution, and the payload used during the scan are documented:&lt;/p&gt;
+
+&lt;p&gt;i. Description of the vulnerability and the attack vector.&lt;/p&gt;
+
+&lt;p&gt;ii. The recommended solution.&lt;/p&gt;
+
+&lt;p&gt;iii. The attack code/payload during the scan.&lt;/p&gt;
+
+&lt;p&gt;iv. Network port used for this attack.&lt;/p&gt;
+
+&lt;p&gt;v. A summarize of the risk factor information.&lt;/p&gt;
+
+&lt;p&gt;vi. Vulnerability information on known exploit availability and publication date.&lt;/p&gt;
+
+&lt;p&gt;vii. Reference information from the CVE (Common Vulnerabilities and Exposures) network.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-11.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-11&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;exports&#34;&gt;Exports&lt;/h2&gt;
+
+&lt;h3 id=&#34;executive-report&#34;&gt;Executive Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate an executive report, choose:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-08.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;technical-report&#34;&gt;Technical Report&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To generate a technical report, choose &lt;code&gt;Custom&lt;/code&gt;, select &lt;code&gt;Vulnerabilities&lt;/code&gt; to include the data, and group by &lt;code&gt;Host&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-09.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-09&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.tenable.com/products/nessus-vulnerability-scanner&#34;&gt;https://www.tenable.com/products/nessus-vulnerability-scanner&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Scan the Internet with masscan</title>
+      <link>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</guid>
+      <description>
+
+&lt;p&gt;Base system used to perform the scans:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# uname -a
+Linux kali 4.9.0-kali3-amd64 #1 SMP Debian 4.9.13-1kali2 (2017-03-07) x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;scan-large-ip-block&#34;&gt;Scan large IP block&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan the entire 175.0.0.0/8 for port 22, 80, 445&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-00.png&#34; alt=&#34;scan-the-internet-with-masscan-00&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; It&amp;rsquo;s risky to perform such as scan as it may trigger some IDS/IPS and get your IP blocked/blacklisted from accessing them permanently.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan a Yahoo IP block for port tcp/80:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Trace the Yahoo&amp;rsquo;s IP block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# mtr -y1 yahoo.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-01.png&#34; alt=&#34;scan-the-internet-with-masscan-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan the entire IP block (32768 of hosts):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-02.png&#34; alt=&#34;scan-the-internet-with-masscan-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;exclude-ip-blocks-of-sensitive-part-of-the-internet&#34;&gt;Exclude IP blocks of sensitive part of the Internet:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Ensure the &lt;code&gt;excludefile&lt;/code&gt; is defined in &lt;code&gt;/etc/masscan/masscan.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;excludefile=/etc/masscan/exclude.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Append the following into the exclude list to prevent scanning them by accident:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-03.png&#34; alt=&#34;scan-the-internet-with-masscan-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Or, for a non-persistent exclude list, use &lt;code&gt;--excludefile&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.0.0.0/8 -p80 --rate 10000 --excludefile exclude.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;include-ip-blocks-for-targeted-ip-blocks&#34;&gt;Include IP blocks for targeted IP blocks:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Similar to &lt;code&gt;excludefile&lt;/code&gt;, the file format for the include list:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Include list:
+# For targeting organizations or verticals with multiple blocks
+75.0.0.0/8               # AT&amp;amp; Internet Services
+175.145.0.0/16           # TMNet
+    
+# Private IPv4 addresses, to scan entire organization network
+192.168.0.0/16           # class C
+172.16.0.0/12            # class B
+10.0.0.0/8               # class A
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan with the include file option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -p80 --includefile include.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;transmission-rates&#34;&gt;Transmission Rates&lt;/h1&gt;
+
+&lt;p&gt;Depends on network infrastructure and NIC, it can be scaled up to 25 million packets/second.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The default transmit rate is 100 packets/second. Takes approx. 6 minutes to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-04.png&#34; alt=&#34;scan-the-internet-with-masscan-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;With 10,000 packets/second takes approx. 8 seconds to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-05.png&#34; alt=&#34;scan-the-internet-with-masscan-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Known max. transmission rates are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Windows - 250,000 packets/second&lt;/li&gt;
+&lt;li&gt;Linux - 2,500,000 packets/second&lt;/li&gt;
+&lt;li&gt;PF_RING driver - 25,000,000 packets/second&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;specify-ports-and-ranges&#34;&gt;Specify ports and ranges&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 1000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-06.png&#34; alt=&#34;scan-the-internet-with-masscan-06&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;banners&#34;&gt;Banners&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Grab the banners, i.e., HTTP server version, title, and etc.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 10000 --banners
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some interesting information:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-08.png&#34; alt=&#34;scan-the-internet-with-masscan-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;output-formats&#34;&gt;Output formats&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Sets the output format to binary &lt;code&gt;-oB&lt;/code&gt; and saves the output in the given filename, which can be read with &lt;code&gt;--readscan&lt;/code&gt;, and optionally output into a new format later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-oB: binary
+-oL: list
+-oG: grepable
+-oX: xml
+
+masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 -oB 175-145-0-0-masscan.bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-07.png&#34; alt=&#34;scan-the-internet-with-masscan-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Read the saved binary file into new &lt;code&gt;xml&lt;/code&gt; format file that can be used for parsing and reporting:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 --readscan 175-145-0-0-masscan.bin -oX 175-145-0-0-masscan.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;save-amp-manage-the-conf-for-different-scanning-strategies-amp-objectives&#34;&gt;Save &amp;amp; manage the conf for different scanning strategies &amp;amp; objectives&lt;/h1&gt;
+
+&lt;p&gt;Save the configuration into a file. Multiple conf files for different objectives and strategies. For example, a configuration file for a particular ip block, i.e.,&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Save the current settings into a conf file (&lt;code&gt;--echo&lt;/code&gt; and redirect to &lt;code&gt;175-145-0-0.conf&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 --echo &amp;gt; 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use the saved profile for the same objective:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -c 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Port-knocking</title>
+      <link>https://tzyluen.github.io/post/port-knocking/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/port-knocking/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &amp;ldquo;knock&amp;rdquo; sequences of port-hits.&lt;/p&gt;
+
+&lt;p&gt;A client system makes these port-hits by sending a TCP (or UDP) packet to a port on the server. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access. The primary benefit is that it suppresses the regular port scan and appears as not availale.&lt;/p&gt;
+
+&lt;p&gt;Essentially, the port-knocking strategy is security by obscurity.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;enabling-knockd&#34;&gt;Enabling knockd&lt;/h1&gt;
+
+&lt;p&gt;A prerequisite to enable port-knocking is &lt;code&gt;iptables&lt;/code&gt;. The &lt;code&gt;knockd&lt;/code&gt; is a small port-knock daemon that implements the port-knock server, dynamically manipulate the firewall rules to open and close ports.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo apt-get install knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the default configuration, enable the service at init and set the target network interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo vim /etc/default/knockd
+...
+START_KNOCKD=1
+KNOCKD_OPTS=&amp;quot;-i enp0s3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the desired port-knocking sequence &lt;code&gt;1300&lt;/code&gt;, &lt;code&gt;8888&lt;/code&gt;, &lt;code&gt;9394&lt;/code&gt; in &lt;code&gt;/etc/knockd.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[options]
+        #UseSyslog
+        logfile     = /var/log/knockd.log
+
+[openSSH]
+        #sequence    = 1300:tcp,8888:udp,9394:tcp
+        sequence    = 1300,8888,9394
+        seq_timeout = 10
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+
+[closeSSH]
+        sequence    = 9394,8888,1300
+        seq_timeout = 10
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start the service:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo systemctl start knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;port-knocking&#34;&gt;Port-knocking&lt;/h1&gt;
+
+&lt;h2 id=&#34;using-knock&#34;&gt;Using Knock&lt;/h2&gt;
+
+&lt;p&gt;The utility from the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;h3 id=&#34;open-the-port&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300 8888 9394
+hitting tcp 192.168.1.9:1300
+hitting tcp 192.168.1.9:8888
+hitting tcp 192.168.1.9:9394
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; it&amp;rsquo;s possible to combine TCP and UDP port:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300:tcp 8888:udp 9394:tcp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;close-the-port&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 9394 8888 1300
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-hping3-nmap&#34;&gt;Using Hping3 / Nmap&lt;/h2&gt;
+
+&lt;p&gt;The following comes handy for any remote system to makes port-hits without install the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S: set SYN tcp flag
+-p: port
+-c: count, stop after sending (and receiving) count response packets
+hping3 -S -p $ARG -c 1 $HOST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A simple shell script &lt;code&gt;port-knocking.sh&lt;/code&gt; to knocks target host &lt;code&gt;$HOST&lt;/code&gt; of &lt;code&gt;$@&lt;/code&gt; (list of sequences) iteratively.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/sh
+HOST=$1
+shift
+for ARG in &amp;quot;$@&amp;quot;
+do
+    hping3 -S -p $ARG -c 1 $HOST
+    #nmap -Pn --host-timeout 100 --max-retries 0 -p $ARG $HOST
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;open-the-port-1&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Initial state - 192.168.1.9 port 22/tcp closed:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-01.png&#34; alt=&#34;port-knocking-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Connection timed out:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-02.png&#34; alt=&#34;port-knocking-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Knocks and opens 192.168.1.9:22 with SYN tcpflag and port 1300, 8888, 9394 sequence:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-03.png&#34; alt=&#34;port-knocking-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Connects to the host:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-05.png&#34; alt=&#34;port-knocking-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 1
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 2
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 3
+[2016-09-03 18:20] 192.168.1.11: openSSH: OPEN SESAME
+[2016-09-03 18:20] openSSH: running command: /sbin/iptables -A INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;close-the-port-1&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Runs the &lt;code&gt;port-knocking.sh&lt;/code&gt; script and pass the close port sequence 9394, 8888, 1300:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-04.png&#34; alt=&#34;port-knocking-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 1
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 2
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 3
+[2016-09-03 19:37] 192.168.1.11: closeSSH: OPEN SESAME
+[2016-09-03 19:37] closeSSH: running command: /sbin/iptables -D INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;alternative&#34;&gt;Alternative&lt;/h1&gt;
+
+&lt;p&gt;There are a lot of existing implementations available to support various platforms [1].
+For instance, a more advanced &lt;code&gt;fwknop&lt;/code&gt; [2] which implements an authorization scheme known as Single Packet Authorization (SPA) for strong service concealment.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://www.portknocking.org/view/implementations&#34;&gt;http://www.portknocking.org/view/implementations&lt;/a&gt; &lt;br&gt;
+[2] &lt;a href=&#34;https://github.com/mrash/fwknop&#34;&gt;https://github.com/mrash/fwknop&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hping3 use cases</title>
+      <link>https://tzyluen.github.io/post/hping3-use-cases/</link>
+      <pubDate>Sat, 21 Nov 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/hping3-use-cases/</guid>
+      <description>
+
+&lt;h1 id=&#34;hping3-and-the-firewall&#34;&gt;hping3 and the firewall&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Mode
+  default mode     TCP
+  -0  --rawip      RAW IP mode
+  -1  --icmp       ICMP mode
+  -2  --udp        UDP mode
+  -8  --scan       SCAN mode.
+                   Example: hping --scan 1-30,70-90 -S www.target.host
+  -9  --listen     listen mode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;icmp-mode&#34;&gt;ICMP mode:&lt;/h2&gt;
+
+&lt;p&gt;The typical &lt;code&gt;ping&lt;/code&gt; utility and the hping3 equivalent, sending ICMP-echo and receiving ICMP-reply:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ping google.com -c 3
+PING google.com (216.58.196.14) 56(84) bytes of data.
+64 bytes from google.com (216.58.196.14): icmp_seq=1 ttl=57 time=23.0 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=2 ttl=57 time=21.9 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=3 ttl=57 time=25.3 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 21.960/23.479/25.386/1.436 ms
+
+
+$ ping utm.my -c 5
+PING utm.my (161.139.21.51) 56(84) bytes of data.
+
+--- utm.my ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 4103ms
+
+
+$ sudo hping3 -1 utm.my -c 5
+HPING utm.my (eth0 161.139.21.51): icmp mode set, 28 headers + 0 data bytes
+
+--- utm.my hping statistic ---
+5 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the default ping &amp;lsquo;ICMP echo&amp;rsquo; request was blocked, use other modes and ports.&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-mode&#34;&gt;TCP mode:&lt;/h2&gt;
+
+&lt;p&gt;TCP ping to port 80&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S, set SYN flag
+-p, set port number
+-c, count
+
+$ sudo hping3 -S utm.my -p 80 -c 3
+HPING utm.my (enp0s3 161.139.21.51): S set, 40 headers + 0 data bytes
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=0 win=14600 rtt=27.6 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=1 win=14600 rtt=31.4 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=2 win=14600 rtt=135.1 ms
+
+--- utm.my hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 27.6/64.7/135.1 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the ping responses with &lt;strong&gt;&lt;code&gt;flags=SA&lt;/code&gt;&lt;/strong&gt;, the abbreviated flags are &lt;strong&gt;&lt;code&gt;SYN/ACK&lt;/code&gt;&lt;/strong&gt; from the TCP flags:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Flag&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CWR&lt;/td&gt;
+&lt;td&gt;Congestion Window Reduced (CWR) flag is set by the sending host to indicate that it received a TCP segment with the ECE flag set.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ECE (ECN-Echo)&lt;/td&gt;
+&lt;td&gt;indicate that the TCP peer is ECN capable during 3-way handshake.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;URG&lt;/td&gt;
+&lt;td&gt;indicates that the URGent pointer field is significant&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ACK&lt;/td&gt;
+&lt;td&gt;indicates that the ACKnowledgment field is significant (Sometimes abbreviated by tcpdump as &amp;ldquo;.&amp;rdquo;)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;PSH&lt;/td&gt;
+&lt;td&gt;Push function&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RST&lt;/td&gt;
+&lt;td&gt;Reset the connection (Seen on rejected connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SYN&lt;/td&gt;
+&lt;td&gt;Synchronize sequence numbers (Seen on new connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;FIN&lt;/td&gt;
+&lt;td&gt;No more data from sender (Seen after a connection is closed)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;source: &lt;a href=&#34;https://doc.pfsense.org/index.php/What_are_TCP_Flags&#34;&gt;https://doc.pfsense.org/index.php/What_are_TCP_Flags&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;udp-mode&#34;&gt;UDP mode:&lt;/h2&gt;
+
+&lt;p&gt;UDP ping to port 53 (DNS)&lt;/p&gt;
+
+&lt;p&gt;If port 53 (DNS) is not filtered, but closed/not listening on the server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53                         ALLOW IN    Anywhere                  
+53 (v6)                    ALLOW IN    Anywhere (v6)             
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# nmap -sT -sU 192.168.1.9
+...
+Not shown: 999 open|filtered ports, 995 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+53/tcp   closed domain
+80/tcp   open   http
+3000/tcp closed ppp
+8080/tcp open   http-proxy
+53/udp   closed domain
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the TCP responses with &lt;code&gt;RA&lt;/code&gt;, similarly the UDP ping also reponse and both with 0 packet loss.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=21027 sport=53 flags=RA seq=0 win=0 rtt=5.8 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 5.8/5.8/5.8 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=2391 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 30.5/30.5/30.5 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Likewise, if port 53 (DNS) is filtered (rejected), the response flags would also be &lt;code&gt;RA&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53/tcp                     REJECT IN   Anywhere                  
+53/udp                     REJECT IN   Anywhere                  
+53/tcp (v6)                REJECT IN   Anywhere (v6)             
+53/udp (v6)                REJECT IN   Anywhere (v6)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=0 sport=53 flags=RA seq=0 win=0 rtt=6.2 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 6.2/6.2/6.2 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=1480 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 63.7/63.7/63.7 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scan-mode&#34;&gt;SCAN mode:&lt;/h2&gt;
+
+&lt;p&gt;low-level automated port scanner (port range), possible to uncover subtle aspects of hosts behind the firewall.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -8 21-80 -S 192.168.1.9
+Scanning 192.168.1.9 (192.168.1.9), port 21-80
+60 ports to scan, use -V to see all the replies
++----+-----------+---------+---+-----+-----+-----+
+|port| serv name |  flags  |ttl| id  | win | len |
++----+-----------+---------+---+-----+-----+-----+
+   22 ssh        : .S..A...  64     0 29200    46
+   80 http       : .S..A...  64     0 29200    46
+All replies received. Done.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

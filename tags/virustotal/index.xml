@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Virustotal on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/virustotal/index.xml</link>
+    <description>Recent content in Virustotal on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/virustotal/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Tools for scanning malicious urls and websites</title>
+      <link>https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/</link>
+      <pubDate>Sun, 06 Dec 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/</guid>
+      <description>
+
+&lt;h1 id=&#34;online-and-web-based&#34;&gt;Online and Web-based&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.virustotal.com:&#34;&gt;https://www.virustotal.com:&lt;/a&gt; by VirusTotal, a subsidiary of Google&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://exchange.xforce.ibmcloud.com:&#34;&gt;https://exchange.xforce.ibmcloud.com:&lt;/a&gt; by IBM&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://safeweb.norton.com:&#34;&gt;http://safeweb.norton.com:&lt;/a&gt; by Norton, Symantec&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.avgthreatlabs.com/ww-en/website-safety-reports:&#34;&gt;http://www.avgthreatlabs.com/ww-en/website-safety-reports:&lt;/a&gt; by AVG ThreatLabs&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cymon.io:&#34;&gt;https://cymon.io:&lt;/a&gt; by &lt;a href=&#34;https://eSentire.com&#34;&gt;https://eSentire.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.reputationauthority.org:&#34;&gt;http://www.reputationauthority.org:&lt;/a&gt; by WatchGuard Technologies&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://isitphishing.org:&#34;&gt;http://isitphishing.org:&lt;/a&gt; by &lt;a href=&#34;https://vadesecure.com&#34;&gt;https://vadesecure.com&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;text-mode-based-utility&#34;&gt;Text-mode based Utility&lt;/h1&gt;
+
+&lt;h2 id=&#34;virustotalapi&#34;&gt;VirusTotalApi&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ git clone https://github.com/doomedraven/VirusTotalApi.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It is an utility to search on VirusTotal databases [1] for malicious URLs and hashes of known malware. It comes pre-installed in REMnux distro [2], a free Linux Toolkit for reverse engineering and analyzing malware.&lt;/p&gt;
+
+&lt;p&gt;Get VirusTotal public API key from &lt;a href=&#34;https://www.virustotal.com/en/documentation/public-api&#34;&gt;https://www.virustotal.com/en/documentation/public-api&lt;/a&gt; and define the API key in the local config file &lt;code&gt;$HOME/.vtapi&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[vt]
+apikey=&amp;lt;APIKEY&amp;gt;
+type=public
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;remnux@remnux:~$ vt --url-report malicious-url.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Positive result:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/tools-for-scanning-malicious-urls-and-websites-01.png&#34; alt=&#34;tools-for-scanning-malicious-urls-and-websites-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Negative result:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/tools-for-scanning-malicious-urls-and-websites-02.png&#34; alt=&#34;tools-for-scanning-malicious-urls-and-websites-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If the url is not in the database, use the &lt;code&gt;--url-scan&lt;/code&gt; to submit and scan.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;remnux@remnux:~$ vt --url-scan malicious-url.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.virustotal.com&#34;&gt;https://www.virustotal.com&lt;/a&gt; &lt;br&gt;
+[2] &lt;a href=&#34;https://remnux.org&#34;&gt;https://remnux.org&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

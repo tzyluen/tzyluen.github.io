@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Stealth on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/stealth/index.xml</link>
+    <description>Recent content in Stealth on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/stealth/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Port-knocking</title>
+      <link>https://tzyluen.github.io/post/port-knocking/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/port-knocking/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &amp;ldquo;knock&amp;rdquo; sequences of port-hits.&lt;/p&gt;
+
+&lt;p&gt;A client system makes these port-hits by sending a TCP (or UDP) packet to a port on the server. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access. The primary benefit is that it suppresses the regular port scan and appears as not availale.&lt;/p&gt;
+
+&lt;p&gt;Essentially, the port-knocking strategy is security by obscurity.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;enabling-knockd&#34;&gt;Enabling knockd&lt;/h1&gt;
+
+&lt;p&gt;A prerequisite to enable port-knocking is &lt;code&gt;iptables&lt;/code&gt;. The &lt;code&gt;knockd&lt;/code&gt; is a small port-knock daemon that implements the port-knock server, dynamically manipulate the firewall rules to open and close ports.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo apt-get install knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the default configuration, enable the service at init and set the target network interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo vim /etc/default/knockd
+...
+START_KNOCKD=1
+KNOCKD_OPTS=&amp;quot;-i enp0s3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the desired port-knocking sequence &lt;code&gt;1300&lt;/code&gt;, &lt;code&gt;8888&lt;/code&gt;, &lt;code&gt;9394&lt;/code&gt; in &lt;code&gt;/etc/knockd.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[options]
+        #UseSyslog
+        logfile     = /var/log/knockd.log
+
+[openSSH]
+        #sequence    = 1300:tcp,8888:udp,9394:tcp
+        sequence    = 1300,8888,9394
+        seq_timeout = 10
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+
+[closeSSH]
+        sequence    = 9394,8888,1300
+        seq_timeout = 10
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start the service:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo systemctl start knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;port-knocking&#34;&gt;Port-knocking&lt;/h1&gt;
+
+&lt;h2 id=&#34;using-knock&#34;&gt;Using Knock&lt;/h2&gt;
+
+&lt;p&gt;The utility from the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;h3 id=&#34;open-the-port&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300 8888 9394
+hitting tcp 192.168.1.9:1300
+hitting tcp 192.168.1.9:8888
+hitting tcp 192.168.1.9:9394
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; it&amp;rsquo;s possible to combine TCP and UDP port:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300:tcp 8888:udp 9394:tcp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;close-the-port&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 9394 8888 1300
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-hping3-nmap&#34;&gt;Using Hping3 / Nmap&lt;/h2&gt;
+
+&lt;p&gt;The following comes handy for any remote system to makes port-hits without install the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S: set SYN tcp flag
+-p: port
+-c: count, stop after sending (and receiving) count response packets
+hping3 -S -p $ARG -c 1 $HOST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A simple shell script &lt;code&gt;port-knocking.sh&lt;/code&gt; to knocks target host &lt;code&gt;$HOST&lt;/code&gt; of &lt;code&gt;$@&lt;/code&gt; (list of sequences) iteratively.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/sh
+HOST=$1
+shift
+for ARG in &amp;quot;$@&amp;quot;
+do
+    hping3 -S -p $ARG -c 1 $HOST
+    #nmap -Pn --host-timeout 100 --max-retries 0 -p $ARG $HOST
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;open-the-port-1&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Initial state - 192.168.1.9 port 22/tcp closed:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-01.png&#34; alt=&#34;port-knocking-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Connection timed out:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-02.png&#34; alt=&#34;port-knocking-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Knocks and opens 192.168.1.9:22 with SYN tcpflag and port 1300, 8888, 9394 sequence:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-03.png&#34; alt=&#34;port-knocking-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Connects to the host:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-05.png&#34; alt=&#34;port-knocking-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 1
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 2
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 3
+[2016-09-03 18:20] 192.168.1.11: openSSH: OPEN SESAME
+[2016-09-03 18:20] openSSH: running command: /sbin/iptables -A INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;close-the-port-1&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Runs the &lt;code&gt;port-knocking.sh&lt;/code&gt; script and pass the close port sequence 9394, 8888, 1300:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-04.png&#34; alt=&#34;port-knocking-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 1
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 2
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 3
+[2016-09-03 19:37] 192.168.1.11: closeSSH: OPEN SESAME
+[2016-09-03 19:37] closeSSH: running command: /sbin/iptables -D INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;alternative&#34;&gt;Alternative&lt;/h1&gt;
+
+&lt;p&gt;There are a lot of existing implementations available to support various platforms [1].
+For instance, a more advanced &lt;code&gt;fwknop&lt;/code&gt; [2] which implements an authorization scheme known as Single Packet Authorization (SPA) for strong service concealment.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://www.portknocking.org/view/implementations&#34;&gt;http://www.portknocking.org/view/implementations&lt;/a&gt; &lt;br&gt;
+[2] &lt;a href=&#34;https://github.com/mrash/fwknop&#34;&gt;https://github.com/mrash/fwknop&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hping3 use cases</title>
+      <link>https://tzyluen.github.io/post/hping3-use-cases/</link>
+      <pubDate>Sat, 21 Nov 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/hping3-use-cases/</guid>
+      <description>
+
+&lt;h1 id=&#34;hping3-and-the-firewall&#34;&gt;hping3 and the firewall&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Mode
+  default mode     TCP
+  -0  --rawip      RAW IP mode
+  -1  --icmp       ICMP mode
+  -2  --udp        UDP mode
+  -8  --scan       SCAN mode.
+                   Example: hping --scan 1-30,70-90 -S www.target.host
+  -9  --listen     listen mode
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;icmp-mode&#34;&gt;ICMP mode:&lt;/h2&gt;
+
+&lt;p&gt;The typical &lt;code&gt;ping&lt;/code&gt; utility and the hping3 equivalent, sending ICMP-echo and receiving ICMP-reply:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ping google.com -c 3
+PING google.com (216.58.196.14) 56(84) bytes of data.
+64 bytes from google.com (216.58.196.14): icmp_seq=1 ttl=57 time=23.0 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=2 ttl=57 time=21.9 ms
+64 bytes from google.com (216.58.196.14): icmp_seq=3 ttl=57 time=25.3 ms
+
+--- google.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2002ms
+rtt min/avg/max/mdev = 21.960/23.479/25.386/1.436 ms
+
+
+$ ping utm.my -c 5
+PING utm.my (161.139.21.51) 56(84) bytes of data.
+
+--- utm.my ping statistics ---
+5 packets transmitted, 0 received, 100% packet loss, time 4103ms
+
+
+$ sudo hping3 -1 utm.my -c 5
+HPING utm.my (eth0 161.139.21.51): icmp mode set, 28 headers + 0 data bytes
+
+--- utm.my hping statistic ---
+5 packets transmitted, 0 packets received, 100% packet loss
+round-trip min/avg/max = 0.0/0.0/0.0 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the default ping &amp;lsquo;ICMP echo&amp;rsquo; request was blocked, use other modes and ports.&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-mode&#34;&gt;TCP mode:&lt;/h2&gt;
+
+&lt;p&gt;TCP ping to port 80&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S, set SYN flag
+-p, set port number
+-c, count
+
+$ sudo hping3 -S utm.my -p 80 -c 3
+HPING utm.my (enp0s3 161.139.21.51): S set, 40 headers + 0 data bytes
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=0 win=14600 rtt=27.6 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=1 win=14600 rtt=31.4 ms
+len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=2 win=14600 rtt=135.1 ms
+
+--- utm.my hping statistic ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 27.6/64.7/135.1 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the ping responses with &lt;strong&gt;&lt;code&gt;flags=SA&lt;/code&gt;&lt;/strong&gt;, the abbreviated flags are &lt;strong&gt;&lt;code&gt;SYN/ACK&lt;/code&gt;&lt;/strong&gt; from the TCP flags:&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Flag&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;CWR&lt;/td&gt;
+&lt;td&gt;Congestion Window Reduced (CWR) flag is set by the sending host to indicate that it received a TCP segment with the ECE flag set.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ECE (ECN-Echo)&lt;/td&gt;
+&lt;td&gt;indicate that the TCP peer is ECN capable during 3-way handshake.&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;URG&lt;/td&gt;
+&lt;td&gt;indicates that the URGent pointer field is significant&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;ACK&lt;/td&gt;
+&lt;td&gt;indicates that the ACKnowledgment field is significant (Sometimes abbreviated by tcpdump as &amp;ldquo;.&amp;rdquo;)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;PSH&lt;/td&gt;
+&lt;td&gt;Push function&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;RST&lt;/td&gt;
+&lt;td&gt;Reset the connection (Seen on rejected connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;SYN&lt;/td&gt;
+&lt;td&gt;Synchronize sequence numbers (Seen on new connections)&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;FIN&lt;/td&gt;
+&lt;td&gt;No more data from sender (Seen after a connection is closed)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;source: &lt;a href=&#34;https://doc.pfsense.org/index.php/What_are_TCP_Flags&#34;&gt;https://doc.pfsense.org/index.php/What_are_TCP_Flags&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;udp-mode&#34;&gt;UDP mode:&lt;/h2&gt;
+
+&lt;p&gt;UDP ping to port 53 (DNS)&lt;/p&gt;
+
+&lt;p&gt;If port 53 (DNS) is not filtered, but closed/not listening on the server:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53                         ALLOW IN    Anywhere                  
+53 (v6)                    ALLOW IN    Anywhere (v6)             
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# nmap -sT -sU 192.168.1.9
+...
+Not shown: 999 open|filtered ports, 995 filtered ports
+PORT     STATE  SERVICE
+22/tcp   open   ssh
+53/tcp   closed domain
+80/tcp   open   http
+3000/tcp closed ppp
+8080/tcp open   http-proxy
+53/udp   closed domain
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the TCP responses with &lt;code&gt;RA&lt;/code&gt;, similarly the UDP ping also reponse and both with 0 packet loss.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=21027 sport=53 flags=RA seq=0 win=0 rtt=5.8 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 5.8/5.8/5.8 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=2391 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 30.5/30.5/30.5 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Likewise, if port 53 (DNS) is filtered (rejected), the response flags would also be &lt;code&gt;RA&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host: 192.168.1.9
+53/tcp                     REJECT IN   Anywhere                  
+53/udp                     REJECT IN   Anywhere                  
+53/tcp (v6)                REJECT IN   Anywhere (v6)             
+53/udp (v6)                REJECT IN   Anywhere (v6)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
+len=46 ip=192.168.1.9 ttl=64 DF id=0 sport=53 flags=RA seq=0 win=0 rtt=6.2 ms
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 6.2/6.2/6.2 ms
+
+
+192.168.1.10:~# hping3 -2 192.168.1.9 -p 53 -c 1
+HPING 192.168.1.9 (eth0 192.168.1.9): udp mode set, 28 headers + 0 data bytes
+ICMP Port Unreachable from ip=192.168.1.9 name=UNKNOWN   
+status=0 port=1480 seq=0
+
+--- 192.168.1.9 hping statistic ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 63.7/63.7/63.7 ms
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;scan-mode&#34;&gt;SCAN mode:&lt;/h2&gt;
+
+&lt;p&gt;low-level automated port scanner (port range), possible to uncover subtle aspects of hosts behind the firewall.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.10:~# hping3 -8 21-80 -S 192.168.1.9
+Scanning 192.168.1.9 (192.168.1.9), port 21-80
+60 ports to scan, use -V to see all the replies
++----+-----------+---------+---+-----+-----+-----+
+|port| serv name |  flags  |ttl| id  | win | len |
++----+-----------+---------+---+-----+-----+-----+
+   22 ssh        : .S..A...  64     0 29200    46
+   80 http       : .S..A...  64     0 29200    46
+All replies received. Done.
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

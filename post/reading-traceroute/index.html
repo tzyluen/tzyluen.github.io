@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How to read traceroute report">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Reading Traceroute &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Reading Traceroute</h1>
+  <h2>How to read traceroute report</h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>29 Jan 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/traceroute">traceroute</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+
+  
+
+<p>This post extends the discussion on traceroute in previous post <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/#output-format-explanation">Traceroute, Firewalls &amp; Geo-IP</a>, and focused on intepreting the traceroute report.</p>
+
+<h3 id="output-format-explanation">Output format explanation:</h3>
+
+<pre><code class="language-bash">           v--- the router/ip-addr traversed by the packet 
+[Hop]     [Hostname/(IP-addr)]      [RTT1]  [RTT2]  [RTT3]
+ ^--- transit no. of the route       ^---- round-trip time
+</code></pre>
+
+<p>The round-trip time (RTT) is the latency (delay between sending the packet and getting the response).</p>
+
+<p>By default, traceroute sends 3 packets per TTL increment. Each column [RTT1]&hellip;[RTT3] corresponds to the time it took to get response (round-trip time). 3 different packets give a better sampling of the latency, it also helps for situation where multi-path exist (different link). The unit is in <strong>ms (milliseconds)</strong>. For example,</p>
+
+<pre><code class="language-bash">[Hop]   [IP-addr]       [RTT1]      [RTT2]      [RTT3]
+  7     204.15.20.45    31.757ms    53.862ms    53.844ms  
+</code></pre>
+
+<p>Discussion with real world examples were covered in <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/#output-format-explanation">Traceroute, Firewalls &amp; Geo-IP</a>.</p>
+
+<hr />
+
+<h3 id="reading-the-traceroute">Reading the traceroute:</h3>
+
+<ul>
+<li><p><strong>The Hop times:</strong></p>
+
+<ul>
+<li>Consistent times are the main thing to read and evaluate from a traceroute report.</li>
+<li>Check the RTT of the three packets are consistent per hops. Look at the pattern of multiple traceroute reports.</li>
+<li>Times &gt;150ms are considered long for a round-trip within same continental; however is normal if traveled across ocean.</li>
+</ul></li>
+
+<li><p><strong>Increasing latency towards the target:</strong></p>
+
+<ul>
+<li>Sudden increase of response time (including packet loss) in a hop and continuous increasing often indicates issue for the hop (the router), the * also suggests either packet loss or the node simply overloaded:</li>
+</ul>
+
+<pre><code class="language-bash"> ...
+ 2  175.137.109.62 (175.137.109.62)    14.947ms    41.973ms    41.883ms  
+ 3  175.137.109.69 (175.137.109.69)    14.348ms    43.621ms    43.614ms  
+ 4  10.55.192.57 (10.55.192.57)       309.880ms   309.820ms   309.808ms  
+ 5  219.158.33.25 (219.158.33.25)     481.462ms   481.399ms       *  
+ 6  219.158.102.97 (219.158.102.97)   491.782ms   506.038ms   505.972ms  
+ 7  219.158.24.133 (219.158.24.133)   991.870ms  1091.789ms       *
+</code></pre></li>
+
+<li><p><strong>High latency in the middle that remains consistent:</strong></p>
+
+<ul>
+<li>An jump in latency but remain consistent till the rest does not indicate an issue.</li>
+</ul>
+
+<pre><code class="language-bash"> ...
+ 2  175.137.109.70      15.848ms    15.722ms    36.279ms  
+ 3  175.137.109.61      13.277ms    36.372ms    36.332ms  
+ 4  10.55.208.185       35.285ms    35.240ms    58.096ms  
+ 5  27.111.228.94      109.352ms    99.348ms   106.301ms &lt;- [a jump] 
+ 6  157.240.41.36       33.487ms    59.674ms    59.660ms  
+ 7  204.15.20.45        31.757ms    53.862ms    53.844ms  
+ 8  173.252.67.145      36.569ms    59.341ms    59.342ms  
+ 9  31.13.78.35         30.283ms    56.421ms    56.358ms
+</code></pre></li>
+
+<li><p><strong>High latency in the beginning hops:</strong></p>
+
+<ul>
+<li>If it&rsquo;s first few hops, it indicates local network/subnet issue.</li>
+</ul></li>
+
+<li><p><strong>Timeouts at the beginning:</strong></p>
+
+<ul>
+<li>If the following hops responded without issue, then it&rsquo;s normal. The router may be configured not to respond to traceroute requestssuch as ICMP packets, or short-lived TTL packets.</li>
+</ul></li>
+
+<li><p><strong>Timeouts at the very end:</strong></p>
+
+<ul>
+<li>The target may be blocking ICMP requests or packets involving short-lived TTL flags. However, the target is reachable with normal HTTP/HTTPS request.</li>
+<li>The packet reached the target but unable to response back due to some issues on the destination point of the return path. Should not affect normal connection.</li>
+<li>Network problem and affecting the connection.</li>
+</ul></li>
+</ul>
+
+<hr />
+
+<p><strong>Reference:</strong></p>
+
+<p>[1] <a href="https://www.inmotionhosting.com/support/website/how-to/read-traceroute">How to read a traceroute</a></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Traceroute, Firewalls &amp; Geo-IP</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/dynamic-traceroute/">Dynamic Traceroute</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/dynamic-traceroute/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

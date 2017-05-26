@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Tools for scanning malicious urls and websites &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Tools for scanning malicious urls and websites</h1>
+  <h2></h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>06 Dec 2015</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/web">web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/malware">malware</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/virustotal">virustotal</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/remnux">remnux</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+    <div id="TableOfContents" class="toc col-lg-offset-6">
+      <h2>Table of Contents</h2>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#online-and-web-based">Online and Web-based</a></li>
+<li><a href="#text-mode-based-utility">Text-mode based Utility</a>
+<ul>
+<li><a href="#virustotalapi">VirusTotalApi</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+    <hr>
+    
+
+  
+
+<h1 id="online-and-web-based">Online and Web-based</h1>
+
+<ul>
+<li><a href="https://www.virustotal.com:">https://www.virustotal.com:</a> by VirusTotal, a subsidiary of Google</li>
+<li><a href="https://exchange.xforce.ibmcloud.com:">https://exchange.xforce.ibmcloud.com:</a> by IBM</li>
+<li><a href="http://safeweb.norton.com:">http://safeweb.norton.com:</a> by Norton, Symantec</li>
+<li><a href="http://www.avgthreatlabs.com/ww-en/website-safety-reports:">http://www.avgthreatlabs.com/ww-en/website-safety-reports:</a> by AVG ThreatLabs</li>
+<li><a href="https://cymon.io:">https://cymon.io:</a> by <a href="https://eSentire.com">https://eSentire.com</a></li>
+<li><a href="http://www.reputationauthority.org:">http://www.reputationauthority.org:</a> by WatchGuard Technologies</li>
+<li><a href="http://isitphishing.org:">http://isitphishing.org:</a> by <a href="https://vadesecure.com">https://vadesecure.com</a></li>
+</ul>
+
+<hr />
+
+<h1 id="text-mode-based-utility">Text-mode based Utility</h1>
+
+<h2 id="virustotalapi">VirusTotalApi</h2>
+
+<pre><code class="language-bash">$ git clone https://github.com/doomedraven/VirusTotalApi.git
+</code></pre>
+
+<p>It is an utility to search on VirusTotal databases [1] for malicious URLs and hashes of known malware. It comes pre-installed in REMnux distro [2], a free Linux Toolkit for reverse engineering and analyzing malware.</p>
+
+<p>Get VirusTotal public API key from <a href="https://www.virustotal.com/en/documentation/public-api">https://www.virustotal.com/en/documentation/public-api</a> and define the API key in the local config file <code>$HOME/.vtapi</code>:</p>
+
+<pre><code>[vt]
+apikey=&lt;APIKEY&gt;
+type=public
+</code></pre>
+
+<pre><code>remnux@remnux:~$ vt --url-report malicious-url.com
+</code></pre>
+
+<p>Positive result:</p>
+
+<p><img src="https://tzyluen.github.io/img/tools-for-scanning-malicious-urls-and-websites-01.png" alt="tools-for-scanning-malicious-urls-and-websites-01" /></p>
+
+<p>Negative result:</p>
+
+<p><img src="https://tzyluen.github.io/img/tools-for-scanning-malicious-urls-and-websites-02.png" alt="tools-for-scanning-malicious-urls-and-websites-02" /></p>
+
+<p>If the url is not in the database, use the <code>--url-scan</code> to submit and scan.</p>
+
+<pre><code>remnux@remnux:~$ vt --url-scan malicious-url.com
+</code></pre>
+
+<hr />
+
+<p><strong>References:</strong></p>
+
+<p>[1] <a href="https://www.virustotal.com">https://www.virustotal.com</a> <br>
+[2] <a href="https://remnux.org">https://remnux.org</a></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/privacy-remove-metadata-from-images/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/privacy-remove-metadata-from-images/">Privacy: remove metadata from images</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Traceroute, Firewalls &amp; Geo-IP</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

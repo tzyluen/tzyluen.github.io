@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Traceroute on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/traceroute/index.xml</link>
+    <description>Recent content in Traceroute on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/traceroute/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Dynamic Traceroute</title>
+      <link>https://tzyluen.github.io/post/dynamic-traceroute/</link>
+      <pubDate>Sat, 06 Feb 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/dynamic-traceroute/</guid>
+      <description>
+
+&lt;h3 id=&#34;mtr&#34;&gt;mtr&lt;/h3&gt;
+
+&lt;p&gt;Often times, troublesome networks won&amp;rsquo;t show up in the results of a few packets. &lt;code&gt;mtr&lt;/code&gt; combines the functionality of the &lt;code&gt;traceroute&lt;/code&gt; and &lt;code&gt;ping&lt;/code&gt; utils and enables user to constantly poll a remote server to see the latency and performance changes over time. It&amp;rsquo;s not installed by default on most linux systems, simply get it from the distribution and package manager of choice:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo apt-get install mtr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To debug remotely over ssh where no GUI is available, use the &lt;code&gt;--curses&lt;/code&gt; or &lt;code&gt;-t&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mtr --curses
+$ mtr -t
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;&#39;h&#39;&lt;/code&gt; key for help to switch/toggle the views, or cycle the view during the runtime with &lt;code&gt;y&lt;/code&gt; key.&lt;/p&gt;
+
+&lt;p&gt;Network block mode with &lt;code&gt;mtr -t -y1&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/mtr-traceroute-network-block-mode.jpg&#34; alt=&#34;mtr-traceroute-network-block-mode&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Country code mode with &lt;code&gt;mtr -t -y2&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/mtr-traceroute-country-mode.jpg&#34; alt=&#34;mtr-traceroute-country-mode&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A very useful feature is the &lt;code&gt;--report&lt;/code&gt; option, which generate a statistical report based on the number of cycles of traceroute to the target.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -c COUNT:  the number of report cycles
+# -r, --report: generate a statistical report
+# -w, --report-wide: (do not truncate hostnames)
+
+$ mtr -c 30 --report youku.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/mtr-traceroute-report-mode.png&#34; alt=&#34;mtr-traceroute-report-mode&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Reading Traceroute</title>
+      <link>https://tzyluen.github.io/post/reading-traceroute/</link>
+      <pubDate>Fri, 29 Jan 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/reading-traceroute/</guid>
+      <description>
+
+&lt;p&gt;This post extends the discussion on traceroute in previous post &lt;a href=&#34;https://tzyluen.github.io/post/traceroute-firewalls-geoip/#output-format-explanation&#34;&gt;Traceroute, Firewalls &amp;amp; Geo-IP&lt;/a&gt;, and focused on intepreting the traceroute report.&lt;/p&gt;
+
+&lt;h3 id=&#34;output-format-explanation&#34;&gt;Output format explanation:&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;           v--- the router/ip-addr traversed by the packet 
+[Hop]     [Hostname/(IP-addr)]      [RTT1]  [RTT2]  [RTT3]
+ ^--- transit no. of the route       ^---- round-trip time
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The round-trip time (RTT) is the latency (delay between sending the packet and getting the response).&lt;/p&gt;
+
+&lt;p&gt;By default, traceroute sends 3 packets per TTL increment. Each column [RTT1]&amp;hellip;[RTT3] corresponds to the time it took to get response (round-trip time). 3 different packets give a better sampling of the latency, it also helps for situation where multi-path exist (different link). The unit is in &lt;strong&gt;ms (milliseconds)&lt;/strong&gt;. For example,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[Hop]   [IP-addr]       [RTT1]      [RTT2]      [RTT3]
+  7     204.15.20.45    31.757ms    53.862ms    53.844ms  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Discussion with real world examples were covered in &lt;a href=&#34;https://tzyluen.github.io/post/traceroute-firewalls-geoip/#output-format-explanation&#34;&gt;Traceroute, Firewalls &amp;amp; Geo-IP&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;reading-the-traceroute&#34;&gt;Reading the traceroute:&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;The Hop times:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Consistent times are the main thing to read and evaluate from a traceroute report.&lt;/li&gt;
+&lt;li&gt;Check the RTT of the three packets are consistent per hops. Look at the pattern of multiple traceroute reports.&lt;/li&gt;
+&lt;li&gt;Times &amp;gt;150ms are considered long for a round-trip within same continental; however is normal if traveled across ocean.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Increasing latency towards the target:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Sudden increase of response time (including packet loss) in a hop and continuous increasing often indicates issue for the hop (the router), the * also suggests either packet loss or the node simply overloaded:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; ...
+ 2  175.137.109.62 (175.137.109.62)    14.947ms    41.973ms    41.883ms  
+ 3  175.137.109.69 (175.137.109.69)    14.348ms    43.621ms    43.614ms  
+ 4  10.55.192.57 (10.55.192.57)       309.880ms   309.820ms   309.808ms  
+ 5  219.158.33.25 (219.158.33.25)     481.462ms   481.399ms       *  
+ 6  219.158.102.97 (219.158.102.97)   491.782ms   506.038ms   505.972ms  
+ 7  219.158.24.133 (219.158.24.133)   991.870ms  1091.789ms       *
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;High latency in the middle that remains consistent:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;An jump in latency but remain consistent till the rest does not indicate an issue.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; ...
+ 2  175.137.109.70      15.848ms    15.722ms    36.279ms  
+ 3  175.137.109.61      13.277ms    36.372ms    36.332ms  
+ 4  10.55.208.185       35.285ms    35.240ms    58.096ms  
+ 5  27.111.228.94      109.352ms    99.348ms   106.301ms &amp;lt;- [a jump] 
+ 6  157.240.41.36       33.487ms    59.674ms    59.660ms  
+ 7  204.15.20.45        31.757ms    53.862ms    53.844ms  
+ 8  173.252.67.145      36.569ms    59.341ms    59.342ms  
+ 9  31.13.78.35         30.283ms    56.421ms    56.358ms
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;High latency in the beginning hops:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If it&amp;rsquo;s first few hops, it indicates local network/subnet issue.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Timeouts at the beginning:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;If the following hops responded without issue, then it&amp;rsquo;s normal. The router may be configured not to respond to traceroute requestssuch as ICMP packets, or short-lived TTL packets.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Timeouts at the very end:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The target may be blocking ICMP requests or packets involving short-lived TTL flags. However, the target is reachable with normal HTTP/HTTPS request.&lt;/li&gt;
+&lt;li&gt;The packet reached the target but unable to response back due to some issues on the destination point of the return path. Should not affect normal connection.&lt;/li&gt;
+&lt;li&gt;Network problem and affecting the connection.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Reference:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;https://www.inmotionhosting.com/support/website/how-to/read-traceroute&#34;&gt;How to read a traceroute&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Traceroute, Firewalls &amp; Geo-IP</title>
+      <link>https://tzyluen.github.io/post/traceroute-firewalls-geoip/</link>
+      <pubDate>Sun, 24 Jan 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/traceroute-firewalls-geoip/</guid>
+      <description>
+
+&lt;h1 id=&#34;traceroute&#34;&gt;Traceroute&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;Traceroute&lt;/code&gt; is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with &lt;code&gt;ping&lt;/code&gt;. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&amp;rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Mode:
+-I, --icmp      Use ICMP ECHO for tracerouting
+-T, --tcp       Use TCP SYN for tracerouting (default port is 80)
+-U, --udp       Use UDP to particular port for tracerouting
+                (instead of increasing the port per each probe), default port is 53
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;icmp-mode&#34;&gt;ICMP mode:&lt;/h2&gt;
+
+&lt;p&gt;Default &lt;code&gt;traceroute&lt;/code&gt; uses &lt;code&gt;ICMP ECHO&lt;/code&gt; packets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ traceroute &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;udp-mode&#34;&gt;UDP mode:&lt;/h2&gt;
+
+&lt;p&gt;Default dest port is 53 (DNS).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ traceroute -U &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For security reasons, the default traceroute&amp;rsquo;s UDP packets and ICMP Echo packets are often blocked. To evade firewalls, the following techniques can be used.&lt;/p&gt;
+
+&lt;h2 id=&#34;tcp-mode&#34;&gt;TCP mode:&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;tcptraceroute&lt;/code&gt; or &lt;code&gt;-T&lt;/code&gt; of the &lt;code&gt;traceroute&lt;/code&gt; uses TCP SYN packets (SYN packet is the first step TCP three-way handshake), which usually not blocked by firewalls, and as long as the destination port is opened. To specify the dest port, uses -p 80 (HTTP) or 443 (HTTPS), that normally allowed to egress for probes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ tcptraceroute &amp;lt;target&amp;gt;
+$ sudo traceroute -T &amp;lt;target&amp;gt;
+
+# -w: wait 10 secs before timeout
+# -q: set the number of probe packets per hop, default is 3, hence RTT1, RTT2, RTT3
+$ traceroute -w 10 -q 3 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/plain-traceroute-my.png&#34; alt=&#34;plain-traceroute-my&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With ICMP Echo request, the packet was blocked after 58.27.14.58. With TCP SYN handshake, it passed two more hops.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/tcp-traceroute-my.png&#34; alt=&#34;tcp-traceroute-my&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;output-format-explanation&#34;&gt;Output format explanation:&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;           v--- the router/ip-addr traversed by the packet 
+[Hop]     [Hostname/(IP-addr)]      [RTT1]  [RTT2]  [RTT3]
+ ^--- transit no. of the route       ^---- round-trip time
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The round-trip time is the latency (delay between sending the packet and getting the response).&lt;/p&gt;
+
+&lt;p&gt;By default, traceroute sends 3 packets per TTL increment. Each column [RTT1]&amp;hellip;[RTT3] corresponds to the time it took to get response (round-trip time). 3 different packets give a better sampling of the latency, it also helps for situation where multi-path exist (different link). For instance, the packet is routed to different link in hop 2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;2  175.137.109.62 (175.137.109.62)  38.360 ms       [RTT1]
+   175.137.109.70 (175.137.109.70)  38.219 ms       [RTT2]
+   175.137.109.62 (175.137.109.62)  38.123 ms       [RTT3]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Another common scenario is timeout/packet dropped. For instance, 2 out of 3 traceroute packets were dropped/timeout in hop 4:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;4  10.55.32.88 (10.55.32.88)   113.878 ms * *
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;hping3&#34;&gt;Hping3&lt;/h1&gt;
+
+&lt;p&gt;The &amp;apos;traceroute &amp;lt;target&amp;gt;&amp;apos; equivalent:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -V: verbose
+# -1: icmp
+# hping3 --traceroute -V -1 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;TCP/UDP mode:&lt;/strong&gt; hping3 traceroute on port 80, 443, 53, useful to identify where the packet is blocked:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -S: set SYN flag
+# -p: port
+# hping3 --traceroute -S -p 443 &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port80-my.png&#34; alt=&#34;hping3-traceroute-syn-port-80-my&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port443-my.png&#34; alt=&#34;hping3-traceroute-syn-port-443-my&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/hping3-traceroute-syn-port53-my.png&#34; alt=&#34;hping3-traceroute-syn-port-53-my&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;intrace&#34;&gt;InTrace&lt;/h1&gt;
+
+&lt;p&gt;Traceroute-like enumerates IP hops by exploiting existing TCP connections.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# intrace -i eth0 -h &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Establish a TCP connection to port 80:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-ncat-usm-my-port80.png&#34; alt=&#34;intrace-ncat-usm-my-port80&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And it&amp;rsquo;s capable to identified the target host is behind a NAT:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-usm-my.png&#34; alt=&#34;intrace-usm-my&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Traceroute to remotely initiated connections:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/intrace-netstat-tanp-local.png&#34; alt=&#34;intrace-netstat-tanp-local&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/intrace-remote-initiated-connection.png&#34; alt=&#34;intrace-remote-initiated-connection&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;nmap-traceroute-geolocation-script&#34;&gt;Nmap: traceroute-geolocation script&lt;/h1&gt;
+
+&lt;p&gt;Pinpoint the nodes and traverse the network path with geo location. Nmap &lt;code&gt;traceroute-geolocation.nse&lt;/code&gt; supports geolocation, it lists the geographic locations of each hop and output the results to KML format plottable on Google Maps.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# nmap --traceroute --script traceroute-geolocation.nse \
+&amp;gt; --script-args &#39;traceroute-geolocation.kmlfile=&amp;lt;target&amp;gt;.kml&#39; &amp;lt;target&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/nmap-traceroute-nsysu.jpg&#34; alt=&#34;nmap-traceroute-nsysu&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/nmap-traceroute-nsysu-gmap.png&#34; alt=&#34;nmap-traceroute-nsysu-gmap&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

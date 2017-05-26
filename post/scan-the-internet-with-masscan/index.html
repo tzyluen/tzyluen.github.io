@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Scan the Internet with masscan &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Scan the Internet with masscan</h1>
+  <h2></h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>17 Mar 2017</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/linux">linux</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/port-scanning">port-scanning</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/vulnerability-scanner">vulnerability-scanner</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/masscan">masscan</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+    <div id="TableOfContents" class="toc col-lg-offset-6">
+      <h2>Table of Contents</h2>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#scan-large-ip-block">Scan large IP block</a></li>
+<li><a href="#exclude-ip-blocks-of-sensitive-part-of-the-internet">Exclude IP blocks of sensitive part of the Internet:</a></li>
+<li><a href="#include-ip-blocks-for-targeted-ip-blocks">Include IP blocks for targeted IP blocks:</a></li>
+<li><a href="#transmission-rates">Transmission Rates</a></li>
+<li><a href="#specify-ports-and-ranges">Specify ports and ranges</a></li>
+<li><a href="#banners">Banners</a></li>
+<li><a href="#output-formats">Output formats</a></li>
+<li><a href="#save-amp-manage-the-conf-for-different-scanning-strategies-amp-objectives">Save &amp; manage the conf for different scanning strategies &amp; objectives</a></li>
+</ul>
+</nav>
+    </div>
+    <hr>
+    
+
+  
+
+<p>Base system used to perform the scans:</p>
+
+<pre><code class="language-bash">root@192.168.1.11:~# uname -a
+Linux kali 4.9.0-kali3-amd64 #1 SMP Debian 4.9.13-1kali2 (2017-03-07) x86_64 GNU/Linux
+</code></pre>
+
+<h1 id="scan-large-ip-block">Scan large IP block</h1>
+
+<p><strong>Scan the entire 175.0.0.0/8 for port 22, 80, 445</strong>:</p>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-00.png" alt="scan-the-internet-with-masscan-00" /></p>
+
+<p><strong>Note:</strong> It&rsquo;s risky to perform such as scan as it may trigger some IDS/IPS and get your IP blocked/blacklisted from accessing them permanently.</p>
+
+<p><strong>Scan a Yahoo IP block for port tcp/80:</strong></p>
+
+<ol>
+<li><p>Trace the Yahoo&rsquo;s IP block:</p>
+
+<pre><code class="language-bash">root@192.168.1.11:~# mtr -y1 yahoo.com
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-01.png" alt="scan-the-internet-with-masscan-01" /></p></li>
+
+<li><p>Scan the entire IP block (32768 of hosts):</p>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-02.png" alt="scan-the-internet-with-masscan-02" /></p></li>
+</ol>
+
+<hr />
+
+<h1 id="exclude-ip-blocks-of-sensitive-part-of-the-internet">Exclude IP blocks of sensitive part of the Internet:</h1>
+
+<ol>
+<li><p>Ensure the <code>excludefile</code> is defined in <code>/etc/masscan/masscan.conf</code>:</p>
+
+<pre><code>excludefile=/etc/masscan/exclude.conf
+</code></pre></li>
+
+<li><p>Append the following into the exclude list to prevent scanning them by accident:</p>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-03.png" alt="scan-the-internet-with-masscan-03" /></p></li>
+
+<li><p>Or, for a non-persistent exclude list, use <code>--excludefile</code> option:</p>
+
+<pre><code class="language-bash">masscan 175.0.0.0/8 -p80 --rate 10000 --excludefile exclude.txt
+</code></pre></li>
+</ol>
+
+<hr />
+
+<h1 id="include-ip-blocks-for-targeted-ip-blocks">Include IP blocks for targeted IP blocks:</h1>
+
+<ol>
+<li><p>Similar to <code>excludefile</code>, the file format for the include list:</p>
+
+<pre><code># Include list:
+# For targeting organizations or verticals with multiple blocks
+75.0.0.0/8               # AT&amp; Internet Services
+175.145.0.0/16           # TMNet
+    
+# Private IPv4 addresses, to scan entire organization network
+192.168.0.0/16           # class C
+172.16.0.0/12            # class B
+10.0.0.0/8               # class A
+</code></pre></li>
+
+<li><p>Scan with the include file option:</p>
+
+<pre><code class="language-bash">masscan -p80 --includefile include.txt
+</code></pre></li>
+</ol>
+
+<hr />
+
+<h1 id="transmission-rates">Transmission Rates</h1>
+
+<p>Depends on network infrastructure and NIC, it can be scaled up to 25 million packets/second.</p>
+
+<ol>
+<li><p>The default transmit rate is 100 packets/second. Takes approx. 6 minutes to scan 32768 hosts on port tcp/80:</p>
+
+<pre><code class="language-bash">masscan 98.139.128.0/17 -p80 --rate 100
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-04.png" alt="scan-the-internet-with-masscan-04" /></p></li>
+
+<li><p>With 10,000 packets/second takes approx. 8 seconds to scan 32768 hosts on port tcp/80:</p>
+
+<pre><code class="language-bash">masscan 98.139.128.0/17 -p80 --rate 10000
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-05.png" alt="scan-the-internet-with-masscan-05" /></p></li>
+</ol>
+
+<p><strong>Note:</strong> Known max. transmission rates are:</p>
+
+<ol>
+<li>Windows - 250,000 packets/second</li>
+<li>Linux - 2,500,000 packets/second</li>
+<li>PF_RING driver - 25,000,000 packets/second</li>
+</ol>
+
+<hr />
+
+<h1 id="specify-ports-and-ranges">Specify ports and ranges</h1>
+
+<pre><code class="language-bash">masscan 175.145.0.0/16 -p22,80,445 --rate 1000
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-06.png" alt="scan-the-internet-with-masscan-06" /></p>
+
+<hr />
+
+<h1 id="banners">Banners</h1>
+
+<ol>
+<li><p>Grab the banners, i.e., HTTP server version, title, and etc.</p>
+
+<pre><code class="language-bash">masscan 175.145.0.0/16 -p22,80,445 --rate 10000 --banners
+</code></pre></li>
+
+<li><p>Some interesting information:</p>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-08.png" alt="scan-the-internet-with-masscan-08" /></p></li>
+</ol>
+
+<hr />
+
+<h1 id="output-formats">Output formats</h1>
+
+<ol>
+<li><p>Sets the output format to binary <code>-oB</code> and saves the output in the given filename, which can be read with <code>--readscan</code>, and optionally output into a new format later:</p>
+
+<pre><code class="language-bash">-oB: binary
+-oL: list
+-oG: grepable
+-oX: xml
+
+masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 -oB 175-145-0-0-masscan.bin
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-masscan-07.png" alt="scan-the-internet-with-masscan-07" /></p></li>
+
+<li><p>Read the saved binary file into new <code>xml</code> format file that can be used for parsing and reporting:</p>
+
+<pre><code class="language-bash">masscan 175.145.0.0/16 --readscan 175-145-0-0-masscan.bin -oX 175-145-0-0-masscan.xml
+</code></pre></li>
+</ol>
+
+<hr />
+
+<h1 id="save-amp-manage-the-conf-for-different-scanning-strategies-amp-objectives">Save &amp; manage the conf for different scanning strategies &amp; objectives</h1>
+
+<p>Save the configuration into a file. Multiple conf files for different objectives and strategies. For example, a configuration file for a particular ip block, i.e.,</p>
+
+<ol>
+<li><p>Save the current settings into a conf file (<code>--echo</code> and redirect to <code>175-145-0-0.conf</code>):</p>
+
+<pre><code class="language-bash">masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 --echo &gt; 175-145-0-0.conf
+</code></pre></li>
+
+<li><p>Use the saved profile for the same objective:</p>
+
+<pre><code class="language-bash">masscan -c 175-145-0-0.conf
+</code></pre></li>
+</ol>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/port-knocking/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/port-knocking/">Port-knocking</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/deep-packet-inspection/">Deep packet inspection</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/deep-packet-inspection/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

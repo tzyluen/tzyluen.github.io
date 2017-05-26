@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Capture network traffic on WLAN (macOS) &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Capture network traffic on WLAN (macOS)</h1>
+  <h2></h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>13 Feb 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/sniffing">sniffing</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/macos">macos</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/wlan">wlan</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/wireshark">wireshark</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+    <div id="TableOfContents" class="toc col-lg-offset-6">
+      <h2>Table of Contents</h2>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#macos-s-airport">MacOS&rsquo;s Airport</a></li>
+<li><a href="#wireshark">Wireshark</a></li>
+</ul>
+</nav>
+    </div>
+    <hr>
+    
+
+  
+
+<h1 id="macos-s-airport">MacOS&rsquo;s Airport</h1>
+
+<p>is a built-in wireless utility comes preinstalled in MacOS.</p>
+
+<pre><code class="language-bash">$ ll /usr/local/bin/airport 
+lrwxr-xr-x  1 root  wheel  89 Jun 22  2016 /usr/local/bin/airport@ -&gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
+</code></pre>
+
+<p>Perform a wireless broadcast scan to get the list of access points in the neighborhood:
+<img src="https://tzyluen.github.io/img/airport-wireless-broadcast-scan-01.png" alt="airport-wireless-broadcast-scan-01" /></p>
+
+<p>Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:</p>
+
+<pre><code class="language-bash">$ airport en0 sniff 1
+Capturing 802.11 frames on en0.
+^CSession saved to /tmp/airportSniffwUKb60.cap.
+</code></pre>
+
+<hr />
+
+<h1 id="wireshark">Wireshark</h1>
+
+<p>can also be used directly to capture wireless network traffic. To do that, open the wireshark&rsquo;s capture option and select the Promiscuous and Monitor checkbox, optionally add capture filter <code>not broadcast and not multicast</code> to filter out noises:
+<img src="https://tzyluen.github.io/img/wlan-wireshark-capture-options-01.png" alt="wlan-wireshark-capture-options-01" /></p>
+
+<p>Since the wireless traffic is encrypted with WPA2, it won&rsquo;t be useful unless decrypted. To enable decryption on-the-fly, navigate to <code>Preferences</code> &rarr; <code>Protocols</code> &rarr; <code>IEEE 802.11</code>, and select <code>Enable decryption</code> and add the decryption keys.</p>
+
+<p>Depends on the type of encryption used, the following lists the WEP, WPA-PWD and WPA-PSK format:</p>
+
+<ul>
+<li><code>wep:a1:b2:c3:d4:e5</code></li>
+<li><code>wpa-pwd:myPassword:mySSID</code></li>
+<li><code>wpa-psk:0102030405060708091011...6061626364</code></li>
+</ul>
+
+<p>To generate the WPA-PSK of your wireless credentials, use the <a href="https://www.wireshark.org/tools/wpa-psk.html">WPA-PSK Generator</a>[1] provided by Wireshark.</p>
+
+<p>In order to capture the handshake for a machine, force the machine to (re-)join the network while the capture is in progress. Repeat this for all machines whose traffic you want to see. Figure below shows the captured/decrypted DNS traffic.</p>
+
+<p><img src="https://tzyluen.github.io/img/wlan-wireshark-sniff-dns-decrypted-01.png" alt="wlan-wireshark-sniff-dns-decrypted-01" /></p>
+
+<hr />
+
+<p><strong>References:</strong></p>
+
+<p>[1] <a href="https://www.wireshark.org/tools/wpa-psk.html">https://www.wireshark.org/tools/wpa-psk.html</a></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/dynamic-traceroute/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/dynamic-traceroute/">Dynamic Traceroute</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS queries</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/sniff-dns-queries/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

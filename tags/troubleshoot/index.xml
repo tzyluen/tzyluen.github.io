@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Troubleshoot on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/troubleshoot/index.xml</link>
+    <description>Recent content in Troubleshoot on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/troubleshoot/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Wireshark: A quick troubleshoot on slow network (1)</title>
+      <link>https://tzyluen.github.io/post/wireshark-a-quick-troubleshoot-on-slow-network-1/</link>
+      <pubDate>Sat, 23 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/wireshark-a-quick-troubleshoot-on-slow-network-1/</guid>
+      <description>
+
+&lt;p&gt;&lt;strong&gt;Runs wireshark and starts capturing the network packets until the statistic builds.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;quick-drill-into-errors-and-connection-issues&#34;&gt;Quick drill into errors and connection issues&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Analyze&lt;/code&gt; &amp;rarr; &lt;code&gt;Expert Info&lt;/code&gt;, a high number of errors and warnings indicates problems.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-03.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;identify-the-protocols-with-high-traffic&#34;&gt;Identify the protocols with high traffic&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Statistics&lt;/code&gt; &amp;rarr; &lt;code&gt;Protocol Hierarchy&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-01.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Observes the resulting Protocol Hierarchy Statistic and pins down the suspicious/troubling protocol (e.g., high percentage of P2P or broadcast), right-click and select &lt;code&gt;Apply As Filter&lt;/code&gt; &amp;rarr; &lt;code&gt;Selected&lt;/code&gt; to apply the filter for further analysis.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;get-the-connection-speed-to-a-site&#34;&gt;Get the connection speed to a site&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use a display filter such as &lt;code&gt;ip.addr == 192.168.1.7 &amp;amp;&amp;amp; ip.addr == 202.170.56.12 &amp;amp;&amp;amp; tcp.port == 22&lt;/code&gt; to filter the SSH traffic of the target site.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-05.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Navigates to Wireshark menu &lt;code&gt;Statistics&lt;/code&gt; &amp;rarr; &lt;code&gt;Flow Graph&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Select show only &lt;code&gt;Displayed packets&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Right-click on the TCP flow diagram and zoom to increase the details of the packet.&lt;/li&gt;
+&lt;li&gt;Observe the connection establishment timestamp and response time. High number of retransmissions, and re-established connections indicate problems.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-06.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;get-the-time-spent-in-waiting-for-a-response&#34;&gt;Get the time spent in waiting for a response&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;To show the time difference from the previous packet, add the &lt;code&gt;Delta time&lt;/code&gt; into the display columns. From the column displays, right-click and select &lt;code&gt;Column Preferences&lt;/code&gt; &amp;rarr; add a new column and set the type as &lt;code&gt;Delta time&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-04.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&#34;identify-the-bad-packets-tcp-errors-ratio&#34;&gt;Identify the bad packets (TCP errors) ratio&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Statistics&lt;/code&gt; &amp;rarr; &lt;code&gt;I/O Graph&lt;/code&gt;. Customizes the IO graphs with:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;TCP errors (&lt;code&gt;tcp.analysis.flags&lt;/code&gt;) to filters the bad TCP packets.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Retransmission (&lt;code&gt;tcp.analysis.retransmission || tcp.analysis.fast_retransmission&lt;/code&gt;) filters the retransmitted packets.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A consistently high TCP errors and retransmission ratio often indicate problems. For instance, approx. half of the total packets were indicated in figure below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wireshark-a-quick-troubleshoot-on-slow-network-02.png&#34; alt=&#34;wireshark-a-quick-troubleshoot-on-slow-network-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

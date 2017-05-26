@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="nettop/netstat/ss display a list of sockets &amp; routes">
+  <meta name="generator" content="Hugo 0.18.1" />
+
+  <title>Tracing malicious network traffic &middot; Technical Notes</title>
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+  
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h1>Tracing malicious network traffic</h1>
+  <h2>nettop/netstat/ss display a list of sockets &amp; routes</h2>
+</div>
+
+
+<div class="content">
+
+  <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>27 Feb 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/malware">malware</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/nettop">nettop</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/netstat">netstat</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/flowtop">flowtop</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/dns">dns</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/google">google</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
+    
+  </div>
+  
+  
+
+</div>
+
+    
+    <div id="TableOfContents" class="toc col-lg-offset-6">
+      <h2>Table of Contents</h2>
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#nettop">Nettop</a>
+<ul>
+<li><a href="#google-transparency-report-safe-browsing-tool">Google Transparency Report: Safe Browsing Tool</a></li>
+</ul></li>
+<li><a href="#netstat">Netstat</a></li>
+<li><a href="#flowtop">Flowtop</a></li>
+</ul>
+</nav>
+    </div>
+    <hr>
+    
+
+  
+
+<h1 id="nettop">Nettop</h1>
+
+<p>Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - <a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS queries</a>:</p>
+
+<p><img src="https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png" alt="dnstop-monitoring-01" /></p>
+
+<p>Under macOS, the <code>nettop</code> util provides list of sockets and routes in details that help to trace down the process that established the connection to the unknown domain:</p>
+
+<pre><code class="language-bash"># use keys to toggle:
+# d, delta output
+# c, collapse all
+# e, expand all
+# j, bring up the column selection menu
+# h, help
+$ nettop
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/macos-nettop-monitoring-01.jpg" alt="macos-nettop-monitoring-01" style="width: 800px;" /></p>
+
+<h2 id="google-transparency-report-safe-browsing-tool">Google Transparency Report: Safe Browsing Tool</h2>
+
+<p>Since the process is from Firefox on port https (443), the Google Transparency Report <a href="https://www.google.com/transparencyreport/safebrowsing/diagnostic/">Safe Browsing tool</a> can be used to check if the site is malicious and unsafe.</p>
+
+<hr />
+
+<h1 id="netstat">Netstat</h1>
+
+<p>On linux, <code>ss</code> or <code>netstat</code> can be used:</p>
+
+<pre><code class="language-bash"># -l, --listening       display listening sockets
+# -n, --numeric         don't resolve service names
+# -p, --program         show the pid/name of the program
+# -r, --resolve         resolve numeric address/ports
+# -t, --tcp             display only TCP sockets
+# -u, --udp             display only UDP sockets
+
+$ ss -rptu
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/linux-ss-monitoring-01.png" alt="linux-ss-monitoring-01" /></p>
+
+<p>Similarly, <code>netstat</code> would work too:</p>
+
+<pre><code class="language-bash"># to see non-owned process info
+$ sudo netstat -ptuW
+</code></pre>
+
+<p><img src="https://tzyluen.github.io/img/linux-netstat-monitoring-01.png" alt="linux-netstat-monitoring-01" /></p>
+
+<hr />
+
+<h1 id="flowtop">Flowtop</h1>
+
+<p>The <code>flowtop</code> from the <code>netsniff-ng</code> package also works:</p>
+
+<p><img src="https://tzyluen.github.io/img/linux-flowtop-monitoring-01.png" alt="linux-flowtop-monitoring-01" style="width: 800px;" /></p>
+
+
+  
+<div class="prev-next-post pure-g">
+  <div class="pure-u-1-24" style="text-align: left;">
+    
+    <a href="https://tzyluen.github.io/post/sniff-dns-queries/"><i class="fa fa-chevron-left"></i></a>
+    
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="prev">
+      <a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS queries</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-2-24">
+    &nbsp;
+  </div>
+  <div class="pure-u-10-24">
+    
+    <nav class="next">
+      <a href="https://tzyluen.github.io/post/killing-tcp-connections/">Killing TCP connections</a>
+    </nav>
+    
+  </div>
+  <div class="pure-u-1-24" style="text-align: right;">
+    
+    <a href="https://tzyluen.github.io/post/killing-tcp-connections/"><i class="fa fa-chevron-right"></i></a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+
+
+
+
+</body>
+</html>
+

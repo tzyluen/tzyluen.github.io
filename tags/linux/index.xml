@@ -1,0 +1,732 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/linux/index.xml</link>
+    <description>Recent content in Linux on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Scan the Internet with masscan</title>
+      <link>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</link>
+      <pubDate>Fri, 17 Mar 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/scan-the-internet-with-masscan/</guid>
+      <description>
+
+&lt;p&gt;Base system used to perform the scans:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# uname -a
+Linux kali 4.9.0-kali3-amd64 #1 SMP Debian 4.9.13-1kali2 (2017-03-07) x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;scan-large-ip-block&#34;&gt;Scan large IP block&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan the entire 175.0.0.0/8 for port 22, 80, 445&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-00.png&#34; alt=&#34;scan-the-internet-with-masscan-00&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; It&amp;rsquo;s risky to perform such as scan as it may trigger some IDS/IPS and get your IP blocked/blacklisted from accessing them permanently.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Scan a Yahoo IP block for port tcp/80:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Trace the Yahoo&amp;rsquo;s IP block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.11:~# mtr -y1 yahoo.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-01.png&#34; alt=&#34;scan-the-internet-with-masscan-01&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan the entire IP block (32768 of hosts):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-02.png&#34; alt=&#34;scan-the-internet-with-masscan-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;exclude-ip-blocks-of-sensitive-part-of-the-internet&#34;&gt;Exclude IP blocks of sensitive part of the Internet:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Ensure the &lt;code&gt;excludefile&lt;/code&gt; is defined in &lt;code&gt;/etc/masscan/masscan.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;excludefile=/etc/masscan/exclude.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Append the following into the exclude list to prevent scanning them by accident:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-03.png&#34; alt=&#34;scan-the-internet-with-masscan-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Or, for a non-persistent exclude list, use &lt;code&gt;--excludefile&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.0.0.0/8 -p80 --rate 10000 --excludefile exclude.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;include-ip-blocks-for-targeted-ip-blocks&#34;&gt;Include IP blocks for targeted IP blocks:&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Similar to &lt;code&gt;excludefile&lt;/code&gt;, the file format for the include list:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Include list:
+# For targeting organizations or verticals with multiple blocks
+75.0.0.0/8               # AT&amp;amp; Internet Services
+175.145.0.0/16           # TMNet
+    
+# Private IPv4 addresses, to scan entire organization network
+192.168.0.0/16           # class C
+172.16.0.0/12            # class B
+10.0.0.0/8               # class A
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Scan with the include file option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -p80 --includefile include.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;transmission-rates&#34;&gt;Transmission Rates&lt;/h1&gt;
+
+&lt;p&gt;Depends on network infrastructure and NIC, it can be scaled up to 25 million packets/second.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;The default transmit rate is 100 packets/second. Takes approx. 6 minutes to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-04.png&#34; alt=&#34;scan-the-internet-with-masscan-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;With 10,000 packets/second takes approx. 8 seconds to scan 32768 hosts on port tcp/80:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 98.139.128.0/17 -p80 --rate 10000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-05.png&#34; alt=&#34;scan-the-internet-with-masscan-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; Known max. transmission rates are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Windows - 250,000 packets/second&lt;/li&gt;
+&lt;li&gt;Linux - 2,500,000 packets/second&lt;/li&gt;
+&lt;li&gt;PF_RING driver - 25,000,000 packets/second&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;specify-ports-and-ranges&#34;&gt;Specify ports and ranges&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 1000
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-06.png&#34; alt=&#34;scan-the-internet-with-masscan-06&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;banners&#34;&gt;Banners&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Grab the banners, i.e., HTTP server version, title, and etc.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --rate 10000 --banners
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Some interesting information:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-08.png&#34; alt=&#34;scan-the-internet-with-masscan-08&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;output-formats&#34;&gt;Output formats&lt;/h1&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Sets the output format to binary &lt;code&gt;-oB&lt;/code&gt; and saves the output in the given filename, which can be read with &lt;code&gt;--readscan&lt;/code&gt;, and optionally output into a new format later:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-oB: binary
+-oL: list
+-oG: grepable
+-oX: xml
+
+masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 -oB 175-145-0-0-masscan.bin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-the-internet-with-masscan-07.png&#34; alt=&#34;scan-the-internet-with-masscan-07&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Read the saved binary file into new &lt;code&gt;xml&lt;/code&gt; format file that can be used for parsing and reporting:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 --readscan 175-145-0-0-masscan.bin -oX 175-145-0-0-masscan.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;save-amp-manage-the-conf-for-different-scanning-strategies-amp-objectives&#34;&gt;Save &amp;amp; manage the conf for different scanning strategies &amp;amp; objectives&lt;/h1&gt;
+
+&lt;p&gt;Save the configuration into a file. Multiple conf files for different objectives and strategies. For example, a configuration file for a particular ip block, i.e.,&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Save the current settings into a conf file (&lt;code&gt;--echo&lt;/code&gt; and redirect to &lt;code&gt;175-145-0-0.conf&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan 175.145.0.0/16 -p22,80,445 --banners --rate 10000 --echo &amp;gt; 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Use the saved profile for the same objective:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;masscan -c 175-145-0-0.conf
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Port-knocking</title>
+      <link>https://tzyluen.github.io/post/port-knocking/</link>
+      <pubDate>Sat, 03 Sep 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/port-knocking/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &amp;ldquo;knock&amp;rdquo; sequences of port-hits.&lt;/p&gt;
+
+&lt;p&gt;A client system makes these port-hits by sending a TCP (or UDP) packet to a port on the server. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file. This can be used to open up holes in a firewall for quick access. The primary benefit is that it suppresses the regular port scan and appears as not availale.&lt;/p&gt;
+
+&lt;p&gt;Essentially, the port-knocking strategy is security by obscurity.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;enabling-knockd&#34;&gt;Enabling knockd&lt;/h1&gt;
+
+&lt;p&gt;A prerequisite to enable port-knocking is &lt;code&gt;iptables&lt;/code&gt;. The &lt;code&gt;knockd&lt;/code&gt; is a small port-knock daemon that implements the port-knock server, dynamically manipulate the firewall rules to open and close ports.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo apt-get install knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the default configuration, enable the service at init and set the target network interface:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo vim /etc/default/knockd
+...
+START_KNOCKD=1
+KNOCKD_OPTS=&amp;quot;-i enp0s3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Set the desired port-knocking sequence &lt;code&gt;1300&lt;/code&gt;, &lt;code&gt;8888&lt;/code&gt;, &lt;code&gt;9394&lt;/code&gt; in &lt;code&gt;/etc/knockd.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[options]
+        #UseSyslog
+        logfile     = /var/log/knockd.log
+
+[openSSH]
+        #sequence    = 1300:tcp,8888:udp,9394:tcp
+        sequence    = 1300,8888,9394
+        seq_timeout = 10
+        command     = /sbin/iptables -A INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+
+[closeSSH]
+        sequence    = 9394,8888,1300
+        seq_timeout = 10
+        command     = /sbin/iptables -D INPUT -s %IP% -p tcp --dport 22 -j ACCEPT
+        tcpflags    = syn
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Start the service:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo systemctl start knockd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;port-knocking&#34;&gt;Port-knocking&lt;/h1&gt;
+
+&lt;h2 id=&#34;using-knock&#34;&gt;Using Knock&lt;/h2&gt;
+
+&lt;p&gt;The utility from the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;h3 id=&#34;open-the-port&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300 8888 9394
+hitting tcp 192.168.1.9:1300
+hitting tcp 192.168.1.9:8888
+hitting tcp 192.168.1.9:9394
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; it&amp;rsquo;s possible to combine TCP and UDP port:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 1300:tcp 8888:udp 9394:tcp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;close-the-port&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.11:~$ knock -v 192.168.1.9 9394 8888 1300
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-hping3-nmap&#34;&gt;Using Hping3 / Nmap&lt;/h2&gt;
+
+&lt;p&gt;The following comes handy for any remote system to makes port-hits without install the &lt;code&gt;knockd&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-S: set SYN tcp flag
+-p: port
+-c: count, stop after sending (and receiving) count response packets
+hping3 -S -p $ARG -c 1 $HOST
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A simple shell script &lt;code&gt;port-knocking.sh&lt;/code&gt; to knocks target host &lt;code&gt;$HOST&lt;/code&gt; of &lt;code&gt;$@&lt;/code&gt; (list of sequences) iteratively.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;#!/bin/sh
+HOST=$1
+shift
+for ARG in &amp;quot;$@&amp;quot;
+do
+    hping3 -S -p $ARG -c 1 $HOST
+    #nmap -Pn --host-timeout 100 --max-retries 0 -p $ARG $HOST
+done
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;open-the-port-1&#34;&gt;Open the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Initial state - 192.168.1.9 port 22/tcp closed:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-01.png&#34; alt=&#34;port-knocking-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Connection timed out:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-02.png&#34; alt=&#34;port-knocking-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Knocks and opens 192.168.1.9:22 with SYN tcpflag and port 1300, 8888, 9394 sequence:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-03.png&#34; alt=&#34;port-knocking-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Connects to the host:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-05.png&#34; alt=&#34;port-knocking-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 1
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 2
+[2016-09-03 18:20] 192.168.1.11: openSSH: Stage 3
+[2016-09-03 18:20] 192.168.1.11: openSSH: OPEN SESAME
+[2016-09-03 18:20] openSSH: running command: /sbin/iptables -A INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;close-the-port-1&#34;&gt;Close the port&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Runs the &lt;code&gt;port-knocking.sh&lt;/code&gt; script and pass the close port sequence 9394, 8888, 1300:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/port-knocking-04.png&#34; alt=&#34;port-knocking-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;code&gt;/var/log/knockd.log&lt;/code&gt; entries:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;...
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 1
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 2
+[2016-09-03 19:37] 192.168.1.11: closeSSH: Stage 3
+[2016-09-03 19:37] 192.168.1.11: closeSSH: OPEN SESAME
+[2016-09-03 19:37] closeSSH: running command: /sbin/iptables -D INPUT -s 192.168.1.11 -p tcp --dport 22 -j ACCEPT
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;alternative&#34;&gt;Alternative&lt;/h1&gt;
+
+&lt;p&gt;There are a lot of existing implementations available to support various platforms [1].
+For instance, a more advanced &lt;code&gt;fwknop&lt;/code&gt; [2] which implements an authorization scheme known as Single Packet Authorization (SPA) for strong service concealment.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] &lt;a href=&#34;http://www.portknocking.org/view/implementations&#34;&gt;http://www.portknocking.org/view/implementations&lt;/a&gt; &lt;br&gt;
+[2] &lt;a href=&#34;https://github.com/mrash/fwknop&#34;&gt;https://github.com/mrash/fwknop&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ngrep: quick peek at http traffic</title>
+      <link>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</link>
+      <pubDate>Sat, 16 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</guid>
+      <description>
+
+&lt;h3 id=&#34;quick-peek&#34;&gt;Quick peek:&lt;/h3&gt;
+
+&lt;p&gt;Monitor activities on device &lt;code&gt;eth0 port 80&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-W byline&lt;/code&gt;: linefeeds (LF) are printed as linefeeds, more readable.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;-qt&lt;/code&gt;: quiet mode and print human-readable timestamp.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -W byline -qt port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;sorts-out-unique-user-agent-devices&#34;&gt;Sorts out unique User-Agent (devices):&lt;/h3&gt;
+
+&lt;p&gt;In corporate environment, desktop/laptop OS build is often standardized. However, with the BYOD initiative, the network has becomes even more vulnerable. To quickly identify the type of devices on the network, we could do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ngrep -qt -W single -d eth0 -P~ &#39;User-Agent:&#39; &#39;port 80&#39; &amp;gt; http-user-agent.txt
+$ sed &#39;s/.*User-Agent/User-Agent/&#39; http-user-agent.txt | sed &#39;s/~.*//&#39; | sed &#39;/^$/d&#39; &amp;gt; user-agents.txt
+$ cat user-agents.txt | sort | uniq -c | sort -rn
+  28 User-Agent: Chrome 20.0.1092.0 (Win 7)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6
+   7 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36
+   5 User-Agent: Chrome 15.0.874.120 (Vista)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2
+   4 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or use &lt;code&gt;tshark&lt;/code&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo tshark -i eth0 -f &amp;quot;port 80&amp;quot; -Y &amp;quot;http contains \&amp;quot;User-Agent:\&amp;quot;&amp;quot; -Tfields -e http.user_agent &amp;gt; user-agents.txt
+$ cat user-agents.txt | sort | uniq -c | sort -rn
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;monitor-the-occurrence-of-the-keywords&#34;&gt;Monitor the occurrence of the keywords:&lt;/h3&gt;
+
+&lt;p&gt;Capture network traffic matches tcp port 80 (HTTP) on GET/POST methods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -q -i &amp;quot;^GET |^POST &amp;quot; tcp and port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Monitor the occurrence of the words &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;pass&lt;/code&gt;, case insensitive:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -wi &#39;user | pass&#39; port 80
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Read from a pcap file, search for &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt; requests:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -I capture.pcap | grep &#39;GET\|POST&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;ip-address&#34;&gt;IP address:&lt;/h3&gt;
+
+&lt;p&gt;Matches all headers containing pattern string &amp;lsquo;HTTP&amp;rsquo; sent to/from ip address starting with 172.16&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -I capture.pcap &#39;HTTP&#39; &#39;host 172.16&#39; | grep &#39;GET\|POST&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ngrep-quick-peek-at-http-traffic-01.png&#34; alt=&#34;ngrep-quick-peek-at-http-traffic-01&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;dns&#34;&gt;DNS:&lt;/h3&gt;
+
+&lt;p&gt;Capture incoming/outgoing to/from eth0 matches DNS queries/responses&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -d eth0 udp and port 53
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Encrypting DNS traffic</title>
+      <link>https://tzyluen.github.io/post/encrypting-dns-traffic/</link>
+      <pubDate>Sat, 19 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/encrypting-dns-traffic/</guid>
+      <description>
+
+&lt;h1 id=&#34;dnscrypt&#34;&gt;DNSCrypt&lt;/h1&gt;
+
+&lt;p&gt;can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.&lt;/p&gt;
+
+&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# apt-get install dnscrypt-proxy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;select-a-resolver&#34;&gt;Select a resolver&lt;/h2&gt;
+
+&lt;p&gt;Note: An up-to-date dnscrypt-resolvers.csv is also available from &lt;a href=&#34;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&#34;&gt;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Select a resolver from &lt;code&gt;/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Filter and print the list of resolvers from the dnscrypt-resolvers.csv&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;{print $1 &amp;quot;|&amp;quot; $4 &amp;quot;|&amp;quot; $12}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Get a distinct list by country:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;!($4 in arr){print $4} {arr[$4]++}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Pick a reliable server such as:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;fvz-anyone (by OpenNIC)&lt;/li&gt;
+&lt;li&gt;fvz-anyone-ipv6&lt;/li&gt;
+&lt;li&gt;adguard-dns-family-ns1 (Adguard DNS with safesearch and adult content blocking)&lt;/li&gt;
+&lt;li&gt;adguard-dns-ns1 (Remove ads and protect your computer from malware)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Update the dnscrypt-proxy.conf with the target resolver:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ vim /etc/dnscrypt-proxy/dnscrypt-proxy.conf
+...
+ResolverName fvz-anyone
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;modify-resolv-conf&#34;&gt;Modify resolv.conf&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Modify the resolv.conf file and replace the current resolver addresses with address that the dnscrypt-proxy daemon listening on, as defined in the following files:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/etc/dnscrypt-proxy/dnscrypt-proxy.conf
+/etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;resolv.conf:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nameserver 127.0.2.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;start-systemd-service&#34;&gt;Start systemd service&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo systemctl start dnscrypt-proxy
+$ sudo systemctl status dnscrypt-proxy
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;verify-the-dns-traffic-is-encrypted&#34;&gt;Verify the DNS traffic is encrypted&lt;/h2&gt;
+
+&lt;p&gt;Use wireshark and set the capture filter as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host 192.168.1.9 and not broadcast
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And set the display filter as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip.addr == 185.121.177.177
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note: fvz-anyone resolver ip address is 185.121.177.177&lt;/p&gt;
+
+&lt;p&gt;The encrypted DNS traffic will appear as malformed packet (in red) and was mistakenly identified as QUIC protocol during the test:
+&lt;img src=&#34;https://tzyluen.github.io/img/dnscrypt-encrypted-traffic-wireshark-01.png&#34; alt=&#34;dnscrypt-encrypted-traffic-wireshark-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>DNS resolution benchmark</title>
+      <link>https://tzyluen.github.io/post/dns-resolution-benchmark/</link>
+      <pubDate>Sat, 12 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/dns-resolution-benchmark/</guid>
+      <description>
+
+&lt;h1 id=&#34;dig-grep&#34;&gt;dig &amp;amp; grep&lt;/h1&gt;
+
+&lt;p&gt;A straightforward way is by using the &lt;code&gt;dig&lt;/code&gt; util from the &lt;code&gt;dnsutils&lt;/code&gt; package and grep the results. This works well for quick debug on-the-go:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# apt-get install dnsutils
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ dig @202.188.0.132 archive.org | grep &amp;quot;Query time:&amp;quot;
+;; Query time: 356 msec
+
+$ dig @8.8.8.8 archive.org | grep &amp;quot;Query time:&amp;quot;
+;; Query time: 48 msec
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;202.188.0.132&lt;/code&gt; is ISP TMnet&amp;rsquo;s name server, and &lt;code&gt;8.8.8.8&lt;/code&gt; is from Google public name server.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;namebench&#34;&gt;namebench&lt;/h1&gt;
+
+&lt;p&gt;is a DNS benchmark utility allows user to search for the fastest DNS servers available. It combines data from web browser history, tcpdump output, and standardized datasets to make recommendation.  It comes with console and GUI mode. To tweak the benchmark settings, edit the file &lt;code&gt;/etc/namebench/namebench.cfg&lt;/code&gt;. For example, to limit the name servers to test by opting the &amp;lsquo;&lt;code&gt;include global DNS providers&lt;/code&gt;&amp;rsquo; only, add the desired name servers into the &lt;code&gt;[global]&lt;/code&gt; section, and excludes the &amp;lsquo;&lt;code&gt;include regional DNS services&lt;/code&gt;&amp;rsquo; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[global]
+...
+51 58.6.115.42=OpenNIC
+52 58.6.115.43=OpenNIC_2
+53 72.14.189.120=OpenNIC_3
+54 195.46.39.39=SafeDNS
+55 195.46.39.40=SafeDNS_2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To run in &lt;strong&gt;console mode&lt;/strong&gt;, pass additional parameters i.e.,:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-r RUN_COUNT, --runs=RUN_COUNT: Number of test runs to perform on each nameserver.
+-z CONFIG, --config=CONFIG: Config file to use.
+-x, --no_gui: Disable GUI
+-i INPUT_SOURCE, --input=INPUT_SOURCE: Import hostnames from an filename or application (alexa...
+-t TEMPLATE, --template=TEMPLATE: ascii, html...
+
+$ namebench -z /etc/namebench/namebench.cfg -x -i alexa -t ascii
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The benchmark result report in &lt;code&gt;ascii&lt;/code&gt; format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Fastest individual response (in milliseconds):
+----------------------------------------------
+Google Public DN #### 18.82386
+SYS-192.168.1.1  ##### 22.26114
+OpenDNS-2        ###### 27.55594
+OpenDNS          ###### 27.99487
+UltraDNS         ########### 57.75499
+UltraDNS-2       #################################### 191.39409
+DynGuide         ##################################### 196.90704
+SafeDNS_2        ##################################################### 285.64906
+
+Mean response (in milliseconds):
+--------------------------------
+SYS-192.168.1.1  ########### 96.45
+OpenDNS          ############## 121.70
+Google Public DN ############## 123.50
+OpenDNS-2        ############### 130.10
+UltraDNS         ############################# 250.59
+DynGuide         #################################### 319.88
+UltraDNS-2       ######################################## 348.53
+SafeDNS_2        ##################################################### 473.00
+.
+. &amp;lt;snipped&amp;gt;
+.
+Recommended configuration (fastest + nearest):
+----------------------------------------------
+nameserver 192.168.1.1     # SYS-192.168.1.1  
+nameserver 8.8.4.4         # Google Public DNS-2  
+nameserver 208.67.222.222  # OpenDNS-2  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For &lt;strong&gt;GUI mode&lt;/strong&gt;, simply invoke the program and select the desired options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ namebench
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The GUI mode will generate a report in HTML format and plot a set of comprehensive charts to depict the performance of each tested DNS server.&lt;/p&gt;
+
+&lt;p&gt;The following shows the overall result and it recommends:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart05-recommendation.png&#34; alt=&#34;dns-benchmark-namebench-chart01-mean-response-duration&#34; style=&#34;width: 700px;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Mean Response Duration:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart01-mean-response-duration.png&#34; alt=&#34;dns-benchmark-namebench-chart01-mean-response-duration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Fastest Invidual Response Duration:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart02-fastest-individual-response-duration.png&#34; alt=&#34;dns-benchmark-namebench-chart02-fastest-individual-response-duration&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Response Distribution (first 200ms):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart03-response-distribution-chart-first200ms.png&#34; alt=&#34;dns-benchmark-namebench-chart03-response-distribution-chart-first200ms&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Response Distribution (full):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart04-response-distribution-chart-full.png&#34; alt=&#34;dns-benchmark-namebench-chart04-response-distribution-chart-full&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Killing TCP connections</title>
+      <link>https://tzyluen.github.io/post/killing-tcp-connections/</link>
+      <pubDate>Sat, 05 Mar 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/killing-tcp-connections/</guid>
+      <description>
+
+&lt;h1 id=&#34;tcpkill&#34;&gt;Tcpkill&lt;/h1&gt;
+
+&lt;p&gt;enables priviledged user to kill TCP connections, it uses the tcpdump expression. It&amp;rsquo;s part of the &lt;strong&gt;dsniff&lt;/strong&gt; package. The default degree of brute force to use in killing a connection is 3, fast connections may require a higher number in order to land a RST in the moving receive window.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tcpkill [-i interface] [-1...9] expression
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For example, to kill the established and also to prevent any connections from 192.168.1.7 (client) to 192.168.1.9 (server) on port 22, use the following parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ sudo /usr/sbin/tcpkill -i enp0s3 src 192.168.1.7 and dst port 22
+tcpkill: listening on enp0s3 [src 192.168.1.7 and dst port 22] 
+192.168.1.7:57502 &amp;gt; 192.168.1.9:22: R 462778052:462778052(0) win 0
+192.168.1.7:57502 &amp;gt; 192.168.1.9:22: R 462782148:462782148(0) win 0
+192.168.1.7:57502 &amp;gt; 192.168.1.9:22: R 462790340:462790340(0) win 0
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On the receiving end 192.168.1.7 (client), connection is killed and new connection is denied:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ wpacket_write_wait: Connection to 192.168.1.9: Broken pipe
+192.168.1.7:~$ 
+192.168.1.7:~$ ssh tzy@192.168.1.9
+192.168.1.9&#39;s password: 
+ssh_dispatch_run_fatal: Connection to 192.168.1.9: Broken pipe
+192.168.1.7:~$ 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;gdb&#34;&gt;GDB&lt;/h1&gt;
+
+&lt;p&gt;If only the socket required to close but the process must keep alive, we could attach the process under a debugger and close the FD (file descriptor).&lt;/p&gt;
+
+&lt;p&gt;To illustrate, open a simple client (192.168.1.7) and server (192.168.1.9) TCP connection:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ ncat -v -l -p 9999
+Ncat: Version 7.40 ( https://nmap.org/ncat )
+Ncat: Listening on :::9999
+Ncat: Listening on 0.0.0.0:9999
+Ncat: Connection from 192.168.1.7.
+Ncat: Connection from 192.168.1.7:65253.
+hello world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.7:~$ nc 192.168.1.9 9999
+hello world
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ netstat -ptuW
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+Active Internet connections (w/o servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
+tcp        0      0 192.168.1.9:9999        192.168.1.7:65253       ESTABLISHED 4050/ncat           
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Locate and identify the target socket&amp;rsquo;s file, &lt;code&gt;$pid&lt;/code&gt;, i.e., &lt;code&gt;4050&lt;/code&gt; and also the &lt;code&gt;FD&lt;/code&gt;, i.e., &lt;code&gt;5u&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ lsof -np $pid 
+COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
+ncat    4050  tzy    5u  IPv4  31028      0t0    TCP 192.168.1.9:9999-&amp;gt;192.168.1.7:65253 (ESTABLISHED)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then attach the process to gdb, close the socket with the &lt;code&gt;FD&lt;/code&gt; identifier and detach the debugger with quit:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;192.168.1.9:~$ gdb -p $pid
+...
+(gdb) call close(5u)
+$1 = 0
+(gdb) quit
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

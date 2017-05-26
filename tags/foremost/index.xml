@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Foremost on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/foremost/index.xml</link>
+    <description>Recent content in Foremost on Technical Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
+    <atom:link href="https://tzyluen.github.io/tags/foremost/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Extract files from captured network traffic pcap (1)</title>
+      <link>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-1/</link>
+      <pubDate>Sat, 02 Apr 2016 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-1/</guid>
+      <description>
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;The process is mostly the same in network packets data-carving:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Gain access and collect the raw bytes&lt;/li&gt;
+&lt;li&gt;Strip the protocol information&lt;/li&gt;
+&lt;li&gt;Extract and write the data to file&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The difference of these tools are the capability i.e., supported protocols and file formats.&lt;/p&gt;
+
+&lt;h1 id=&#34;wireshark&#34;&gt;Wireshark&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;HTTP objects/files:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Navigate to &lt;code&gt;File&lt;/code&gt; &amp;rarr; &lt;code&gt;Export Objects&lt;/code&gt; and select the type, currently it supports four protocols:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-01.png&#34; alt=&#34;extracting-files-wireshark-export-http-object-list-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then select the target filename followed by &lt;code&gt;Save&lt;/code&gt; or simply &lt;code&gt;Save All&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-02.png&#34; alt=&#34;extracting-files-wireshark-export-http-object-list-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;List of exported objects and the respective file types:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-03.png&#34; alt=&#34;extracting-files-wireshark-export-http-object-list-03&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Alternatively, the &lt;code&gt;Follow&lt;/code&gt; &amp;rarr; &lt;code&gt;TCP Stream&lt;/code&gt; can also be used to extract raw files from the stream:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-01.png&#34; alt=&#34;extracting-files-wireshark-follow-tcp-stream-01&#34; /&gt;
+&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-02.png&#34; alt=&#34;extracting-files-wireshark-follow-tcp-stream-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Binary files:&lt;/strong&gt;
+In real world scenario, malware often spread through http protocol, thus we could search the common strings used by malware such as &lt;code&gt;GetProcAddress&lt;/code&gt;, &lt;code&gt;ExitProcess&lt;/code&gt; and etc. (statistically reported in paper by Gong et al. [1]).&lt;/p&gt;
+
+&lt;p&gt;Use the display filter &lt;code&gt;http contains &amp;quot;GetProcAddress&amp;quot;&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-01.png&#34; alt=&#34;extracting-files-wireshark-binary-files-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are multiple ways to export the packets (binary file):&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Export Objects &amp;rarr; HTTP, and select the file from the list:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-03.png&#34; alt=&#34;extracting-files-wireshark-binary-files-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Export Packet Bytes:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-05.png&#34; alt=&#34;extracting-files-wireshark-binary-files-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Once the binary is obtained, we could use hex editor to view the binary file, and locate the matching strings:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ xxd mal.bin |less
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-02.png&#34; alt=&#34;extracting-files-wireshark-binary-files-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;MD5 checksum:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-04.png&#34; alt=&#34;extracting-files-wireshark-binary-files-04&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;tcpflow-foremost&#34;&gt;Tcpflow &amp;amp; Foremost&lt;/h1&gt;
+
+&lt;p&gt;Assuming the pcap file &lt;code&gt;192.168.1.0.pcap&lt;/code&gt; contains the packets captured from the &lt;code&gt;192.168.1.0/24&lt;/code&gt; network, we could use &lt;code&gt;tcpflow&lt;/code&gt; to export the data streams into individual files by ip-addresses:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-foremost-01.png&#34; alt=&#34;extracting-files-wireshark-foremost-01&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Tcpflow&lt;/code&gt; only handles the direction of the data streams, and if the target binary files were not split into individual files by &lt;code&gt;tcpflow&lt;/code&gt;, we could use foremost to complement the processes:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; add the following line to &lt;code&gt;/etc/foremost.conf&lt;/code&gt; to add Mach-O binary file format&amp;rsquo;s signature.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;bin    n    4096000    \xCF\xFA\xED\xFE\x07\x00
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;where,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[filetype]  [case-sensitivity]  [upper-limit-for-size]  [signature header]  [footer]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Concatenate the data files generated by tcpflow into a single file:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-foremost-02.png&#34; alt=&#34;extracting-files-wireshark-foremost-02&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Parse the file with &lt;code&gt;Foremost&lt;/code&gt;, followed by validation with md5sum which yielded identical result to previous value of &lt;code&gt;mal.bin&lt;/code&gt; file shown above in &lt;code&gt;192.168.1.7&lt;/code&gt;:
+&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-wireshark-foremost-03.png&#34; alt=&#34;extracting-files-wireshark-foremost-03&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; &lt;code&gt;tcpflow&lt;/code&gt; only support TCP packets, it doesn not handle UDP packets. To separate the packets not processed by &lt;code&gt;tcpflow&lt;/code&gt;, use the &lt;code&gt;-w&lt;/code&gt; option:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt; -w filename.pcap
+    Write packets that were not processed to filename.pcap. Typically this will be UDP packets.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] Gong, M., Girkar, U., &amp;amp; Xie, B. Classifying Windows Malware with Static Analysis. &lt;br&gt;
+[2] &lt;a href=&#34;https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562&#34;&gt;https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562&lt;/a&gt; &lt;br&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
