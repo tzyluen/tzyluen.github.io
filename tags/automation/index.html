@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.18.1" />
 
-  <title>Nmap &middot; Technical Notes</title>
+  <title>Automation &middot; Technical Notes</title>
 
   
   
@@ -49,7 +49,7 @@ ga('send', 'pageview');
 
   
   
-  <link rel="alternate" type="application/rss+xml" title="Technical Notes" href="https://tzyluen.github.io/tags/nmap/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Technical Notes" href="https://tzyluen.github.io/tags/automation/index.xml" />
   
 
   
@@ -111,7 +111,7 @@ ga('send', 'pageview');
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://tzyluen.github.io/tags/nmap/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href="https://tzyluen.github.io/tags/automation/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
     </li>
     
 
@@ -204,67 +204,10 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Nmap</h1>
+  <h1>Automation</h1>
 </div>
 
 <div class="content">
-  
-    <article>
-  <header>
-    <h2><a href="https://tzyluen.github.io/post/nmap-top-1000-ports/">Nmap top 1000 ports</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>20 May 2016</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/nmap">nmap</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/port-scanning">port-scanning</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  In the Nmap Network Scanning book, chapter 15, section Port Specification and Scan Order, quote &ldquo;By default, Nmap scans the most common 1,000 ports for each protocol.&rdquo; [1]
-However, the documentation did not mention the list of 1000 ports.
-How to identify and show those ports ?
---top-ports n: the n highest-ratio ports found in nmap-services. n must be 1 or greater -v: verbose level, to print the -oG: grepable output - : output to stdout nmap --top-ports 1000 -v -oG - localhost  Note: refer to /usr/share/nmap/nmap-services file for the service name and protocol.
-  </p>
-
-  
-  <footer>
-    <a href="https://tzyluen.github.io/post/nmap-top-1000-ports/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
   
     <article>
   <header>
@@ -327,13 +270,13 @@ How to identify and show those ports ?
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/scan-the-internet-with-nmap/">Scan the Internet with Nmap</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/">Scanning malicious urls (PhantomJS &#43; Google Safe Browsing API)</a></h2>
 
     <div class="post-meta">
 
   <div>
     <i class="fa fa-calendar fa-fw"></i>
-    <time>15 May 2016</time>
+    <time>11 Nov 2015</time>
   </div>
 
   
@@ -349,17 +292,21 @@ How to identify and show those ports ?
   <div>
     <i class="fa fa-tags fa-fw"></i>
     
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/web">web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/js">js</a>&nbsp;&#47;
+    
       <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/malware">malware</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/port-scanning">port-scanning</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/google">google</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/vulnerability-scanner">vulnerability-scanner</a>&nbsp;&#47;
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/api">api</a>&nbsp;&#47;
     
       <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/nmap">nmap</a>
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/automation">automation</a>
     
   </div>
   
@@ -370,70 +317,13 @@ How to identify and show those ports ?
   </header>
 
   <p>
-  Scan A Network/Subnet Host Discovery HOST DISCOVERY: -sL: List Scan - simply list targets to scan, without sending any packets to the target hosts, useful to generate list of target hosts and dns resolution. -sn: Ping Scan - disable port scan. -Pn: Treat all hosts as online -- skip host discovery. -PS/PA/PU/PY[portlist]: TCP SYN/ACK, UDP or SCTP discovery to given ports. -PE/PP/PM: ICMP echo, timestamp, and netmask request discovery probes.
+  My examples are in JS, on PhantomJS headless browser, it could be easily adapted to other languages. The script traverses a webpage and harvests all the URLs therein to check for malware/malicious sites through the Google Safe Browsing API.
+192.168.1.9:~$ phantomjs chk-malinks.js http://some.malware.site 1: hshd.io 2: sourceforge.net 3: popup.taboola.com 4: www.geeksvip.com 5: my.hear.com ... 159: nba1001.net 160: www.pressroomvip.com 161: tracking.lifestylejournal.com 162: dsct2.com 163: www.historynut.com 164: www.buro247.my gsafe response json:{ &quot;matches&quot;: [ { &quot;threatType&quot;: &quot;MALWARE&quot;, &quot;platformType&quot;: &quot;ANY_PLATFORM&quot;, &quot;threat&quot;: { &quot;url&quot;: &quot;nba1001.
   </p>
 
   
   <footer>
-    <a href="https://tzyluen.github.io/post/scan-the-internet-with-nmap/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Traceroute, Firewalls &amp; Geo-IP</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>24 Jan 2016</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/hping3">hping3</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/nmap">nmap</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/traceroute">traceroute</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/geo-ip">geo-ip</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Traceroute Traceroute is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with ping. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.
-  </p>
-
-  
-  <footer>
-    <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+    <a href="https://tzyluen.github.io/post/scanning-malicious-urls-phantomjs-google-safe-browsing-api/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

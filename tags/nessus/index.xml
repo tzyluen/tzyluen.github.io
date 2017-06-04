@@ -10,42 +10,46 @@
     <atom:link href="https://tzyluen.github.io/tags/nessus/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Scan a network for vulnerability with Nessus</title>
-      <link>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</link>
+      <title>Scan a network for vulnerabilities with Nessus</title>
+      <link>https://tzyluen.github.io/post/scan-a-network-for-vulnerabilities-with-nessus/</link>
       <pubDate>Fri, 31 Mar 2017 00:00:00 +0800</pubDate>
       
-      <guid>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</guid>
+      <guid>https://tzyluen.github.io/post/scan-a-network-for-vulnerabilities-with-nessus/</guid>
       <description>
 
 &lt;h1 id=&#34;scan-a-network&#34;&gt;Scan a network&lt;/h1&gt;
 
 &lt;p&gt;Target: 192.168.1.0/24&lt;/p&gt;
 
-&lt;p&gt;Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work.&lt;/p&gt;
+&lt;p&gt;Nessus provides a set of ready-to-use templates. For general scans, the &lt;strong&gt;(1) Advanced Scan&lt;/strong&gt; and &lt;strong&gt;(2) Basic Network Scan would work&lt;/strong&gt;. The differences are the Advanced Scan supports the &lt;em&gt;Compliance&lt;/em&gt; and &lt;em&gt;Plugins&lt;/em&gt; which can be used to fine-tune the compliance checks (credentials are required) and Plugins.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-01&#34; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;advanced-scans&#34;&gt;Advanced Scans&lt;/h2&gt;
 
 &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Advanced Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt;, and &lt;code&gt;targets&lt;/code&gt;.&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Advanced Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt;, and &lt;code&gt;targets&lt;/code&gt;. The &lt;code&gt;Schedule&lt;/code&gt; and &lt;code&gt;Notifications&lt;/code&gt; options enable the scan to be performed at certain time and email the results to a list of recipients automatically.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Configure the rest of the settings:&lt;/p&gt;
+&lt;li&gt;&lt;p&gt;Tune the rest of the settings:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-03&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
 
-&lt;li&gt;&lt;p&gt;Once all is set, save and simply launch the scan.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Once all is set, save. The scan job will be listed in &lt;code&gt;My Scans&lt;/code&gt; folder.&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&#34;basic-network-scans&#34;&gt;Basic network scans&lt;/h2&gt;
+&lt;h2 id=&#34;basic-network-scans&#34;&gt;Basic Network Scans&lt;/h2&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;Navigates to &lt;code&gt;Scans&lt;/code&gt; &amp;rarr; &lt;code&gt;New Scan&lt;/code&gt; &amp;rarr; &lt;code&gt;Basic Network Scan&lt;/code&gt;, insert the &lt;code&gt;name&lt;/code&gt;, &lt;code&gt;description&lt;/code&gt; and &lt;code&gt;targets&lt;/code&gt;, then save.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-04&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
 
+&lt;h2 id=&#34;launch-a-scan&#34;&gt;Launch A Scan&lt;/h2&gt;
+
+&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;From the &lt;code&gt;My Scans&lt;/code&gt; folder, select a task from the list to launch the scan.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png&#34; alt=&#34;scan-a-network-for-vulnerability-with-nessus-05&#34; /&gt;&lt;/p&gt;&lt;/li&gt;

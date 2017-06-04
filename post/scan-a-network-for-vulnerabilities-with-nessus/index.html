@@ -7,7 +7,7 @@
   <meta name="description" content="">
   <meta name="generator" content="Hugo 0.18.1" />
 
-  <title>Scan a network for vulnerability with Nessus &middot; Technical Notes</title>
+  <title>Scan a network for vulnerabilities with Nessus &middot; Technical Notes</title>
 
   
   
@@ -198,7 +198,7 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Scan a network for vulnerability with Nessus</h1>
+  <h1>Scan a network for vulnerabilities with Nessus</h1>
   <h2></h2>
 </div>
 
@@ -251,7 +251,8 @@ ga('send', 'pageview');
 <li><a href="#scan-a-network">Scan a network</a>
 <ul>
 <li><a href="#advanced-scans">Advanced Scans</a></li>
-<li><a href="#basic-network-scans">Basic network scans</a></li>
+<li><a href="#basic-network-scans">Basic Network Scans</a></li>
+<li><a href="#launch-a-scan">Launch A Scan</a></li>
 </ul></li>
 <li><a href="#results">Results</a>
 <ul>
@@ -273,31 +274,35 @@ ga('send', 'pageview');
 
 <p>Target: 192.168.1.0/24</p>
 
-<p>Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work.</p>
+<p>Nessus provides a set of ready-to-use templates. For general scans, the <strong>(1) Advanced Scan</strong> and <strong>(2) Basic Network Scan would work</strong>. The differences are the Advanced Scan supports the <em>Compliance</em> and <em>Plugins</em> which can be used to fine-tune the compliance checks (credentials are required) and Plugins.</p>
 
 <p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png" alt="scan-a-network-for-vulnerability-with-nessus-01" /></p>
 
 <h2 id="advanced-scans">Advanced Scans</h2>
 
 <ol>
-<li><p>Navigates to <code>Scans</code> &rarr; <code>New Scan</code> &rarr; <code>Advanced Scan</code>, insert the <code>name</code>, <code>description</code>, and <code>targets</code>.</p>
+<li><p>Navigates to <code>Scans</code> &rarr; <code>New Scan</code> &rarr; <code>Advanced Scan</code>, insert the <code>name</code>, <code>description</code>, and <code>targets</code>. The <code>Schedule</code> and <code>Notifications</code> options enable the scan to be performed at certain time and email the results to a list of recipients automatically.</p>
 
 <p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png" alt="scan-a-network-for-vulnerability-with-nessus-02" /></p></li>
 
-<li><p>Configure the rest of the settings:</p>
+<li><p>Tune the rest of the settings:</p>
 
 <p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png" alt="scan-a-network-for-vulnerability-with-nessus-03" /></p></li>
 
-<li><p>Once all is set, save and simply launch the scan.</p></li>
+<li><p>Once all is set, save. The scan job will be listed in <code>My Scans</code> folder.</p></li>
 </ol>
 
-<h2 id="basic-network-scans">Basic network scans</h2>
+<h2 id="basic-network-scans">Basic Network Scans</h2>
 
 <ol>
 <li><p>Navigates to <code>Scans</code> &rarr; <code>New Scan</code> &rarr; <code>Basic Network Scan</code>, insert the <code>name</code>, <code>description</code> and <code>targets</code>, then save.</p>
 
 <p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png" alt="scan-a-network-for-vulnerability-with-nessus-04" /></p></li>
+</ol>
 
+<h2 id="launch-a-scan">Launch A Scan</h2>
+
+<ol>
 <li><p>From the <code>My Scans</code> folder, select a task from the list to launch the scan.</p>
 
 <p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png" alt="scan-a-network-for-vulnerability-with-nessus-05" /></p></li>

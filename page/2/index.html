@@ -212,6 +212,178 @@ ga('send', 'pageview');
   
     <article>
   <header>
+    <h2><a href="https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-2/">Extract files from captured network traffic pcap (2)</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>09 Apr 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/packet-analysis">packet-analysis</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/data-carving">data-carving</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/tcpxtract">tcpxtract</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/tcpextract">tcpextract</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Tcpxtract  Supports 26 file formats, extensible (/etc/tcpxtract.conf), however it requires the clear start and end markers. Supports only TCP packets, no UDP.  Live capture from an interface and extract:
+$ mkdir -p /tmp/enp0s3-tcpxtract-output $ sudo tcpxtract -d enp0s3 -o /tmp/enp0s3-tcpxtract-output  Extract from pcap file:
+Tcpextract  Similar to both tcpflow and tcpxtract, it extracts all files it recognized from a pcap file or interface. Extracts files with their original names, instead of the index names i.
+  </p>
+
+  
+  <footer>
+    <a href="https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-2/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-1/">Extract files from captured network traffic pcap (1)</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>02 Apr 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/packet-analysis">packet-analysis</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/data-carving">data-carving</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/wireshark">wireshark</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/tcpflow">tcpflow</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/foremost">foremost</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Introduction The process is mostly the same in network packets data-carving:
+ Gain access and collect the raw bytes Strip the protocol information Extract and write the data to file  The difference of these tools are the capability i.e., supported protocols and file formats.
+Wireshark HTTP objects/files:
+Navigate to File &rarr; Export Objects and select the type, currently it supports four protocols:
+Then select the target filename followed by Save or simply Save All:
+  </p>
+
+  
+  <footer>
+    <a href="https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-1/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the default column display</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>26 Mar 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/wireshark">wireshark</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: No (Packet number), Time, Source, Destination, Protocol, Length, and Info.
+Changing the column display To change the default column display, navigate to Preferences :
+From the Preferences, expands Appearance and select Columns, then add the new desired column e.g., Src port of type Src port (unresolved):
+  </p>
+
+  
+  <footer>
+    <a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://tzyluen.github.io/post/encrypting-dns-traffic/">Encrypting DNS traffic</a></h2>
 
     <div class="post-meta">
@@ -604,174 +776,6 @@ $ sudo apt-get install mtr  To debug remotely over ssh where no GUI is available
   
   <footer>
     <a href="https://tzyluen.github.io/post/dynamic-traceroute/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://tzyluen.github.io/post/reading-traceroute/">Reading Traceroute</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>29 Jan 2016</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/traceroute">traceroute</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  This post extends the discussion on traceroute in previous post Traceroute, Firewalls &amp; Geo-IP, and focused on intepreting the traceroute report.
-Output format explanation: v--- the router/ip-addr traversed by the packet [Hop] [Hostname/(IP-addr)] [RTT1] [RTT2] [RTT3] ^--- transit no. of the route ^---- round-trip time  The round-trip time (RTT) is the latency (delay between sending the packet and getting the response).
-By default, traceroute sends 3 packets per TTL increment.
-  </p>
-
-  
-  <footer>
-    <a href="https://tzyluen.github.io/post/reading-traceroute/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Traceroute, Firewalls &amp; Geo-IP</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>24 Jan 2016</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/hping3">hping3</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/nmap">nmap</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/traceroute">traceroute</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/geo-ip">geo-ip</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Traceroute Traceroute is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with ping. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.
-  </p>
-
-  
-  <footer>
-    <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
-  </footer>
-  
-</article>
-
-  
-    <article>
-  <header>
-    <h2><a href="https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/">Tools for scanning malicious urls and websites</a></h2>
-
-    <div class="post-meta">
-
-  <div>
-    <i class="fa fa-calendar fa-fw"></i>
-    <time>06 Dec 2015</time>
-  </div>
-
-  
-
-  
-  
-  
-  
-
-  
-  
-  
-  <div>
-    <i class="fa fa-tags fa-fw"></i>
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/web">web</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/malware">malware</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/virustotal">virustotal</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
-    
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/remnux">remnux</a>
-    
-  </div>
-  
-  
-
-</div>
-
-  </header>
-
-  <p>
-  Online and Web-based  https://www.virustotal.com: by VirusTotal, a subsidiary of Google https://exchange.xforce.ibmcloud.com: by IBM http://safeweb.norton.com: by Norton, Symantec http://www.avgthreatlabs.com/ww-en/website-safety-reports: by AVG ThreatLabs https://cymon.io: by https://eSentire.com http://www.reputationauthority.org: by WatchGuard Technologies http://isitphishing.org: by https://vadesecure.com  Text-mode based Utility VirusTotalApi $ git clone https://github.com/doomedraven/VirusTotalApi.git  It is an utility to search on VirusTotal databases [1] for malicious URLs and hashes of known malware. It comes pre-installed in REMnux distro [2], a free Linux Toolkit for reverse engineering and analyzing malware.
-  </p>
-
-  
-  <footer>
-    <a href="https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
   </footer>
   
 </article>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://tzyluen.github.io/post/scan-a-network-for-vulnerability-with-nessus/</loc>
+    <loc>https://tzyluen.github.io/post/scan-a-network-for-vulnerabilities-with-nessus/</loc>
     <lastmod>2017-03-31T00:00:00+08:00</lastmod>
   </url>
   
@@ -19,6 +19,21 @@
   <url>
     <loc>https://tzyluen.github.io/post/port-knocking/</loc>
     <lastmod>2016-09-03T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tzyluen.github.io/post/nmap-top-1000-ports/</loc>
+    <lastmod>2016-05-20T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tzyluen.github.io/post/automate-port-scanning-with-nmap-ndiff/</loc>
+    <lastmod>2016-05-18T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://tzyluen.github.io/post/scan-the-internet-with-nmap/</loc>
+    <lastmod>2016-05-15T00:00:00+08:00</lastmod>
   </url>
   
   <url>
@@ -124,6 +139,12 @@
   <url>
     <loc>https://tzyluen.github.io/tags/api/</loc>
     <lastmod>2015-11-11T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://tzyluen.github.io/tags/automation/</loc>
+    <lastmod>2016-05-18T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -291,7 +312,7 @@
   
   <url>
     <loc>https://tzyluen.github.io/tags/nmap/</loc>
-    <lastmod>2016-01-24T00:00:00+08:00</lastmod>
+    <lastmod>2016-05-20T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   

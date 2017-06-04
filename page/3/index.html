@@ -212,6 +212,174 @@ ga('send', 'pageview');
   
     <article>
   <header>
+    <h2><a href="https://tzyluen.github.io/post/reading-traceroute/">Reading Traceroute</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>29 Jan 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/traceroute">traceroute</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  This post extends the discussion on traceroute in previous post Traceroute, Firewalls &amp; Geo-IP, and focused on intepreting the traceroute report.
+Output format explanation: v--- the router/ip-addr traversed by the packet [Hop] [Hostname/(IP-addr)] [RTT1] [RTT2] [RTT3] ^--- transit no. of the route ^---- round-trip time  The round-trip time (RTT) is the latency (delay between sending the packet and getting the response).
+By default, traceroute sends 3 packets per TTL increment.
+  </p>
+
+  
+  <footer>
+    <a href="https://tzyluen.github.io/post/reading-traceroute/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Traceroute, Firewalls &amp; Geo-IP</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>24 Jan 2016</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/networking">networking</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/hping3">hping3</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/nmap">nmap</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/traceroute">traceroute</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/geo-ip">geo-ip</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Traceroute Traceroute is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with ping. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.
+  </p>
+
+  
+  <footer>
+    <a href="https://tzyluen.github.io/post/traceroute-firewalls-geoip/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
+    <h2><a href="https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/">Tools for scanning malicious urls and websites</a></h2>
+
+    <div class="post-meta">
+
+  <div>
+    <i class="fa fa-calendar fa-fw"></i>
+    <time>06 Dec 2015</time>
+  </div>
+
+  
+
+  
+  
+  
+  
+
+  
+  
+  
+  <div>
+    <i class="fa fa-tags fa-fw"></i>
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/infosec">infosec</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/web">web</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/malware">malware</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/virustotal">virustotal</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/remnux">remnux</a>
+    
+  </div>
+  
+  
+
+</div>
+
+  </header>
+
+  <p>
+  Online and Web-based  https://www.virustotal.com: by VirusTotal, a subsidiary of Google https://exchange.xforce.ibmcloud.com: by IBM http://safeweb.norton.com: by Norton, Symantec http://www.avgthreatlabs.com/ww-en/website-safety-reports: by AVG ThreatLabs https://cymon.io: by https://eSentire.com http://www.reputationauthority.org: by WatchGuard Technologies http://isitphishing.org: by https://vadesecure.com  Text-mode based Utility VirusTotalApi $ git clone https://github.com/doomedraven/VirusTotalApi.git  It is an utility to search on VirusTotal databases [1] for malicious URLs and hashes of known malware. It comes pre-installed in REMnux distro [2], a free Linux Toolkit for reverse engineering and analyzing malware.
+  </p>
+
+  
+  <footer>
+    <a href="https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/">Read more<i class="fa fa-angle-double-right fa-fw"></i></a>
+  </footer>
+  
+</article>
+
+  
+    <article>
+  <header>
     <h2><a href="https://tzyluen.github.io/post/privacy-remove-metadata-from-images/">Privacy: remove metadata from images</a></h2>
 
     <div class="post-meta">
@@ -406,7 +574,9 @@ Enabling ufw (uncomplicated firewall) # ufw enable # ufw disable  Check the serv
     
       <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/api">api</a>&nbsp;&#47;
     
-      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/scanning">scanning</a>&nbsp;&#47;
+    
+      <a class="post-taxonomy-tag" href="https://tzyluen.github.io/tags/automation">automation</a>
     
   </div>
   
