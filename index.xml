@@ -292,5 +292,16 @@ $ sudo apt-get install libimage-exiftool-perl To view the exif metadata:</descri
 192.168.1.9:~$ phantomjs chk-malinks.js http://some.malware.site 1: hshd.io 2: sourceforge.net 3: popup.taboola.com 4: www.geeksvip.com 5: my.hear.com ... 159: nba1001.net 160: www.pressroomvip.com 161: tracking.lifestylejournal.com 162: dsct2.com 163: www.historynut.com 164: www.buro247.my gsafe response json:{ &amp;quot;matches&amp;quot;: [ { &amp;quot;threatType&amp;quot;: &amp;quot;MALWARE&amp;quot;, &amp;quot;platformType&amp;quot;: &amp;quot;ANY_PLATFORM&amp;quot;, &amp;quot;threat&amp;quot;: { &amp;quot;url&amp;quot;: &amp;quot;nba1001.</description>
     </item>
     
+    <item>
+      <title>Write Clean and Fast Code</title>
+      <link>https://tzyluen.github.io/write-clean-and-fast-code/</link>
+      <pubDate>Wed, 11 Nov 2015 00:00:00 +0800</pubDate>
+      
+      <guid>https://tzyluen.github.io/write-clean-and-fast-code/</guid>
+      <description>A compilation of quotes from books and literature to avoid the pitfalls in software engineering and design, it helps to become a better software engineer.
+ “  One of my most productive days was throwing away 1,000 lines of code.
+”    ―&amp;nbsp; Ken Thompson, creator of the original Unix operating system      “  Remember that there is no code faster than no code.</description>
+    </item>
+    
   </channel>
 </rss>

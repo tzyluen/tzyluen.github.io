@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Literature from Software Engineering and Design">
+  <meta name="generator" content="Hugo 0.91.2" />
+
+  <title>Write Clean and Fast Code &middot; Technical Notes</title>
+
+    
+
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
+  <!--<![endif]-->
+
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu-old-ie.css">
+  <![endif]-->
+  <!--[if gt IE 8]><!-->
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/side-menu.css">
+  <!--<![endif]-->
+
+  <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
+
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
+
+  
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+ 
+  
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
+  
+
+  <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
+
+  
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+  
+  
+
+</head>
+
+
+<body>
+<div id="layout">
+
+  
+<a href="#menu" id="menuLink" class="menu-link">
+  
+  <span></span>
+</a>
+<div id="menu">
+
+  
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
+
+
+  <div class="pure-menu">
+    <ul class="pure-menu-list">
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/"><i class='fa fa-home fa-fw'></i>Home</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/post/"><i class='fa fa-list fa-fw'></i>Posts</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/write-clean-and-fast-code/"><i class='fa fa-list fa-fw'></i>Literature</a>
+      
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="pure-menu social">
+  <ul class="pure-menu-list">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  </ul>
+</div>
+
+
+  <div>
+  <div class="small-print">
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
+  </div>
+  <div class="small-print">
+    <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
+    
+  </div>
+</div>
+
+</div>
+
+
+  <div id="main">
+
+
+<div class="header">
+  <h2>Write Clean and Fast Code</h2>
+  <h3>Literature from Software Engineering and Design</h3>
+</div>
+<div class="content">
+  <p>A compilation of quotes from books and literature to avoid the pitfalls in software engineering and design, it helps to become a better software engineer.</p>
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">One of my most productive days was throwing away 1,000 lines of code.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Ken Thompson, creator of the original Unix operating system</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">Remember that there is no code faster than no code.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Taligent&#39;s Guide to Designing Programs</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">Coding like poetry should be short and concise.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Santosh Kalwar</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">Without requirements or design, programming is the art of adding bugs to an empty text file.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Louis Srygley</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">The bearing of a child takes nine months, no matter how many women are assigned.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Frederick Brooks, &#34;The Mythical Man-Month: Essays on Software Engineering&#34;, 1975, page 17</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">Adding manpower to a late software project makes it later.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Frederick Brooks, &#34;The Mythical Man-Month: Essays on Software Engineering&#34;, 1975</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">This then is the demythologizing of the man-month. The number of months of a project depends upon its sequential constraints. The maximum number of men depends upon the number of independent subtasks. From these two quantities one can derive schedules using fewer men and more months. (The only risk is product obsolescence.) One cannot, however, get workable schedules using more men and fewer months. More software projects have gone awry for lack of calendar time than for all other causes combined.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Frederick Brooks, &#34;The Mythical Man-Month: Essays on Software Engineering&#34;, 1975, pages 25-26</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">The fundamental problem with program maintenance is that fixing a defect has a substantial (20-50 percent) chance of introducing another. So the whole process is two steps forward and one step back.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Frederick Brooks, &#34;The Mythical Man-Month: Essays on Software Engineering&#34;, 1975</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">Why aren&#39;t defects fixed more cleanly? First, even a subtle defect shows itself as a local failure of some kind. In fact it often has system-wide ramifications, usually nonobvious. Any attempt to fix it with minimum effort will repair the local and obvious, but unless the structure is pure or the documentation very fine, the far-reaching effects of the repair will be overlooked. Second, the repairer is usually not the man who wrote the code, and often he is a junior programmer or trainee.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Frederick Brooks, &#34;The Mythical Man-Month: Essays on Software Engineering&#34;, 1975, page 122</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">Bad programmers worry about the code. Good programmers worry about data structures and their relationships.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Linus Torvalds, on &#34;Re: Licensing and the library version of git&#34;, 2006</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">Everyone knows that debugging is twice as hard as writing a program in the first place. So if you&#39;re as clever as you can be when you write it, how will you ever debug it?</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Brian Kernighan, &#34;The Elements of Programming Style&#34;, 2nd edition, chapter 2</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+
+
+
+<blockquote class="pull-quote">
+  <table role="presentation" style="border-spacing: 0;">
+    <tbody><tr>
+      <td style="vertical-align: top; margin: 0; padding: 0;">
+        <span class="pull-quote__qmarks">“</span>
+      </td>
+      <td style="width: 100%;">
+        <div class="pull-quote__box">
+      
+           
+          
+          <p class="pull-quote__text">The problem with object-oriented languages is they’ve got all this implicit environment that they carry around with them. You wanted a banana but what you got was a gorilla holding the banana and the entire jungle.</p>
+          
+      
+          <span class="pull-quote__qmarks" style="padding-left:2px;vertical-align:top">”</span>
+        </div>
+      </td></tr>
+    <tr>
+      <td colspan="2" style="line-height: 1;">―&nbsp;
+        
+        <cite class="pull-quote__source">Joe Armstrong, creator of the Erlang progamming language</cite>
+        
+      </td>
+    </tr></tbody>
+  </table>
+</blockquote>
+
+
+</div>
+
+</div>
+</div>
+<script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
