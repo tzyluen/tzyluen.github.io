@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
-  <title>Wireshark: Changing the default column display &middot; Technical Notes</title>
+  <title>Wireshark: Changing the Default Column Display &middot; Technical Notes</title>
+
+    
 
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Wireshark: Changing the default column display</h1>
-  <h2></h2>
+  <h2>Wireshark: Changing the Default Column Display</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -237,65 +241,72 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#changing-the-column-display">Changing the column display</a></li>
-<li><a href="#changing-the-time-display-format">Changing the Time Display Format</a></li>
-<li><a href="#adding-http-server-names">Adding HTTP Server Names</a></li>
-<li><a href="#adding-https-server-names">Adding HTTPS Server Names</a></li>
-</ul>
+  <h2 id="background">Background</h2>
+<p>The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: &lsquo;No (Packet number)&rsquo;, &lsquo;Time&rsquo;, &lsquo;Source&rsquo;, &lsquo;Destination&rsquo;, &lsquo;Protocol&rsquo;, &lsquo;Length&rsquo;, and &lsquo;Info&rsquo;.</p>
+
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-01.png" alt="">
+
+<hr>
+<div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#background">Background</a></li>
+    <li><a href="#changing-the-column-display">Changing the column display</a></li>
+    <li><a href="#changing-the-time-display-format">Changing the Time Display Format</a></li>
+    <li><a href="#adding-http-server-names">Adding HTTP Server Names</a></li>
+    <li><a href="#adding-https-server-names">Adding HTTPS Server Names</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
+<hr>
+<h2 id="changing-the-column-display">Changing the column display</h2>
+<ol>
+<li>
+<p>To change the default column display, navigate to &lsquo;Preferences&rsquo;:</p>
 
-<p>The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: <code>No (Packet number)</code>, <code>Time</code>, <code>Source</code>, <code>Destination</code>, <code>Protocol</code>, <code>Length</code>, and <code>Info</code>.</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-02.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-01.png" alt="changing-wireshark-columns-settings-01" /></p>
+<p>From the &lsquo;Preferences&rsquo;, expands &lsquo;Appearance&rsquo; and select &lsquo;Columns&rsquo;, then add the new desired column e.g., &lsquo;Src port&rsquo; of type &lsquo;Src port (unresolved)':</p>
 
-<hr />
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-03.png" alt="">
 
-<h1 id="changing-the-column-display">Changing the column display</h1>
+</li>
+<li>
+<p>The following shows the final column settings, &lsquo;No (Packet number)&rsquo; and &lsquo;Length&rsquo; are removed, &lsquo;Source&rsquo; and &lsquo;Destination&rsquo; addresses changed to &lsquo;unresolved&rsquo; to shows actual ip address. Additionally, two new columns: &lsquo;Src port&rsquo; and &lsquo;Dst port&rsquo; (both &lsquo;unresolved&rsquo;) are added to shows actual port number.</p>
 
-<p>To change the default column display, navigate to <code>Preferences</code> :</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-04.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-02.png" alt="changing-wireshark-columns-settings-02" /></p>
+</li>
+</ol>
+<hr>
+<h2 id="changing-the-time-display-format">Changing the Time Display Format</h2>
+<ol>
+<li>
+<p>The default format is &lsquo;Seconds Since Beginning of Capture&rsquo; which isn&rsquo;t useful if the time of the day is of interest. To change it, navigate to &lsquo;View&rsquo; → &lsquo;Time Display Format&rsquo;, and select  &lsquo;Date and Time of Day&rsquo;:</p>
 
-<p>From the <code>Preferences</code>, expands <code>Appearance</code> and select <code>Columns</code>, then add the new desired column e.g., <code>Src port</code> of type <code>Src port (unresolved)</code>:</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-05.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-03.png" alt="changing-wireshark-columns-settings-03" /></p>
+</li>
+<li>
+<p>Also, change the time precision to &lsquo;Seconds&rsquo; to shorten the space required:</p>
 
-<p>The following shows the final column settings, <code>No (Packet number)</code> and <code>Length</code> are removed, <code>Source</code> and <code>Destination</code> addresses changed to <code>unresolved</code> to shows actual ip address. Additionally, two new columns: <code>Src port</code> and <code>Dst port</code> (both <code>unresolved</code>) are added to shows actual port number.</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-06.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-04.png" alt="changing-wireshark-columns-settings-04" /></p>
+</li>
+</ol>
+<hr>
+<h2 id="adding-http-server-names">Adding HTTP Server Names</h2>
+<ol>
+<li>
+<p>Set the display filter as '<code>http.request</code>' to only display HTTP requests. Then, from the &lsquo;Packet Details&rsquo; pane, expand the &lsquo;Hypertext Transfer Protocol&rsquo; and right-click &lsquo;Host&rsquo; from the HTTP header and select &lsquo;Apply as Column&rsquo; :</p>
 
-<hr />
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-07.png" alt="">
 
-<h1 id="changing-the-time-display-format">Changing the Time Display Format</h1>
-
-<p>The default format is &lsquo;<code>Seconds Since Beginning of Capture</code>&rsquo; which isn&rsquo;t useful if the time of the day is of interest. To change it, navigate to <code>View</code> &rarr; <code>Time Display Format</code>, and select  <code>Date and Time of Day</code>:</p>
-
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-05.png" alt="changing-wireshark-columns-settings-05" /></p>
-
-<p>Also, change the time precision to <code>Seconds</code> to shorten the space required:</p>
-
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-06.png" alt="changing-wireshark-columns-settings-06" /></p>
-
-<hr />
-
-<h1 id="adding-http-server-names">Adding HTTP Server Names</h1>
-
-<p>Set the display filter as &apos;<code>http.request</code>&apos; to only display HTTP requests. Then, from the <code>Packet Details</code> pane, expand the <code>Hypertext Transfer Protocol</code> and right-click <code>Host</code> from the HTTP header and select <code>Apply as Column</code> :</p>
-
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-07.png" alt="changing-wireshark-columns-settings-07" /></p>
-
+</li>
+<li>
 <p>The host from the HTTP requests (both GET and POST) will now shown as a column. The final column settings are:</p>
-
 <ul>
 <li>Time (Date and Time of Day): YYYY-MM-DD HH:MM:SS</li>
 <li>Source Address (unresolved)</li>
@@ -307,28 +318,38 @@ ga('send', 'pageview');
 <li>Info</li>
 </ul>
 
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-08.png" alt="changing-wireshark-columns-settings-08" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-08.png" alt="">
 
-<hr />
-
-<h1 id="adding-https-server-names">Adding HTTPS Server Names</h1>
-
-<ol>
-<li><p>Use a display filter such as <code>tcp.port == 443</code> to narrow down the HTTPS traffic.</p></li>
-
-<li><p>Look for <code>TLS</code> or <code>Client Hello</code> from the Protocol and Info columns.</p></li>
-
-<li><p>Expand the <code>Secure Sockets Layer</code> &rarr; <code>TLSv1.2 Record Layer</code> &rarr; <code>Handshake Protocol</code> &rarr; <code>Extension: server_name</code> &rarr; <code>Server Name Indication extension</code>, select the <code>Server Name</code> field.</p></li>
-
-<li><p>Then, right-click on the field and select <code>Apply as Column</code>:</p></li>
+</li>
 </ol>
+<hr>
+<h2 id="adding-https-server-names">Adding HTTPS Server Names</h2>
+<ol>
+<li>
+<p>Use a display filter such as <code>tcp.port == 443</code> to narrow down the HTTPS traffic.</p>
+</li>
+<li>
+<p>Look for &lsquo;TLS&rsquo; or &lsquo;Client Hello&rsquo; from the Protocol and Info columns.</p>
+</li>
+<li>
+<p>Expand the &lsquo;Secure Sockets Layer&rsquo; → &lsquo;TLSv1.2 Record Layer&rsquo; → &lsquo;Handshake Protocol&rsquo; → &lsquo;Extension: server_name&rsquo; → &lsquo;Server Name Indication extension&rsquo;, select the &lsquo;Server Name&rsquo; field.</p>
+</li>
+<li>
+<p>Then, right-click on the field and select &lsquo;Apply as Column&rsquo;:</p>
 
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-09.png" alt="changing-wireshark-columns-settings-09" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-09.png" alt="">
 
+</li>
+<li>
 <p>Use the <code>ssl.handshake.extensions_server_name</code> display filter to query server names from the HTTPS traffic:</p>
 
-<p><img src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-10.png" alt="changing-wireshark-columns-settings-10" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/changing-wireshark-columns-settings-10.png" alt="">
 
+</li>
+</ol>
+
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -340,7 +361,7 @@ ga('send', 'pageview');
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://tzyluen.github.io/post/encrypting-dns-traffic/">Encrypting DNS traffic</a>
+      <a href="https://tzyluen.github.io/post/encrypting-dns-traffic/">Encrypting DNS Traffic</a>
     </nav>
     
   </div>
@@ -362,14 +383,27 @@ ga('send', 'pageview');
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
+
+
+
+
+
+
+
 
 
 

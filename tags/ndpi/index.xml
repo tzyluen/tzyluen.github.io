@@ -1,168 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ndpi on Technical Notes</title>
-    <link>https://tzyluen.github.io/tags/ndpi/index.xml</link>
-    <description>Recent content in Ndpi on Technical Notes</description>
+    <title>ndpi on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/ndpi/</link>
+    <description>Recent content in ndpi on Technical Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
-    <atom:link href="https://tzyluen.github.io/tags/ndpi/index.xml" rel="self" type="application/rss+xml" />
-    
+    <copyright>&amp;copy; 2015 - 2022. All rights reserved.</copyright>
+    <lastBuildDate>Fri, 24 Mar 2017 00:00:00 +0800</lastBuildDate><atom:link href="https://tzyluen.github.io/tags/ndpi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Deep packet inspection</title>
       <link>https://tzyluen.github.io/post/deep-packet-inspection/</link>
       <pubDate>Fri, 24 Mar 2017 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/deep-packet-inspection/</guid>
-      <description>
-
-&lt;p&gt;Port-independent, P2P, and encrypted protocols and packets have made the conventional network traffics analysis that based on packet header (transport protocol and application ports) obsolete. Deep Packet Inspection (DPI) technology can be used to identify and classify these encrypted, port-independent, P2P protocols.&lt;/p&gt;
-
-&lt;p&gt;This post explore the popular open source implementations:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;nDPI library [1]&lt;/li&gt;
-&lt;li&gt;ndpi-netfilter [2]&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Other similar open source DPI tools are:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;L7-filter [3], open source, GPLv2.&lt;/li&gt;
-&lt;li&gt;Libprotoident [4], open source, LGPL.&lt;/li&gt;
-&lt;li&gt;PACE (Protocol and Application Classification Engine) [5], commercial.&lt;/li&gt;
-&lt;li&gt;NBAR (Network Based Application Recognition) by Cisco [6], commercial.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; ndpi-netfilter tested only on Ubuntu 14.04.1 LTS (kernel 3.13.0-37-generic). During the initial experiment of this setup on machine with kernel v4.x, it did not work. The following Debian/wheezy machine with kernel v3.2 were used instead:&lt;/p&gt;
-
-&lt;p&gt;OS/kernel version:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;tzy@192.168.1.12:~$ uname -a
-Linux blackstar 3.2.0-4-amd64 #1 SMP Debian 3.2.63-2+deb7u2 x86_64 GNU/Linux
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;ndpi&#34;&gt;nDPI&lt;/h1&gt;
-
-&lt;h2 id=&#34;build-and-install-ndpi-netfilter&#34;&gt;Build and install ndpi-netfilter&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;Download ndpi-netfilter from &lt;a href=&#34;https://github.com/betolj/ndpi-netfilter&#34;&gt;https://github.com/betolj/ndpi-netfilter&lt;/a&gt; and extract to &lt;code&gt;/usr/src&lt;/code&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install dependencies:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# apt-get install linux-source
-root@192.168.1.12:~# apt-get install libtool
-root@192.168.1.12:~# apt-get install autoconf
-root@192.168.1.12:~# apt-get install pkg-config
-root@192.168.1.12:~# apt-get install subversion
-root@192.168.1.12:~# apt-get install libpcap-dev 
-root@192.168.1.12:~# apt-get install iptables-dev 
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Build and install nDPI:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# cd /usr/src/ndpi-netfilter-master
-root@192.168.1.12:/usr/src/ndpi-netfilter-master# tar xvzf nDPI.tar.gz
-root@192.168.1.12:/usr/src/ndpi-netfilter-master# cd nDPI
-root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# ./autogen.sh
-root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# make
-root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# make install
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Build and install ndpi-netfilter:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# cd ..
-root@192.168.1.12:~# NDPI_PATH=/usr/src/ndpi-netfilter-master/nDPI make
-root@192.168.1.12:~# make modules_install
-root@192.168.1.12:~# cp /usr/src/ndpi-netfilter-master/ipt/libxt_ndpi.so /lib/xtables/
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;testing&#34;&gt;Testing&lt;/h1&gt;
-
-&lt;h2 id=&#34;realtime-capture&#34;&gt;Realtime capture&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Runs SSH server 192.168.1.12 on port &lt;code&gt;26/tcp&lt;/code&gt; instead of the default &lt;code&gt;22/tcp&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ndpi-deep-packet-inspection-03.png&#34; alt=&#34;ndpi-deep-packet-inspection-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;From a client host 192.168.1.9, port scans 192.168.1.12, it shows as &lt;code&gt;26/tcp rsftp&lt;/code&gt; service:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ndpi-deep-packet-inspection-04.png&#34; alt=&#34;ndpi-deep-packet-inspection-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;SSH on non-standard port 26, and non-port based packets e.g., Facebook, Twitter, GMail, Youtube, Google, Apple, Cloudflare and etc were detected.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ndpi-deep-packet-inspection-02.png&#34; alt=&#34;ndpi-deep-packet-inspection-02&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;iptables-netfilter&#34;&gt;Iptables/netfilter&lt;/h2&gt;
-
-&lt;p&gt;To filter port-independent packets, get the list of supported protocols as shown below. Below are some popular protocols supported by ndpi:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# iptables -m ndpi -h
-...
-ndpi match options:
---ssh Match for SSH protocol packets.
---gnutella Match for GNUTELLA protocol packets.
---edonkey Match for EDONKEY protocol packets.
---facebook Match for FACEBOOK protocol packets.
---twitter Match for TWITTER protocol packets.
---webm Match for WEBM protocol packets.
---quic Match for QUIC protocol packets.
---whatsapp Match for WHATSAPP protocol packets.
---whatsapp_voice Match for WHATSAPP_VOICE protocol packets.
---snapchat Match for SNAPCHAT protocol packets.
---youtube Match for YOUTUBE protocol packets.
-...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;ssh&#34;&gt;SSH&lt;/h3&gt;
-
-&lt;p&gt;To drop all incoming ssh packets, do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;root@192.168.1.12:~# iptables -I INPUT -m ndpi --ssh -j DROP
-
-iptables -A INPUT -m limit --limit 2/min -j LOG --log-prefix &amp;quot;[IPTABLES-INPUT-DROPPED] &amp;quot; --log-level 4
-iptables -A OUTPUT -m limit --limit 2/min -j LOG --log-prefix &amp;quot;[IPTABLES-OUTPUT-DROPPED] &amp;quot; --log-level 4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the last two lines are for logging purposes.&lt;/p&gt;
-
-&lt;h3 id=&#34;youtube&#34;&gt;Youtube&lt;/h3&gt;
-
-&lt;p&gt;To drop all incoming youtube based packets, do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;iptables -A INPUT -m ndpi --youtube -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;social-networks&#34;&gt;Social Networks&lt;/h3&gt;
-
-&lt;p&gt;To drop all incoming and outgoing social networks, do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;iptables -A INPUT -m ndpi --twitter -j DROP
-iptables -A OUTPUT -m ndpi --twitter -j DROP
-iptables -A INPUT -m ndpi --facebook -j DROP
-iptables -A OUTPUT -m ndpi --facebook -j DROP
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;[1] nDPI -  &lt;a href=&#34;http://www.ntop.org/products/deep-packet-inspection/ndpi/&#34;&gt;http://www.ntop.org/products/deep-packet-inspection/ndpi/&lt;/a&gt; &lt;br&gt;
-[2] ndpi-netfilter - &lt;a href=&#34;https://github.com/betolj/ndpi-netfilter/README&#34;&gt;https://github.com/betolj/ndpi-netfilter/README&lt;/a&gt; &lt;br&gt;
-[3] L7-filter - &lt;a href=&#34;http://l7-filter.clearos.com&#34;&gt;http://l7-filter.clearos.com&lt;/a&gt; &lt;br&gt;
-[4] Libprotoident - &lt;a href=&#34;https://research.wand.net.nz/software/libprotoident.php&#34;&gt;https://research.wand.net.nz/software/libprotoident.php&lt;/a&gt; &lt;br&gt;
-[5] PACE (Protocol and Application Classification Engine) - &lt;a href=&#34;https://www.ipoque.com/products/dpi-engine-rsrpace-2&#34;&gt;https://www.ipoque.com/products/dpi-engine-rsrpace-2&lt;/a&gt; &lt;br&gt;
-[6] NBAR (Network Based Application Recognition) - &lt;a href=&#34;http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html&#34;&gt;http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Table of Contents  Introduction nDPI  Build and install ndpi-netfilter   Realtime capture Iptables/netfilter  SSH Youtube Social Networks       Introduction Port-independent, P2P, and encrypted protocols and packets have made the conventional network traffics analysis that based on packet header (transport protocol and application ports) obsolete. Deep Packet Inspection (DPI) technology can be used to identify and classify these encrypted, port-independent, P2P protocols.</description>
     </item>
     
   </channel>

@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
-  <title>Wireshark &middot; Technical Notes</title>
+  <title>wireshark &middot; Technical Notes</title>
+
+    
 
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,38 +32,35 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
+ 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="Technical Notes" href="https://tzyluen.github.io/tags/wireshark/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Technical Notes"
+    href='https://tzyluen.github.io/tags/wireshark/index.xml' />
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -79,7 +78,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -103,6 +102,12 @@ ga('send', 'pageview');
       
         </li>
       
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
+      
+        </li>
+      
     </ul>
   </div>
 
@@ -111,8 +116,11 @@ ga('send', 'pageview');
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://tzyluen.github.io/tags/wireshark/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href='https://tzyluen.github.io/tags/wireshark/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
+    
+
     
 
     
@@ -189,11 +197,11 @@ ga('send', 'pageview');
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -204,7 +212,7 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Wireshark</h1>
+  <h2>wireshark</h2>
 </div>
 
 <div class="content">
@@ -262,10 +270,7 @@ ga('send', 'pageview');
   </header>
 
   <p>
-  Scan for vulnerability Create a HTTP request file  Use -r option instead of passing long parameters of --url, --user-agent, etc.
-Note: use packet capture utility such as ngrep to facilitate the process.
-sqlmap -r REQUESTFILE ... -r REQUESTFILE Load HTTP request from a file   Clean-up the trailing . (non-printable char displayed by ngrep), and write to a file e.g., mutillidae-login.request
-  Scan the target  Launch the scan with the -r and use the request file created above, it will take some time:
+  Table of Contents  Scan for vulnerability  Create a HTTP request file Scan the target   Explore the vulnerable target&rsquo;s databases and system  Dictionary attack against password hashes and dump full credentials OS Shell Access Behind the scene Speedup the process and specify custom injection payloads   Capture and decode the payload  with Ngrep with Wireshark Decode the payload       Scan for vulnerability Create a HTTP request file   Use -r option instead of passing long parameters of --url, --user-agent, etc.
   </p>
 
   
@@ -317,10 +322,8 @@ sqlmap -r REQUESTFILE ... -r REQUESTFILE Load HTTP request from a file   Clean-u
   </header>
 
   <p>
-  Runs wireshark and starts capturing the network packets until the statistic builds.
-Quick drill into errors and connection issues  Navigates to Analyze &rarr; Expert Info, a high number of errors and warnings indicates problems.
-  Identify the protocols with high traffic  Navigates to Statistics &rarr; Protocol Hierarchy:
- Observes the resulting Protocol Hierarchy Statistic and pins down the suspicious/troubling protocol (e.g., high percentage of P2P or broadcast), right-click and select Apply As Filter &rarr; Selected to apply the filter for further analysis.
+  Table of Contents  Quick drill into errors and connection issues Identify the protocols with high traffic Get the connection speed to a site Get the time spent in waiting for a response Identify the bad packets (TCP errors) ratio    Generate the statistic:- runs wireshark and starts capturing the network packets until the statistic builds.
+ Quick drill into errors and connection issues   Navigates to &#39;Analyze&#39; → &#39;Expert Info&#39; , a high number of errors and warnings indicates problems.
   </p>
 
   
@@ -378,11 +381,8 @@ Quick drill into errors and connection issues  Navigates to Analyze &rarr; Exper
   </header>
 
   <p>
-  Introduction The process is mostly the same in network packets data-carving:
- Gain access and collect the raw bytes Strip the protocol information Extract and write the data to file  The difference of these tools are the capability i.e., supported protocols and file formats.
-Wireshark HTTP objects/files:
-Navigate to File &rarr; Export Objects and select the type, currently it supports four protocols:
-Then select the target filename followed by Save or simply Save All:
+  Table of Contents  Introduction Wireshark  HTTP objects and files Binary files   Tcpflow &amp; Foremost     Introduction The process is mostly the same in network packets data-carving, which comprises of:
+ Gain access and collect the raw bytes Strip the protocol information Extract and write the data to file  The differences of these tools are their capabilities i.e., the supported protocols and file formats.
   </p>
 
   
@@ -395,7 +395,7 @@ Then select the target filename followed by Save or simply Save All:
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the default column display</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the Default Column Display</a></h2>
 
     <div class="post-meta">
 
@@ -432,9 +432,8 @@ Then select the target filename followed by Save or simply Save All:
   </header>
 
   <p>
-  The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: No (Packet number), Time, Source, Destination, Protocol, Length, and Info.
-Changing the column display To change the default column display, navigate to Preferences :
-From the Preferences, expands Appearance and select Columns, then add the new desired column e.g., Src port of type Src port (unresolved):
+  Background The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: &lsquo;No (Packet number)&rsquo;, &lsquo;Time&rsquo;, &lsquo;Source&rsquo;, &lsquo;Destination&rsquo;, &lsquo;Protocol&rsquo;, &lsquo;Length&rsquo;, and &lsquo;Info&rsquo;.
+  Table of Contents  Background Changing the column display Changing the Time Display Format Adding HTTP Server Names Adding HTTPS Server Names     Changing the column display   To change the default column display, navigate to &lsquo;Preferences&rsquo;:
   </p>
 
   
@@ -447,7 +446,7 @@ From the Preferences, expands Appearance and select Columns, then add the new de
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS queries</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS Queries</a></h2>
 
     <div class="post-meta">
 
@@ -494,10 +493,9 @@ From the Preferences, expands Appearance and select Columns, then add the new de
   </header>
 
   <p>
-  Dnstop is a console libpcap application that displays various tables of DNS traffic on a network including:
+  Table of Contents  Dnstop Tcpdump Wireshark / Tshark     Dnstop is a console libpcap application that displays various tables of DNS traffic on a network including:
  Source IP addresses Destination IP addresses Query types Top level domains Second level domains  # dnstop enp0s3 -l 3  Use ctrl-r to reset the counter/refresh the history to get the latest queries.
-Tcpdump Capture packets on port 53 (DNS):
--i: interface -v: verbose -s: snaplen, snap n bytes length from each packet (default 262144).
+  Tcpdump Capture packets from port 53 (DNS):
   </p>
 
   
@@ -510,7 +508,7 @@ Tcpdump Capture packets on port 53 (DNS):
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/">Capture network traffic on WLAN (macOS)</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/">Capture Network Traffic on WLAN (macOS)</a></h2>
 
     <div class="post-meta">
 
@@ -553,9 +551,10 @@ Tcpdump Capture packets on port 53 (DNS):
   </header>
 
   <p>
-  MacOS&rsquo;s Airport is a built-in wireless utility comes preinstalled in MacOS.
-$ ll /usr/local/bin/airport lrwxr-xr-x 1 root wheel 89 Jun 22 2016 /usr/local/bin/airport@ -&gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport  Perform a wireless broadcast scan to get the list of access points in the neighborhood: Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:
-$ airport en0 sniff 1 Capturing 802.11 frames on en0. ^CSession saved to /tmp/airportSniffwUKb60.
+  Table of Contents  MacOS&rsquo;s Airport Wireshark    MacOS&rsquo;s Airport is a built-in wireless utility comes preinstalled in MacOS.
+$ ll /usr/local/bin/airport lrwxr-xr-x 1 root wheel 89 Jun 22 2016 /usr/local/bin/airport@ -&gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport Perform a wireless broadcast scan to get the list of access points in the neighborhood:
+Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:
+$ airport en0 sniff 1 Capturing 802.
   </p>
 
   
@@ -571,9 +570,18 @@ $ airport en0 sniff 1 Capturing 802.11 frames on en0. ^CSession saved to /tmp/ai
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
+
+
+
+
+
+
+
 
 
 
 
 </body>
 </html>
+

@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Exif data">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Privacy: remove metadata from images &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Privacy: remove metadata from images</h1>
-  <h2>Exif data</h2>
+  <h2>Privacy: remove metadata from images</h2>
+  <h3>Exif data</h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -239,35 +243,20 @@ ga('send', 'pageview');
 
 </div>
 
-    
-
   <p>Digital cameras (including smartphones) and computers (screenshots) embed technical metadata into image files. It serves great purpose to record image profiles but it could exposed some private information i.e., device profiles, GPS coordinates, etc and thus caused privacy issues.</p>
-
 <p>Before share images online, strip clean the image EXIF (Exchangeable Image File) metadata. The <code>libimage-exiftool-perl</code> package contains the library and program to read and write meta information in multimedia files.</p>
-
-<pre><code class="language-bash">$ sudo apt-get install libimage-exiftool-perl
+<pre tabindex="0"><code>$ sudo apt-get install libimage-exiftool-perl
+</code></pre><p>To view the exif metadata:</p>
+<pre tabindex="0"><code>$ exiftool /path/to/image.jpg
+</code></pre><p>A single file:</p>
+<pre tabindex="0"><code>$ exiftool -all= /path/to/image.jpg
+</code></pre><p>All under the target directory:</p>
+<pre tabindex="0"><code>$ exiftool -all= /path/to/images/*.jpg
+</code></pre><p>To set a property e.g., Copyright:</p>
+<pre tabindex="0"><code>$ exiftool -Copyright=your-copyrighted-text image.jpg
 </code></pre>
-
-<p>To view the exif metadata:</p>
-
-<pre><code>$ exiftool /path/to/image.jpg
-</code></pre>
-
-<p>A single file:</p>
-
-<pre><code class="language-bash">$ exiftool -all= /path/to/image.jpg
-</code></pre>
-
-<p>All under the target directory:</p>
-
-<pre><code class="language-bash">$ exiftool -all= /path/to/images/*.jpg
-</code></pre>
-
-<p>To set a property e.g., Copyright:</p>
-
-<pre><code class="language-bash">$ exiftool -Copyright=your-copyrighted-text image.jpg
-</code></pre>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -279,7 +268,7 @@ ga('send', 'pageview');
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://tzyluen.github.io/post/hping3-use-cases/">Hping3 use cases</a>
+      <a href="https://tzyluen.github.io/post/hping3-use-cases/">Hping3: Use Cases</a>
     </nav>
     
   </div>
@@ -289,7 +278,7 @@ ga('send', 'pageview');
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/">Tools for scanning malicious urls and websites</a>
+      <a href="https://tzyluen.github.io/post/tools-for-scanning-malicious-urls-and-websites/">Tools for Scanning Malicious URLs and Websites</a>
     </nav>
     
   </div>
@@ -301,15 +290,31 @@ ga('send', 'pageview');
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

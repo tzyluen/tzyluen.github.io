@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Extract files from captured network traffic pcap (1) &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Extract files from captured network traffic pcap (1)</h1>
-  <h2></h2>
+  <h2>Extract files from captured network traffic pcap (1)</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -245,125 +249,172 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#wireshark">Wireshark</a></li>
-<li><a href="#tcpflow-foremost">Tcpflow &amp; Foremost</a></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#wireshark">Wireshark</a>
+      <ul>
+        <li><a href="#http-objects-and-files">HTTP objects and files</a></li>
+        <li><a href="#binary-files">Binary files</a></li>
+      </ul>
+    </li>
+    <li><a href="#tcpflow--foremost">Tcpflow &amp; Foremost</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="introduction">Introduction</h1>
-
-<p>The process is mostly the same in network packets data-carving:</p>
-
+<hr>
+<h2 id="introduction">Introduction</h2>
+<p>The process is mostly the same in network packets data-carving, which comprises of:</p>
 <ul>
 <li>Gain access and collect the raw bytes</li>
 <li>Strip the protocol information</li>
 <li>Extract and write the data to file</li>
 </ul>
+<p>The differences of these tools are their capabilities i.e., the supported protocols and file formats.</p>
+<hr>
+<h2 id="wireshark">Wireshark</h2>
+<h3 id="http-objects-and-files">HTTP objects and files</h3>
+<p>To extracts the HTTP objects and files with Wireshark,</p>
+<ol>
+<li>
+<p>Navigate to &lsquo;File&rsquo; → &lsquo;Export Objects&rsquo; and select the type, currently it supports four protocols:</p>
 
-<p>The difference of these tools are the capability i.e., supported protocols and file formats.</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-01.png" alt="">
 
-<h1 id="wireshark">Wireshark</h1>
+</li>
+<li>
+<p>Then select the target filename followed by &lsquo;Save&rsquo; or simply &lsquo;Save All&rsquo;:</p>
 
-<p><strong>HTTP objects/files:</strong></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-02.png" alt="">
 
-<p>Navigate to <code>File</code> &rarr; <code>Export Objects</code> and select the type, currently it supports four protocols:</p>
+</li>
+<li>
+<p>Once extracted, the list of exported objects and the respective file types can be seen:</p>
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-01.png" alt="extracting-files-wireshark-export-http-object-list-01" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-03.png" alt="">
 
-<p>Then select the target filename followed by <code>Save</code> or simply <code>Save All</code>:</p>
+</li>
+<li>
+<p>Alternatively, the &lsquo;Follow&rsquo; → &lsquo;TCP Stream&rsquo; can also be used to extract raw files from the stream:</p>
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-02.png" alt="extracting-files-wireshark-export-http-object-list-02" /></p>
 
-<p>List of exported objects and the respective file types:</p>
+<div class="pure-g">
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-export-http-object-list-03.png" alt="extracting-files-wireshark-export-http-object-list-03" /></p>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-01.png"
+        alt="">
+    </div>
+  </div>
+  
 
-<p>Alternatively, the <code>Follow</code> &rarr; <code>TCP Stream</code> can also be used to extract raw files from the stream:</p>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-02.png"
+        alt="">
+    </div>
+  </div>
+  
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-01.png" alt="extracting-files-wireshark-follow-tcp-stream-01" />
-<img src="https://tzyluen.github.io/img/extracting-files-wireshark-follow-tcp-stream-02.png" alt="extracting-files-wireshark-follow-tcp-stream-02" /></p>
+</div>
 
-<p><strong>Binary files:</strong>
-In real world scenario, malware often spread through http protocol, thus we could search the common strings used by malware such as <code>GetProcAddress</code>, <code>ExitProcess</code> and etc. (statistically reported in paper by Gong et al. [1]).</p>
+</li>
+</ol>
+<hr>
+<h3 id="binary-files">Binary files</h3>
+<p>In real world scenario, malware often spread through http protocol, thus we could search the common strings used by malware such as <code>GetProcAddress</code>, <code>ExitProcess</code> and etc. (statistically reported in paper by Gong et al. [1]).</p>
+<ol>
+<li>
+<p>To get to that for extraction purposes, use the display filter ' <code>http contains &quot;GetProcAddress&quot;</code> ' :</p>
 
-<p>Use the display filter <code>http contains &quot;GetProcAddress&quot;</code>:</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-01.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-01.png" alt="extracting-files-wireshark-binary-files-01" /></p>
-
+</li>
+<li>
 <p>There are multiple ways to export the packets (binary file):</p>
+<ol>
+<li>
+<p>&lsquo;Export Objects&rsquo; → &lsquo;HTTP&rsquo;, and select the file from the list:</p>
+
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-03.png" alt="">
+
+</li>
+<li>
+<p>Or, right-click and &lsquo;Export Packet Bytes&rsquo;:</p>
+
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-05.png" alt="">
+
+</li>
+</ol>
+</li>
+<li>
+<p>Once the binary is obtained, we could use hex editor to view the binary file, and locate the matching strings:</p>
+<pre tabindex="0"><code>$ xxd mal.bin |less
+</code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-02.png" alt="">
+
+</li>
+<li>
+<p>And start attribution and digital signature with fingerprinting the binary with MD5 checksum, etc. :</p>
+
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-04.png" alt="">
+
+</li>
+</ol>
+<hr>
+<h2 id="tcpflow--foremost">Tcpflow &amp; Foremost</h2>
+<p>Assuming the pcap file <code>192.168.1.0.pcap</code> contains the packets captured from the <code>192.168.1.0/24</code> network, we could use <code>tcpflow</code> to extract the data streams into individual files by ip-addresses:</p>
+
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-foremost-01.png" alt="">
 
 <ol>
-<li><p>Export Objects &rarr; HTTP, and select the file from the list:</p>
+<li>
+<p><code>Tcpflow</code> only handles the direction of the data streams, and if the target binary files were not split into individual files by <code>tcpflow</code>, we could use <code>foremost</code> utility to complement the processes:</p>
+<p>Note: add the following line to <code>/etc/foremost.conf</code> to add Mach-O binary file format&rsquo;s signature.</p>
+<pre tabindex="0"><code>bin    n    4096000    \xCF\xFA\xED\xFE\x07\x00
+</code></pre><p>where,</p>
+<pre tabindex="0"><code>[filetype]  [case-sensitivity]  [upper-limit-for-size]  [signature header]  [footer]
+</code></pre></li>
+<li>
+<p>Concatenate the data files generated by <code>tcpflow</code> into a single file:</p>
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-03.png" alt="extracting-files-wireshark-binary-files-03" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-foremost-02.png" alt="">
 
-<li><p>Export Packet Bytes:</p>
+</li>
+<li>
+<p>Parse the file with <code>foremost</code>, followed by validation with md5sum which yielded identical result to previous digital signature fingerprint of <code>mal.bin</code> file extracted with <code>wireshark</code> in above section from host <code>192.168.1.7</code> :</p>
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-05.png" alt="extracting-files-wireshark-binary-files-04" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-wireshark-foremost-03.png" alt="">
+
+</li>
+</ol>
+<p>Note: <code>tcpflow</code> only support TCP packets, it does not handle UDP packets. To separate the packets not processed by <code>tcpflow</code>, use the <code>-w</code> option:</p>
+<pre tabindex="0"><code> -w filename.pcap
+    Write packets that were not processed to filename.pcap. Typically this will be UDP packets.
+</code></pre><hr>
+<p><strong>References:</strong></p>
+<ol>
+<li>Gong, M., Girkar, U., &amp; Xie, B. Classifying Windows Malware with Static Analysis.</li>
+<li><a href="https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562">https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562</a></li>
 </ol>
 
-<p>Once the binary is obtained, we could use hex editor to view the binary file, and locate the matching strings:</p>
-
-<pre><code class="language-bash">$ xxd mal.bin |less
-</code></pre>
-
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-02.png" alt="extracting-files-wireshark-binary-files-02" /></p>
-
-<p>MD5 checksum:</p>
-
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-binary-files-04.png" alt="extracting-files-wireshark-binary-files-04" /></p>
-
-<hr />
-
-<h1 id="tcpflow-foremost">Tcpflow &amp; Foremost</h1>
-
-<p>Assuming the pcap file <code>192.168.1.0.pcap</code> contains the packets captured from the <code>192.168.1.0/24</code> network, we could use <code>tcpflow</code> to export the data streams into individual files by ip-addresses:</p>
-
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-foremost-01.png" alt="extracting-files-wireshark-foremost-01" /></p>
-
-<p><code>Tcpflow</code> only handles the direction of the data streams, and if the target binary files were not split into individual files by <code>tcpflow</code>, we could use foremost to complement the processes:</p>
-
-<p><strong>Note:</strong> add the following line to <code>/etc/foremost.conf</code> to add Mach-O binary file format&rsquo;s signature.</p>
-
-<pre><code class="language-bash">bin    n    4096000    \xCF\xFA\xED\xFE\x07\x00
-</code></pre>
-
-<p>where,</p>
-
-<pre><code class="language-bash">[filetype]  [case-sensitivity]  [upper-limit-for-size]  [signature header]  [footer]
-</code></pre>
-
-<p>Concatenate the data files generated by tcpflow into a single file:</p>
-
-<p><img src="https://tzyluen.github.io/img/extracting-files-wireshark-foremost-02.png" alt="extracting-files-wireshark-foremost-02" /></p>
-
-<p>Parse the file with <code>Foremost</code>, followed by validation with md5sum which yielded identical result to previous value of <code>mal.bin</code> file shown above in <code>192.168.1.7</code>:
-<img src="https://tzyluen.github.io/img/extracting-files-wireshark-foremost-03.png" alt="extracting-files-wireshark-foremost-03" /></p>
-
-<p><strong>Note:</strong> <code>tcpflow</code> only support TCP packets, it doesn not handle UDP packets. To separate the packets not processed by <code>tcpflow</code>, use the <code>-w</code> option:</p>
-
-<pre><code class="language-bash"> -w filename.pcap
-    Write packets that were not processed to filename.pcap. Typically this will be UDP packets.
-</code></pre>
-
-<hr />
-
-<p><strong>References:</strong></p>
-
-<p>[1] Gong, M., Girkar, U., &amp; Xie, B. Classifying Windows Malware with Static Analysis. <br>
-[2] <a href="https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562">https://www.sans.org/reading-room/whitepapers/forensics/extracting-files-network-packet-captures-36562</a> <br></p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -375,7 +426,7 @@ In real world scenario, malware often spread through http protocol, thus we coul
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the default column display</a>
+      <a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the Default Column Display</a>
     </nav>
     
   </div>
@@ -397,15 +448,31 @@ In real world scenario, malware often spread through http protocol, thus we coul
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

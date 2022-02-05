@@ -1,69 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Wlan on Technical Notes</title>
-    <link>https://tzyluen.github.io/tags/wlan/index.xml</link>
-    <description>Recent content in Wlan on Technical Notes</description>
+    <title>wlan on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/wlan/</link>
+    <description>Recent content in wlan on Technical Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
-    <atom:link href="https://tzyluen.github.io/tags/wlan/index.xml" rel="self" type="application/rss+xml" />
-    
+    <copyright>&amp;copy; 2015 - 2022. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 13 Feb 2016 00:00:00 +0800</lastBuildDate><atom:link href="https://tzyluen.github.io/tags/wlan/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Capture network traffic on WLAN (macOS)</title>
+      <title>Capture Network Traffic on WLAN (macOS)</title>
       <link>https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/</link>
       <pubDate>Sat, 13 Feb 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/</guid>
-      <description>
-
-&lt;h1 id=&#34;macos-s-airport&#34;&gt;MacOS&amp;rsquo;s Airport&lt;/h1&gt;
-
-&lt;p&gt;is a built-in wireless utility comes preinstalled in MacOS.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ ll /usr/local/bin/airport 
-lrwxr-xr-x  1 root  wheel  89 Jun 22  2016 /usr/local/bin/airport@ -&amp;gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Perform a wireless broadcast scan to get the list of access points in the neighborhood:
-&lt;img src=&#34;https://tzyluen.github.io/img/airport-wireless-broadcast-scan-01.png&#34; alt=&#34;airport-wireless-broadcast-scan-01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ airport en0 sniff 1
-Capturing 802.11 frames on en0.
-^CSession saved to /tmp/airportSniffwUKb60.cap.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;wireshark&#34;&gt;Wireshark&lt;/h1&gt;
-
-&lt;p&gt;can also be used directly to capture wireless network traffic. To do that, open the wireshark&amp;rsquo;s capture option and select the Promiscuous and Monitor checkbox, optionally add capture filter &lt;code&gt;not broadcast and not multicast&lt;/code&gt; to filter out noises:
-&lt;img src=&#34;https://tzyluen.github.io/img/wlan-wireshark-capture-options-01.png&#34; alt=&#34;wlan-wireshark-capture-options-01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Since the wireless traffic is encrypted with WPA2, it won&amp;rsquo;t be useful unless decrypted. To enable decryption on-the-fly, navigate to &lt;code&gt;Preferences&lt;/code&gt; &amp;rarr; &lt;code&gt;Protocols&lt;/code&gt; &amp;rarr; &lt;code&gt;IEEE 802.11&lt;/code&gt;, and select &lt;code&gt;Enable decryption&lt;/code&gt; and add the decryption keys.&lt;/p&gt;
-
-&lt;p&gt;Depends on the type of encryption used, the following lists the WEP, WPA-PWD and WPA-PSK format:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;wep:a1:b2:c3:d4:e5&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;wpa-pwd:myPassword:mySSID&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;wpa-psk:0102030405060708091011...6061626364&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To generate the WPA-PSK of your wireless credentials, use the &lt;a href=&#34;https://www.wireshark.org/tools/wpa-psk.html&#34;&gt;WPA-PSK Generator&lt;/a&gt;[1] provided by Wireshark.&lt;/p&gt;
-
-&lt;p&gt;In order to capture the handshake for a machine, force the machine to (re-)join the network while the capture is in progress. Repeat this for all machines whose traffic you want to see. Figure below shows the captured/decrypted DNS traffic.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/wlan-wireshark-sniff-dns-decrypted-01.png&#34; alt=&#34;wlan-wireshark-sniff-dns-decrypted-01&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;References:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;[1] &lt;a href=&#34;https://www.wireshark.org/tools/wpa-psk.html&#34;&gt;https://www.wireshark.org/tools/wpa-psk.html&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Table of Contents  MacOS&amp;rsquo;s Airport Wireshark    MacOS&amp;rsquo;s Airport is a built-in wireless utility comes preinstalled in MacOS.
+$ ll /usr/local/bin/airport lrwxr-xr-x 1 root wheel 89 Jun 22 2016 /usr/local/bin/airport@ -&amp;gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport Perform a wireless broadcast scan to get the list of access points in the neighborhood:
+Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:
+$ airport en0 sniff 1 Capturing 802.</description>
     </item>
     
   </channel>

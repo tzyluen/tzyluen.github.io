@@ -1,184 +1,32 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Dns on Technical Notes</title>
-    <link>https://tzyluen.github.io/tags/dns/index.xml</link>
-    <description>Recent content in Dns on Technical Notes</description>
+    <title>dns on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/dns/</link>
+    <description>Recent content in dns on Technical Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
-    <atom:link href="https://tzyluen.github.io/tags/dns/index.xml" rel="self" type="application/rss+xml" />
-    
+    <copyright>&amp;copy; 2015 - 2022. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 16 Apr 2016 00:00:00 +0800</lastBuildDate><atom:link href="https://tzyluen.github.io/tags/dns/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ngrep: quick peek at http traffic</title>
       <link>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</link>
       <pubDate>Sat, 16 Apr 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</guid>
-      <description>
-
-&lt;h3 id=&#34;quick-peek&#34;&gt;Quick peek:&lt;/h3&gt;
-
-&lt;p&gt;Monitor activities on device &lt;code&gt;eth0 port 80&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;-W byline&lt;/code&gt;: linefeeds (LF) are printed as linefeeds, more readable.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;-qt&lt;/code&gt;: quiet mode and print human-readable timestamp.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -W byline -qt port 80
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;sorts-out-unique-user-agent-devices&#34;&gt;Sorts out unique User-Agent (devices):&lt;/h3&gt;
-
-&lt;p&gt;In corporate environment, desktop/laptop OS build is often standardized. However, with the BYOD initiative, the network has becomes even more vulnerable. To quickly identify the type of devices on the network, we could do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ngrep -qt -W single -d eth0 -P~ &#39;User-Agent:&#39; &#39;port 80&#39; &amp;gt; http-user-agent.txt
-$ sed &#39;s/.*User-Agent/User-Agent/&#39; http-user-agent.txt | sed &#39;s/~.*//&#39; | sed &#39;/^$/d&#39; &amp;gt; user-agents.txt
-$ cat user-agents.txt | sort | uniq -c | sort -rn
-  28 User-Agent: Chrome 20.0.1092.0 (Win 7)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6
-   7 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36
-   5 User-Agent: Chrome 15.0.874.120 (Vista)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2
-   4 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Or use &lt;code&gt;tshark&lt;/code&gt; :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo tshark -i eth0 -f &amp;quot;port 80&amp;quot; -Y &amp;quot;http contains \&amp;quot;User-Agent:\&amp;quot;&amp;quot; -Tfields -e http.user_agent &amp;gt; user-agents.txt
-$ cat user-agents.txt | sort | uniq -c | sort -rn
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;monitor-the-occurrence-of-the-keywords&#34;&gt;Monitor the occurrence of the keywords:&lt;/h3&gt;
-
-&lt;p&gt;Capture network traffic matches tcp port 80 (HTTP) on GET/POST methods:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -q -i &amp;quot;^GET |^POST &amp;quot; tcp and port 80
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Monitor the occurrence of the words &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;pass&lt;/code&gt;, case insensitive:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -wi &#39;user | pass&#39; port 80
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Read from a pcap file, search for &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt; requests:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -I capture.pcap | grep &#39;GET\|POST&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;ip-address&#34;&gt;IP address:&lt;/h3&gt;
-
-&lt;p&gt;Matches all headers containing pattern string &amp;lsquo;HTTP&amp;rsquo; sent to/from ip address starting with 172.16&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -I capture.pcap &#39;HTTP&#39; &#39;host 172.16&#39; | grep &#39;GET\|POST&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ngrep-quick-peek-at-http-traffic-01.png&#34; alt=&#34;ngrep-quick-peek-at-http-traffic-01&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;dns&#34;&gt;DNS:&lt;/h3&gt;
-
-&lt;p&gt;Capture incoming/outgoing to/from eth0 matches DNS queries/responses&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -d eth0 udp and port 53
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Table of Contents  Quick peek Sorts out unique User-Agent (devices) Monitor the occurrence of the keywords Monitor HTTP GET | POST traffic by IP addresses DNS     Quick peek Monitor activities on device eth0 port 80:
+-W byline: linefeeds (LF) are printed as linefeeds, more readable.
+-qt: quiet mode and print human-readable timestamp.
+# ngrep -d eth0 -W byline -qt port 80  Sorts out unique User-Agent (devices) In corporate environment, desktop/laptop OS build is often standardized.</description>
     </item>
     
     <item>
-      <title>Encrypting DNS traffic</title>
+      <title>Encrypting DNS Traffic</title>
       <link>https://tzyluen.github.io/post/encrypting-dns-traffic/</link>
       <pubDate>Sat, 19 Mar 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/encrypting-dns-traffic/</guid>
-      <description>
-
-&lt;h1 id=&#34;dnscrypt&#34;&gt;DNSCrypt&lt;/h1&gt;
-
-&lt;p&gt;can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.&lt;/p&gt;
-
-&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# apt-get install dnscrypt-proxy
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;select-a-resolver&#34;&gt;Select a resolver&lt;/h2&gt;
-
-&lt;p&gt;Note: An up-to-date dnscrypt-resolvers.csv is also available from &lt;a href=&#34;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&#34;&gt;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&lt;/a&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Select a resolver from &lt;code&gt;/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Filter and print the list of resolvers from the dnscrypt-resolvers.csv&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;{print $1 &amp;quot;|&amp;quot; $4 &amp;quot;|&amp;quot; $12}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Get a distinct list by country:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;!($4 in arr){print $4} {arr[$4]++}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Pick a reliable server such as:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;fvz-anyone (by OpenNIC)&lt;/li&gt;
-&lt;li&gt;fvz-anyone-ipv6&lt;/li&gt;
-&lt;li&gt;adguard-dns-family-ns1 (Adguard DNS with safesearch and adult content blocking)&lt;/li&gt;
-&lt;li&gt;adguard-dns-ns1 (Remove ads and protect your computer from malware)&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Update the dnscrypt-proxy.conf with the target resolver:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ vim /etc/dnscrypt-proxy/dnscrypt-proxy.conf
-...
-ResolverName fvz-anyone
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;modify-resolv-conf&#34;&gt;Modify resolv.conf&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Modify the resolv.conf file and replace the current resolver addresses with address that the dnscrypt-proxy daemon listening on, as defined in the following files:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/etc/dnscrypt-proxy/dnscrypt-proxy.conf
-/etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;resolv.conf:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nameserver 127.0.2.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;start-systemd-service&#34;&gt;Start systemd service&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo systemctl start dnscrypt-proxy
-$ sudo systemctl status dnscrypt-proxy
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;verify-the-dns-traffic-is-encrypted&#34;&gt;Verify the DNS traffic is encrypted&lt;/h2&gt;
-
-&lt;p&gt;Use wireshark and set the capture filter as:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host 192.168.1.9 and not broadcast
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And set the display filter as:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip.addr == 185.121.177.177
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note: fvz-anyone resolver ip address is 185.121.177.177&lt;/p&gt;
-
-&lt;p&gt;The encrypted DNS traffic will appear as malformed packet (in red) and was mistakenly identified as QUIC protocol during the test:
-&lt;img src=&#34;https://tzyluen.github.io/img/dnscrypt-encrypted-traffic-wireshark-01.png&#34; alt=&#34;dnscrypt-encrypted-traffic-wireshark-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>Table of Contents  DNSCrypt  Install Select a resolver Modify resolv.conf Start systemd service Verify the DNS traffic is encrypted       DNSCrypt can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.</description>
     </item>
     
     <item>
@@ -187,267 +35,29 @@ $ sudo systemctl status dnscrypt-proxy
       <pubDate>Sat, 12 Mar 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/dns-resolution-benchmark/</guid>
-      <description>
-
-&lt;h1 id=&#34;dig-grep&#34;&gt;dig &amp;amp; grep&lt;/h1&gt;
-
-&lt;p&gt;A straightforward way is by using the &lt;code&gt;dig&lt;/code&gt; util from the &lt;code&gt;dnsutils&lt;/code&gt; package and grep the results. This works well for quick debug on-the-go:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# apt-get install dnsutils
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ dig @202.188.0.132 archive.org | grep &amp;quot;Query time:&amp;quot;
-;; Query time: 356 msec
-
-$ dig @8.8.8.8 archive.org | grep &amp;quot;Query time:&amp;quot;
-;; Query time: 48 msec
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;202.188.0.132&lt;/code&gt; is ISP TMnet&amp;rsquo;s name server, and &lt;code&gt;8.8.8.8&lt;/code&gt; is from Google public name server.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;namebench&#34;&gt;namebench&lt;/h1&gt;
-
-&lt;p&gt;is a DNS benchmark utility allows user to search for the fastest DNS servers available. It combines data from web browser history, tcpdump output, and standardized datasets to make recommendation.  It comes with console and GUI mode. To tweak the benchmark settings, edit the file &lt;code&gt;/etc/namebench/namebench.cfg&lt;/code&gt;. For example, to limit the name servers to test by opting the &amp;lsquo;&lt;code&gt;include global DNS providers&lt;/code&gt;&amp;rsquo; only, add the desired name servers into the &lt;code&gt;[global]&lt;/code&gt; section, and excludes the &amp;lsquo;&lt;code&gt;include regional DNS services&lt;/code&gt;&amp;rsquo; :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;[global]
-...
-51 58.6.115.42=OpenNIC
-52 58.6.115.43=OpenNIC_2
-53 72.14.189.120=OpenNIC_3
-54 195.46.39.39=SafeDNS
-55 195.46.39.40=SafeDNS_2
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To run in &lt;strong&gt;console mode&lt;/strong&gt;, pass additional parameters i.e.,:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-r RUN_COUNT, --runs=RUN_COUNT: Number of test runs to perform on each nameserver.
--z CONFIG, --config=CONFIG: Config file to use.
--x, --no_gui: Disable GUI
--i INPUT_SOURCE, --input=INPUT_SOURCE: Import hostnames from an filename or application (alexa...
--t TEMPLATE, --template=TEMPLATE: ascii, html...
-
-$ namebench -z /etc/namebench/namebench.cfg -x -i alexa -t ascii
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The benchmark result report in &lt;code&gt;ascii&lt;/code&gt; format:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;Fastest individual response (in milliseconds):
-----------------------------------------------
-Google Public DN #### 18.82386
-SYS-192.168.1.1  ##### 22.26114
-OpenDNS-2        ###### 27.55594
-OpenDNS          ###### 27.99487
-UltraDNS         ########### 57.75499
-UltraDNS-2       #################################### 191.39409
-DynGuide         ##################################### 196.90704
-SafeDNS_2        ##################################################### 285.64906
-
-Mean response (in milliseconds):
---------------------------------
-SYS-192.168.1.1  ########### 96.45
-OpenDNS          ############## 121.70
-Google Public DN ############## 123.50
-OpenDNS-2        ############### 130.10
-UltraDNS         ############################# 250.59
-DynGuide         #################################### 319.88
-UltraDNS-2       ######################################## 348.53
-SafeDNS_2        ##################################################### 473.00
-.
-. &amp;lt;snipped&amp;gt;
-.
-Recommended configuration (fastest + nearest):
-----------------------------------------------
-nameserver 192.168.1.1     # SYS-192.168.1.1  
-nameserver 8.8.4.4         # Google Public DNS-2  
-nameserver 208.67.222.222  # OpenDNS-2  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;For &lt;strong&gt;GUI mode&lt;/strong&gt;, simply invoke the program and select the desired options:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ namebench
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The GUI mode will generate a report in HTML format and plot a set of comprehensive charts to depict the performance of each tested DNS server.&lt;/p&gt;
-
-&lt;p&gt;The following shows the overall result and it recommends:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart05-recommendation.png&#34; alt=&#34;dns-benchmark-namebench-chart01-mean-response-duration&#34; style=&#34;width: 700px;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Mean Response Duration:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart01-mean-response-duration.png&#34; alt=&#34;dns-benchmark-namebench-chart01-mean-response-duration&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Fastest Invidual Response Duration:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart02-fastest-individual-response-duration.png&#34; alt=&#34;dns-benchmark-namebench-chart02-fastest-individual-response-duration&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Response Distribution (first 200ms):&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart03-response-distribution-chart-first200ms.png&#34; alt=&#34;dns-benchmark-namebench-chart03-response-distribution-chart-first200ms&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Response Distribution (full):&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dns-benchmark-namebench-chart04-response-distribution-chart-full.png&#34; alt=&#34;dns-benchmark-namebench-chart04-response-distribution-chart-full&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>Table of Contents  dig &amp;amp; grep namebench     dig &amp;amp; grep A straightforward way is by using the dig util from the dnsutils package and grep the results. This works well for quick debug on-the-go:
+# apt-get install dnsutils $ dig @202.188.0.132 archive.org | grep &amp;quot;Query time:&amp;quot; ;; Query time: 356 msec $ dig @8.8.8.8 archive.org | grep &amp;quot;Query time:&amp;quot; ;; Query time: 48 msec Note: 202.</description>
     </item>
     
     <item>
-      <title>Tracing malicious network traffic</title>
+      <title>Tracing Malicious Network Traffic</title>
       <link>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</link>
       <pubDate>Sat, 27 Feb 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/tracing-malicious-network-traffic/</guid>
-      <description>
-
-&lt;h1 id=&#34;nettop&#34;&gt;Nettop&lt;/h1&gt;
-
-&lt;p&gt;Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - &lt;a href=&#34;https://tzyluen.github.io/post/sniff-dns-queries/&#34;&gt;Sniff DNS queries&lt;/a&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png&#34; alt=&#34;dnstop-monitoring-01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Under macOS, the &lt;code&gt;nettop&lt;/code&gt; util provides list of sockets and routes in details that help to trace down the process that established the connection to the unknown domain:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# use keys to toggle:
-# d, delta output
-# c, collapse all
-# e, expand all
-# j, bring up the column selection menu
-# h, help
-$ nettop
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/macos-nettop-monitoring-01.jpg&#34; alt=&#34;macos-nettop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;google-transparency-report-safe-browsing-tool&#34;&gt;Google Transparency Report: Safe Browsing Tool&lt;/h2&gt;
-
-&lt;p&gt;Since the process is from Firefox on port https (443), the Google Transparency Report &lt;a href=&#34;https://www.google.com/transparencyreport/safebrowsing/diagnostic/&#34;&gt;Safe Browsing tool&lt;/a&gt; can be used to check if the site is malicious and unsafe.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;netstat&#34;&gt;Netstat&lt;/h1&gt;
-
-&lt;p&gt;On linux, &lt;code&gt;ss&lt;/code&gt; or &lt;code&gt;netstat&lt;/code&gt; can be used:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# -l, --listening       display listening sockets
-# -n, --numeric         don&#39;t resolve service names
-# -p, --program         show the pid/name of the program
-# -r, --resolve         resolve numeric address/ports
-# -t, --tcp             display only TCP sockets
-# -u, --udp             display only UDP sockets
-
-$ ss -rptu
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-ss-monitoring-01.png&#34; alt=&#34;linux-ss-monitoring-01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Similarly, &lt;code&gt;netstat&lt;/code&gt; would work too:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# to see non-owned process info
-$ sudo netstat -ptuW
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-netstat-monitoring-01.png&#34; alt=&#34;linux-netstat-monitoring-01&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;flowtop&#34;&gt;Flowtop&lt;/h1&gt;
-
-&lt;p&gt;The &lt;code&gt;flowtop&lt;/code&gt; from the &lt;code&gt;netsniff-ng&lt;/code&gt; package also works:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/linux-flowtop-monitoring-01.png&#34; alt=&#34;linux-flowtop-monitoring-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>Table of Contents  Nettop  Google Transparency Report: Safe Browsing Tool   Netstat Flowtop    Nettop Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - Sniff DNS queries:
+Under macOS, the nettop util provides list of sockets and routes in details that help to trace down the process that established the connection to the unknown domain:</description>
     </item>
     
     <item>
-      <title>Sniff DNS queries</title>
+      <title>Sniff DNS Queries</title>
       <link>https://tzyluen.github.io/post/sniff-dns-queries/</link>
       <pubDate>Sat, 20 Feb 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/sniff-dns-queries/</guid>
-      <description>
-
-&lt;h1 id=&#34;dnstop&#34;&gt;Dnstop&lt;/h1&gt;
-
-&lt;p&gt;is a console libpcap application that displays various tables of DNS traffic on a network including:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Source IP addresses&lt;/li&gt;
-&lt;li&gt;Destination IP addresses&lt;/li&gt;
-&lt;li&gt;Query types&lt;/li&gt;
-&lt;li&gt;Top level domains&lt;/li&gt;
-&lt;li&gt;Second level domains&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# dnstop enp0s3 -l 3
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/dnstop-monitoring-large-count-01.png&#34; alt=&#34;dnstop-monitoring-01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Use &lt;code&gt;ctrl-r&lt;/code&gt; to reset the counter/refresh the history to get the latest queries.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;tcpdump&#34;&gt;Tcpdump&lt;/h1&gt;
-
-&lt;p&gt;Capture packets on port 53 (DNS):&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-i: interface
--v: verbose
--s: snaplen, snap n bytes length from each packet (default 262144).
-    setting lowest n to prevent packet lost.
--n: do not convert addresses/ports to names.
--w: write the raw packets to file.
-
-# tcpdump -i eth0 -v -s0 port 53 -w /tmp/dns-queries.pcap
-tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
-Got 223
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Read from captured raw pcap file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-q: quick/quiet/shorter output. Less protocol information.
--A: print the payload in ASCII.
--X: print the payload in hex and ASCII.
--tttt: print a human readable timestamp, preceded by the date, on each dump line.
--r: read packets from file.
-
-# tcpdump -ns 0 -A -tttt -r /tmp/dns-queries.pcap
-
-2016-04-03 19:15:28.673885 IP 192.168.1.7.50906 &amp;gt; 192.168.1.1.53: 25364+ A? www.reddit.com. (32)
-E..&amp;lt;......l............5.(.|c............www.reddit.com.....
-
-2016-04-03 19:15:28.737323 IP 192.168.1.1.53 &amp;gt; 192.168.1.7.50906: 25364 5/0/0 CNAME reddit.map.fastly.net., A 151.101.1.140, A 151.101.65.140, A 151.101.129.140, A 151.101.193.140 (131)
-E.....@.@............5.....%c............www.reddit.com.............. ...reddit.map.fastly.net..,...........e...,...........eA..,...........e...,...........e..
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;wireshark-tshark&#34;&gt;Wireshark / Tshark&lt;/h1&gt;
-
-&lt;p&gt;The console version of Wireshark comes handy to quickly monitor the traffic on port 53. It works the same as the capture and display filters from Wireshark.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;-f: capture filter
--Y: display filter
-$ tshark -i enp0s3 -f &amp;quot;udp port 53&amp;quot; -Y &amp;quot;dns.qry.type == 1 and dns.flags.response == 0&amp;quot;
-Capturing on &#39;enp0s3&#39;
-    1 0.000000000  192.168.1.7 → 192.168.1.1  DNS 72 Standard query 0xcb2a A slashdot.org
-...
-   18 3.274217622  192.168.1.7 → 192.168.1.1  DNS 70 Standard query 0x1c9f A reddit.com
-   21 3.367215915  192.168.1.7 → 192.168.1.1  DNS 74 Standard query 0x931d A www.reddit.com
-...
-   51 8.045870811  192.168.1.7 → 192.168.1.1  DNS 71 Standard query 0xf2b0 A youtube.com
-   52 8.057876881  192.168.1.7 → 192.168.1.1  DNS 83 Standard query 0x5358 A youtube-ui.l.google.com
-...
-   65 10.438546212  192.168.1.7 → 192.168.1.1  DNS 72 Standard query 0xfab8 A facebook.com
-   67 10.479990482  192.168.1.7 → 192.168.1.1  DNS 74 Standard query 0x7b3d A www.google.com
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;The &amp;lsquo;&lt;code&gt;dns.qry.type == A&lt;/code&gt;&amp;rsquo; will throws &amp;lsquo;&lt;code&gt;tshark: &amp;quot;A&amp;quot; cannot be found among the possible values for dns.qry.type.&lt;/code&gt;&amp;rsquo;. The decimal value for a type &amp;lsquo;A&amp;rsquo; DNS query type is 1.&lt;/p&gt;
-
-&lt;p&gt;Type ID in decimal - &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_DNS_record_types&#34;&gt;https://en.wikipedia.org/wiki/List_of_DNS_record_types&lt;/a&gt;&lt;/p&gt;
-</description>
+      <description>Table of Contents  Dnstop Tcpdump Wireshark / Tshark     Dnstop is a console libpcap application that displays various tables of DNS traffic on a network including:
+ Source IP addresses Destination IP addresses Query types Top level domains Second level domains  # dnstop enp0s3 -l 3  Use ctrl-r to reset the counter/refresh the history to get the latest queries.
+  Tcpdump Capture packets from port 53 (DNS):</description>
     </item>
     
   </channel>

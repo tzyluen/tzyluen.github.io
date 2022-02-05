@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Scan a network for vulnerabilities with Nessus &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Scan a network for vulnerabilities with Nessus</h1>
-  <h2></h2>
+  <h2>Scan a network for vulnerabilities with Nessus</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -243,135 +247,176 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#scan-a-network">Scan a network</a>
-<ul>
-<li><a href="#advanced-scans">Advanced Scans</a></li>
-<li><a href="#basic-network-scans">Basic Network Scans</a></li>
-<li><a href="#launch-a-scan">Launch A Scan</a></li>
-</ul></li>
-<li><a href="#results">Results</a>
-<ul>
-<li><a href="#exports">Exports</a>
-<ul>
-<li><a href="#executive-report">Executive Report</a></li>
-<li><a href="#technical-report">Technical Report</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#scan-a-network">Scan a network</a>
+      <ul>
+        <li><a href="#advanced-scans">Advanced Scans</a></li>
+        <li><a href="#basic-network-scans">Basic Network Scans</a></li>
+        <li><a href="#launch-a-scan">Launch A Scan</a></li>
+      </ul>
+    </li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#exports">Exports</a>
+      <ul>
+        <li><a href="#executive-report">Executive Report</a></li>
+        <li><a href="#technical-report">Technical Report</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
+<hr>
+<h2 id="scan-a-network">Scan a network</h2>
 
-<h1 id="scan-a-network">Scan a network</h1>
+<span class="glow-text-app-menu">Target: 192.168.1.0/24</span>
 
-<p>Target: 192.168.1.0/24</p>
+<p>Nessus provides a set of ready-to-use templates. For general scans, the 
+<span class="glow-text-app-menu">(1) Advanced Scan</span>
+ and 
+<span class="glow-text-app-menu">(2) Basic Network Scan</span>
+ would work. The differences are the 
+<span class="glow-text-app-menu">Advanced Scan</span>
+ supports the 
+<span class="glow-text-app-menu">Compliance</span>
+ and 
+<span class="glow-text-app-menu">Plugins</span>
+ which can be used to fine-tune the compliance checks (credentials are required) and plugins.</p>
 
-<p>Nessus provides a set of ready-to-use templates. For general scans, the <strong>(1) Advanced Scan</strong> and <strong>(2) Basic Network Scan would work</strong>. The differences are the Advanced Scan supports the <em>Compliance</em> and <em>Plugins</em> which can be used to fine-tune the compliance checks (credentials are required) and Plugins.</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-01.png" alt="scan-a-network-for-vulnerability-with-nessus-01" /></p>
-
-<h2 id="advanced-scans">Advanced Scans</h2>
-
+<h3 id="advanced-scans">Advanced Scans</h3>
 <ol>
-<li><p>Navigates to <code>Scans</code> &rarr; <code>New Scan</code> &rarr; <code>Advanced Scan</code>, insert the <code>name</code>, <code>description</code>, and <code>targets</code>. The <code>Schedule</code> and <code>Notifications</code> options enable the scan to be performed at certain time and email the results to a list of recipients automatically.</p>
+<li>
+<p>Navigates to 
+<span class="glow-text-app-menu">Scans</span>
+ → 
+<span class="glow-text-app-menu">New Scan</span>
+ → 
+<span class="glow-text-app-menu">Advanced Scan</span>
+, insert the Name, Description, and Targets. The Schedule and Notifications options enable the scan to be performed at certain time and email the results to a list of recipients automatically.</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png" alt="scan-a-network-for-vulnerability-with-nessus-02" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-02.png" alt="">
 
-<li><p>Tune the rest of the settings:</p>
+</li>
+<li>
+<p>Tune the rest of the settings:</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png" alt="scan-a-network-for-vulnerability-with-nessus-03" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-03.png" alt="">
 
-<li><p>Once all is set, save. The scan job will be listed in <code>My Scans</code> folder.</p></li>
+</li>
+<li>
+<p>Once all is set, save. The scan job will be listed in My Scans folder.</p>
+</li>
 </ol>
-
-<h2 id="basic-network-scans">Basic Network Scans</h2>
-
+<h3 id="basic-network-scans">Basic Network Scans</h3>
 <ol>
-<li><p>Navigates to <code>Scans</code> &rarr; <code>New Scan</code> &rarr; <code>Basic Network Scan</code>, insert the <code>name</code>, <code>description</code> and <code>targets</code>, then save.</p>
+<li>
+<p>Navigates to 
+<span class="glow-text-app-menu">Scans</span>
+ → 
+<span class="glow-text-app-menu">New Scan</span>
+ → 
+<span class="glow-text-app-menu">Basic Network Scan</span>
+, insert the Name, Description and Targets, then save.</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png" alt="scan-a-network-for-vulnerability-with-nessus-04" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-04.png" alt="">
+
+</li>
 </ol>
-
-<h2 id="launch-a-scan">Launch A Scan</h2>
-
+<h3 id="launch-a-scan">Launch A Scan</h3>
 <ol>
-<li><p>From the <code>My Scans</code> folder, select a task from the list to launch the scan.</p>
+<li>
+<p>From the My Scans folder, select a task from the list to launch the scan.</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png" alt="scan-a-network-for-vulnerability-with-nessus-05" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-05.png" alt="">
 
-<li><p>Once the scan complete, the status bar will changed to checked.</p>
+</li>
+<li>
+<p>Once the scan complete, the status bar will changed to checked.</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-06.png" alt="scan-a-network-for-vulnerability-with-nessus-06" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-06.png" alt="">
+
+</li>
 </ol>
-
-<hr />
-
-<h1 id="results">Results</h1>
-
+<hr>
+<h2 id="results">Results</h2>
 <ol>
-<li><p>The scan results are grouped by host, and vulnerabilities (color-coded by severity).</p></li>
+<li>
+<p>The scan results are grouped by host, and vulnerabilities (color-coded by severity).</p>
+</li>
+<li>
+<p>To prepare both summary and technical reports to circulate among teams, use the 
+<span class="glow-text-app-menu">Export</span>
+ → 
+<span class="glow-text-app-menu">PDF</span>
+ (or HTML, CSV, Nessus, Nessus DB)</p>
+</li>
+<li>
+<p>Clicking the vulnerabilities bar will drill-down to the next-level of 192.168.1.1 vulnerabilities:</p>
 
-<li><p>To prepare both summary and technical reports to circulate among teams, use the Export &rarr; PDF (or HTML, CSV, Nessus, Nessus DB)</p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-07.png" alt="">
 
-<li><p>Clicking the vulnerabilities bar will drill-down to the next-level of 192.168.1.1 vulnerabilities:</p>
+</li>
+<li>
+<p>The next level of drill-down will display the list of vulnerabilities exposed by Nessus on target 192.168.1.1, and clicking the specific vulnerability will drill-down to the attack vectors info:</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-07.png" alt="scan-a-network-for-vulnerability-with-nessus-07" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-10.png" alt="">
 
-<li><p>The next level of drill-down will display the list of vulnerabilities exposed by Nessus on target 192.168.1.1, and clicking the specific vulnerability will drill-down to the attack vectors info:</p>
-
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-10.png" alt="scan-a-network-for-vulnerability-with-nessus-10" /></p></li>
-
-<li><p>The description of the vulnerability, the recommended solution, and the payload used during the scan are documented:</p>
-
+</li>
+<li>
+<p>The description of the vulnerability, the recommended solution, and the payload used during the scan are documented:</p>
 <p>i. Description of the vulnerability and the attack vector.</p>
-
 <p>ii. The recommended solution.</p>
-
 <p>iii. The attack code/payload during the scan.</p>
-
 <p>iv. Network port used for this attack.</p>
-
 <p>v. A summarize of the risk factor information.</p>
-
 <p>vi. Vulnerability information on known exploit availability and publication date.</p>
-
 <p>vii. Reference information from the CVE (Common Vulnerabilities and Exposures) network.</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-11.png" alt="scan-a-network-for-vulnerability-with-nessus-11" /></p></li>
-</ol>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-11.png" alt="">
 
+</li>
+</ol>
+<hr>
 <h2 id="exports">Exports</h2>
-
 <h3 id="executive-report">Executive Report</h3>
-
 <ol>
-<li><p>To generate an executive report, choose:</p>
+<li>
+<p>To generate an executive report, choose 
+<span class="glow-text-app-menu">Executive Summary</span>
+:</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-08.png" alt="scan-a-network-for-vulnerability-with-nessus-08" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-08.png" alt="">
+
+</li>
 </ol>
-
 <h3 id="technical-report">Technical Report</h3>
-
 <ol>
-<li><p>To generate a technical report, choose <code>Custom</code>, select <code>Vulnerabilities</code> to include the data, and group by <code>Host</code>.</p>
+<li>
+<p>To generate a technical report, choose 
+<span class="glow-text-app-menu">Custom</span>
+, select 
+<span class="glow-text-app-menu">Vulnerabilities</span>
+ to include the data, and group by 
+<span class="glow-text-app-menu">Host</span>
+.</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-09.png" alt="scan-a-network-for-vulnerability-with-nessus-09" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-a-network-for-vulnerability-with-nessus-09.png" alt="">
+
+</li>
+</ol>
+<hr>
+<p><strong>References:</strong></p>
+<ol>
+<li><a href="https://www.tenable.com/products/nessus-vulnerability-scanner">https://www.tenable.com/products/nessus-vulnerability-scanner</a></li>
 </ol>
 
-<hr />
-
-<p><strong>References:</strong></p>
-
-<p>[1] <a href="https://www.tenable.com/products/nessus-vulnerability-scanner">https://www.tenable.com/products/nessus-vulnerability-scanner</a></p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -399,14 +444,27 @@ ga('send', 'pageview');
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
+
+
+
+
+
+
+
 
 
 

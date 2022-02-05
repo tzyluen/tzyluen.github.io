@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Test the DNS resolution time">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>DNS resolution benchmark &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>DNS resolution benchmark</h1>
-  <h2>Test the DNS resolution time</h2>
+  <h2>DNS resolution benchmark</h2>
+  <h3>Test the DNS resolution time</h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -239,66 +243,51 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#dig-grep">dig &amp; grep</a></li>
-<li><a href="#namebench">namebench</a></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dig--grep">dig &amp; grep</a></li>
+    <li><a href="#namebench">namebench</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="dig-grep">dig &amp; grep</h1>
-
-<p>A straightforward way is by using the <code>dig</code> util from the <code>dnsutils</code> package and grep the results. This works well for quick debug on-the-go:</p>
-
-<pre><code class="language-bash"># apt-get install dnsutils
-</code></pre>
-
-<pre><code class="language-bash">$ dig @202.188.0.132 archive.org | grep &quot;Query time:&quot;
+<hr>
+<h2 id="dig--grep">dig &amp; grep</h2>
+<p>A straightforward way is by using the <code>dig</code> util from the <code>dnsutils</code> package and <code>grep</code> the results. This works well for quick debug on-the-go:</p>
+<pre tabindex="0"><code># apt-get install dnsutils
+</code></pre><pre tabindex="0"><code>$ dig @202.188.0.132 archive.org | grep &quot;Query time:&quot;
 ;; Query time: 356 msec
 
 $ dig @8.8.8.8 archive.org | grep &quot;Query time:&quot;
 ;; Query time: 48 msec
-</code></pre>
+</code></pre><p>Note: <code>202.188.0.132</code> is ISP TMnet&rsquo;s name server, and <code>8.8.8.8</code> is from Google public name server.</p>
 
-<p><code>202.188.0.132</code> is ISP TMnet&rsquo;s name server, and <code>8.8.8.8</code> is from Google public name server.</p>
 
-<hr />
+<br/><br/>
 
-<h1 id="namebench">namebench</h1>
 
+<hr>
+<h2 id="namebench">namebench</h2>
 <p>is a DNS benchmark utility allows user to search for the fastest DNS servers available. It combines data from web browser history, tcpdump output, and standardized datasets to make recommendation.  It comes with console and GUI mode. To tweak the benchmark settings, edit the file <code>/etc/namebench/namebench.cfg</code>. For example, to limit the name servers to test by opting the &lsquo;<code>include global DNS providers</code>&rsquo; only, add the desired name servers into the <code>[global]</code> section, and excludes the &lsquo;<code>include regional DNS services</code>&rsquo; :</p>
-
-<pre><code class="language-bash">[global]
+<pre tabindex="0"><code>[global]
 ...
 51 58.6.115.42=OpenNIC
 52 58.6.115.43=OpenNIC_2
 53 72.14.189.120=OpenNIC_3
 54 195.46.39.39=SafeDNS
 55 195.46.39.40=SafeDNS_2
-</code></pre>
-
-<p>To run in <strong>console mode</strong>, pass additional parameters i.e.,:</p>
-
-<pre><code class="language-bash">-r RUN_COUNT, --runs=RUN_COUNT: Number of test runs to perform on each nameserver.
+</code></pre><p>To run in console mode, pass additional parameters i.e., :</p>
+<pre tabindex="0"><code>-r RUN_COUNT, --runs=RUN_COUNT: Number of test runs to perform on each nameserver.
 -z CONFIG, --config=CONFIG: Config file to use.
 -x, --no_gui: Disable GUI
 -i INPUT_SOURCE, --input=INPUT_SOURCE: Import hostnames from an filename or application (alexa...
 -t TEMPLATE, --template=TEMPLATE: ascii, html...
 
 $ namebench -z /etc/namebench/namebench.cfg -x -i alexa -t ascii
-</code></pre>
-
-<p>The benchmark result report in <code>ascii</code> format:</p>
-
-<pre><code class="language-bash">Fastest individual response (in milliseconds):
+</code></pre><p>The benchmark result reports in <code>ascii</code> format:</p>
+<pre tabindex="0"><code>Fastest individual response (in milliseconds):
 ----------------------------------------------
 Google Public DN #### 18.82386
 SYS-192.168.1.1  ##### 22.26114
@@ -327,35 +316,31 @@ Recommended configuration (fastest + nearest):
 nameserver 192.168.1.1     # SYS-192.168.1.1  
 nameserver 8.8.4.4         # Google Public DNS-2  
 nameserver 208.67.222.222  # OpenDNS-2  
-</code></pre>
+</code></pre><p>For GUI mode, simply invoke the program and select the desired options:</p>
+<pre tabindex="0"><code>$ namebench
+</code></pre><p>The GUI mode will generate a report in HTML format and plot a set of comprehensive charts to depict the performance of each tested DNS server. The following shows the overall result and it recommends:</p>
 
-<p>For <strong>GUI mode</strong>, simply invoke the program and select the desired options:</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart05-recommendation.png" alt="">
 
-<pre><code class="language-bash">$ namebench
-</code></pre>
+<p>The median response duration:</p>
 
-<p>The GUI mode will generate a report in HTML format and plot a set of comprehensive charts to depict the performance of each tested DNS server.</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart01-mean-response-duration.png" alt="">
 
-<p>The following shows the overall result and it recommends:</p>
+<p>The fastest invidual response duration:</p>
 
-<p><img src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart05-recommendation.png" alt="dns-benchmark-namebench-chart01-mean-response-duration" style="width: 700px;" /></p>
-
-<p>Mean Response Duration:</p>
-
-<p><img src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart01-mean-response-duration.png" alt="dns-benchmark-namebench-chart01-mean-response-duration" /></p>
-
-<p>Fastest Invidual Response Duration:</p>
-
-<p><img src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart02-fastest-individual-response-duration.png" alt="dns-benchmark-namebench-chart02-fastest-individual-response-duration" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart02-fastest-individual-response-duration.png" alt="">
 
 <p>Response Distribution (first 200ms):</p>
 
-<p><img src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart03-response-distribution-chart-first200ms.png" alt="dns-benchmark-namebench-chart03-response-distribution-chart-first200ms" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart03-response-distribution-chart-first200ms.png" alt="">
 
 <p>Response Distribution (full):</p>
 
-<p><img src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart04-response-distribution-chart-full.png" alt="dns-benchmark-namebench-chart04-response-distribution-chart-full" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/dns-benchmark-namebench-chart04-response-distribution-chart-full.png" alt="">
 
+
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -377,7 +362,7 @@ nameserver 208.67.222.222  # OpenDNS-2
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="https://tzyluen.github.io/post/encrypting-dns-traffic/">Encrypting DNS traffic</a>
+      <a href="https://tzyluen.github.io/post/encrypting-dns-traffic/">Encrypting DNS Traffic</a>
     </nav>
     
   </div>
@@ -389,15 +374,31 @@ nameserver 208.67.222.222  # OpenDNS-2
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

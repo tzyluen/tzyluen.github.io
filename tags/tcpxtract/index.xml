@@ -1,65 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tcpxtract on Technical Notes</title>
-    <link>https://tzyluen.github.io/tags/tcpxtract/index.xml</link>
-    <description>Recent content in Tcpxtract on Technical Notes</description>
+    <title>tcpxtract on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/tcpxtract/</link>
+    <description>Recent content in tcpxtract on Technical Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
-    <atom:link href="https://tzyluen.github.io/tags/tcpxtract/index.xml" rel="self" type="application/rss+xml" />
-    
+    <copyright>&amp;copy; 2015 - 2022. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 09 Apr 2016 00:00:00 +0800</lastBuildDate><atom:link href="https://tzyluen.github.io/tags/tcpxtract/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Extract files from captured network traffic pcap (2)</title>
       <link>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-2/</link>
       <pubDate>Sat, 09 Apr 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/extract-files-from-captured-network-traffic-pcap-2/</guid>
-      <description>
-
-&lt;h1 id=&#34;tcpxtract&#34;&gt;Tcpxtract&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Supports 26 file formats, extensible (&lt;code&gt;/etc/tcpxtract.conf&lt;/code&gt;), however it requires the clear start and end markers.&lt;/li&gt;
-&lt;li&gt;Supports only TCP packets, no UDP.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Live capture from an interface and extract:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ mkdir -p /tmp/enp0s3-tcpxtract-output
-$ sudo tcpxtract -d enp0s3 -o /tmp/enp0s3-tcpxtract-output
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Extract from pcap file:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-tcpxtract-01.png&#34; alt=&#34;extracting-files-tcpxtract-01&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h1 id=&#34;tcpextract&#34;&gt;Tcpextract&lt;/h1&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Similar to both &lt;code&gt;tcpflow&lt;/code&gt; and &lt;code&gt;tcpxtract&lt;/code&gt;, it extracts all files it recognized from a pcap file or interface.&lt;/li&gt;
-&lt;li&gt;Extracts files with their original names, instead of the index names i.e., 0000001.htm.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo apt-get install python-nids
-$ git clone https://github.com/faust/tcpextract.git
-$ cd tcpextract/
-$ sudo python setup.py install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;However, it is not well supported, or unstable.  It failed to extract http traffic during the experiment:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/extracting-files-tcpextract-01.png&#34; alt=&#34;extracting-files-tcpextract-01&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;So, converts &lt;code&gt;pcapng&lt;/code&gt; to &lt;code&gt;pcap&lt;/code&gt; file format:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ editcap http_espn.pcapng http_espn.pcap
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;After a few attempt, it still failed silently with zero file extracted.&lt;/p&gt;
-</description>
+      <description>Table of Contents  Tcpxtract Tcpextract     Tcpxtract  Supports 26 file formats, extensible (/etc/tcpxtract.conf), however it requires the clear start and end markers. Supports only TCP packets, no UDP.    Live capture from an interface and extract:
+$ mkdir -p /tmp/enp0s3-tcpxtract-output $ sudo tcpxtract -d enp0s3 -o /tmp/enp0s3-tcpxtract-output   Extract from the pcap file:
+   Tcpextract   Similar to both tcpflow and tcpxtract, tcpextract extracts all files it recognized from a pcap file or interface.</description>
     </item>
     
   </channel>

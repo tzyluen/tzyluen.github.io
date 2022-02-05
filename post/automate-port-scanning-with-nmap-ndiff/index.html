@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="To observe the changes of open ports over time">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Automate port scanning with Nmap &amp; Ndiff &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Automate port scanning with Nmap &amp; Ndiff</h1>
-  <h2>To observe the changes of open ports over time</h2>
+  <h2>Automate port scanning with Nmap &amp; Ndiff</h2>
+  <h3>To observe the changes of open ports over time</h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -241,98 +245,85 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#nmap-ndiff">Nmap Ndiff</a>
-<ul>
-<li><a href="#scan-and-interpret-the-results-diffs">Scan and interpret the results/diffs</a></li>
-<li><a href="#automation">Automation</a></li>
-</ul></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nmap-ndiff">Nmap Ndiff</a>
+      <ul>
+        <li><a href="#scan-and-interpret-the-resultsdiffs">Scan and interpret the results/diffs</a></li>
+      </ul>
+    </li>
+    <li><a href="#automation">Automation</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="nmap-ndiff">Nmap Ndiff</h1>
-
-<p>Ndiff is a tool to aid in the comparison of Nmap scans. Ndiff, like the standard diff utility, compares two scans at a time. It takes two Nmap XML output files and prints the differences between them. The differences observed are:</p>
-
+<hr>
+<h2 id="nmap-ndiff">Nmap Ndiff</h2>
+<p><code>Ndiff</code> is a tool to aid in the comparison of <code>Nmap</code> scans. Ndiff, like the standard diff utility, compares two scans at a time. It takes two Nmap XML output files and prints the differences between them. The differences observed are:</p>
 <ol>
-<li><p>Host states (e.g. up to down)</p></li>
-
-<li><p>Port states (e.g. open to closed)</p></li>
-
-<li><p>Service versions (from -sV)</p></li>
-
-<li><p>OS matches (from -O)</p></li>
-
-<li><p>Script output</p></li>
+<li>Host states (e.g. up to down)</li>
+<li>Port states (e.g. open to closed)</li>
+<li>Service versions (from -sV)</li>
+<li>OS matches (from -O)</li>
+<li>Script output</li>
 </ol>
-
-<h2 id="scan-and-interpret-the-results-diffs">Scan and interpret the results/diffs</h2>
-
+<h3 id="scan-and-interpret-the-resultsdiffs">Scan and interpret the results/diffs</h3>
+<ol>
+<li>
 <p>Do a fast scan <code>-F</code>, and output result in XML format:</p>
-
-<pre><code class="language-bash">nmap -F -sS -sV -oX 192-168-1-10-$(date +%F-%R) 192.168.1.10 
-</code></pre>
-
+<pre tabindex="0"><code># nmap -F -sS -sV -oX 192-168-1-10-$(date +%F-%R) 192.168.1.10 
+</code></pre></li>
+<li>
 <p>Do a full TCP port scan, service/version detection and output result in XML format:</p>
-
-<pre><code class="language-bash">nmap -p 1-65535 -sS -sV -oX 192-168-1-10-$(date +%F-%R) 192.168.1.10 
-</code></pre>
-
+<pre tabindex="0"><code># nmap -p 1-65535 -sS -sV -oX 192-168-1-10-$(date +%F-%R) 192.168.1.10 
+</code></pre></li>
+<li>
 <p>Compare the two results with <code>ndiff</code>:</p>
-
-<pre><code class="language-bash">-v, --verbose
+<pre tabindex="0"><code>-v, --verbose
    Include all hosts and ports in the output, not only those that have changed.
-ndiff -v file1 file2
-</code></pre>
 
+$ ndiff -v file1 file2
+</code></pre></li>
+<li>
 <p>The full TCP port scan (<code>-p 1-65535</code>) exposed 3 additional ports:</p>
 
-<p><img src="https://tzyluen.github.io/img/scanning-a-network-on-a-schedule-with-nmap-ndiff-01.png" alt="scanning-a-network-on-a-schedule-with-nmap-ndiff-01" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/scanning-a-network-on-a-schedule-with-nmap-ndiff-01.png" alt="">
 
+</li>
+</ol>
+<hr>
 <h2 id="automation">Automation</h2>
-
 <p>Put the regular <code>nmap</code> scan into a script and <code>ndiff</code> its XML format results, and <code>mailto</code> the target recipient(s):</p>
-
-<p><strong>Script:</strong> <code>001-LAN-192-168-1-daily.sh</code></p>
-
-<pre><code class="language-bash">#!/bin/sh
-BASENAME=&quot;001-LAN-192-168-1-daily-scan&quot;
-TARGETS=&quot;192.168.1.1/24&quot;
-OPTIONS=&quot;-v --top-ports 1000 -T4 -sV&quot;
-date=`date +%F`
+<p>sh script: <code>001-LAN-192-168-1-daily.sh</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>BASENAME<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;001-LAN-192-168-1-daily-scan&#34;</span>
+TARGETS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;192.168.1.1/24&#34;</span>
+OPTIONS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-v --top-ports 1000 -T4 -sV&#34;</span>
+date<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>date +%F<span style="color:#e6db74">`</span>
 cd /home/tzy/scans
 nmap $OPTIONS $TARGETS -oA $BASENAME-$date &gt; /dev/null
-if [ -e $BASENAME-prev.xml ]; then
+<span style="color:#66d9ef">if</span> <span style="color:#f92672">[</span> -e $BASENAME-prev.xml <span style="color:#f92672">]</span>; <span style="color:#66d9ef">then</span>
        ndiff $BASENAME-prev.xml $BASENAME-$date.xml &gt; $BASENAME-diff-$date
-       echo &quot;*** NDIFF RESULTS ***&quot;
+       echo <span style="color:#e6db74">&#34;*** NDIFF RESULTS ***&#34;</span>
        cat $BASENAME-diff-$date
        echo
-fi
-echo &quot;*** NMAP RESULTS ***&quot;
+<span style="color:#66d9ef">fi</span>
+echo <span style="color:#e6db74">&#34;*** NMAP RESULTS ***&#34;</span>
 cat $BASENAME-$date.nmap
 ln -sf $BASENAME-$date.xml $BASENAME-prev.xml
-</code></pre>
+</code></pre></div><p>Note: weekly scan can be extended to full TCP scan such as: <code>-v -p 1-65535 -T4 -sV</code></p>
 
-<p><strong>Note:</strong> weekly scan can be extended to full TCP scan such as: <code>-v -p 1-65535 -T4 -sV</code></p>
+<span class="glow-text-app-menu">Crontab:</span>
 
-<p><strong>Crontab:</strong></p>
-
-<pre><code>MAILTO=tzy
+<pre tabindex="0"><code>MAILTO=tzy
 0 0 * * 1-6 /root/cron/001-LAN-192-168-1-daily.sh    # daily at 00:00AM, Mon-Sat 
 0 0 * * sun /root/cron/001-LAN-192-168-1-weekly.sh   # weekly at 00:00AM, Sun
-</code></pre>
+</code></pre><p>And it can be easily extended to include weekly, monthly, policy-based scans with carefully crafted scanning strategy.</p>
 
-<p>And it can be easily extended to include weekly, monthly, policy-based scans with carefully crafted scanning strategy.</p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -366,15 +357,31 @@ ln -sf $BASENAME-$date.xml $BASENAME-prev.xml
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

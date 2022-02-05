@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
-  <title>Nessus &middot; Technical Notes</title>
+  <title>nessus &middot; Technical Notes</title>
+
+    
 
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,38 +32,35 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
+ 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="Technical Notes" href="https://tzyluen.github.io/tags/nessus/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Technical Notes"
+    href='https://tzyluen.github.io/tags/nessus/index.xml' />
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -79,7 +78,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -103,6 +102,12 @@ ga('send', 'pageview');
       
         </li>
       
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
+      
+        </li>
+      
     </ul>
   </div>
 
@@ -111,8 +116,11 @@ ga('send', 'pageview');
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://tzyluen.github.io/tags/nessus/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href='https://tzyluen.github.io/tags/nessus/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
+    
+
     
 
     
@@ -189,11 +197,11 @@ ga('send', 'pageview');
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -204,7 +212,7 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Nessus</h1>
+  <h2>nessus</h2>
 </div>
 
 <div class="content">
@@ -254,9 +262,7 @@ ga('send', 'pageview');
   </header>
 
   <p>
-  Scan a network Target: 192.168.1.0/24
-Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work. The differences are the Advanced Scan supports the Compliance and Plugins which can be used to fine-tune the compliance checks (credentials are required) and Plugins.
-Advanced Scans  Navigates to Scans &rarr; New Scan &rarr; Advanced Scan, insert the name, description, and targets. The Schedule and Notifications options enable the scan to be performed at certain time and email the results to a list of recipients automatically.
+  Table of Contents  Scan a network  Advanced Scans Basic Network Scans Launch A Scan   Results Exports  Executive Report Technical Report       Scan a network Target: 192.168.1.0/24 Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work. The differences are the Advanced Scan supports the Compliance and Plugins which can be used to fine-tune the compliance checks (credentials are required) and plugins.
   </p>
 
   
@@ -272,9 +278,18 @@ Advanced Scans  Navigates to Scans &rarr; New Scan &rarr; Advanced Scan, insert 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
+
+
+
+
+
+
+
 
 
 
 
 </body>
 </html>
+

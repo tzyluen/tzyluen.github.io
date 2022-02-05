@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
-  <title>Networking &middot; Technical Notes</title>
+  <title>networking &middot; Technical Notes</title>
+
+    
 
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,38 +32,35 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
+ 
   
-  
-  <link rel="alternate" type="application/rss+xml" title="Technical Notes" href="https://tzyluen.github.io/tags/networking/index.xml" />
+  <link rel="alternate" type="application/rss+xml" title="Technical Notes"
+    href='https://tzyluen.github.io/tags/networking/index.xml' />
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -79,7 +78,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -103,6 +102,12 @@ ga('send', 'pageview');
       
         </li>
       
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
+      
+        </li>
+      
     </ul>
   </div>
 
@@ -111,8 +116,11 @@ ga('send', 'pageview');
 
     
     <li class="pure-menu-item">
-      <a class="pure-menu-link" href="https://tzyluen.github.io/tags/networking/index.xml"><i class="fa fa-rss fa-fw"></i>RSS</a>
+      <a class="pure-menu-link" href='https://tzyluen.github.io/tags/networking/index.xml'><i
+          class="fas fa-rss fa-fw"></i>RSS</a>
     </li>
+    
+
     
 
     
@@ -189,11 +197,11 @@ ga('send', 'pageview');
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -204,7 +212,7 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Networking</h1>
+  <h2>networking</h2>
 </div>
 
 <div class="content">
@@ -254,9 +262,7 @@ ga('send', 'pageview');
   </header>
 
   <p>
-  Scan a network Target: 192.168.1.0/24
-Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work. The differences are the Advanced Scan supports the Compliance and Plugins which can be used to fine-tune the compliance checks (credentials are required) and Plugins.
-Advanced Scans  Navigates to Scans &rarr; New Scan &rarr; Advanced Scan, insert the name, description, and targets. The Schedule and Notifications options enable the scan to be performed at certain time and email the results to a list of recipients automatically.
+  Table of Contents  Scan a network  Advanced Scans Basic Network Scans Launch A Scan   Results Exports  Executive Report Technical Report       Scan a network Target: 192.168.1.0/24 Nessus provides a set of ready-to-use templates. For general scans, the (1) Advanced Scan and (2) Basic Network Scan would work. The differences are the Advanced Scan supports the Compliance and Plugins which can be used to fine-tune the compliance checks (credentials are required) and plugins.
   </p>
 
   
@@ -312,10 +318,7 @@ Advanced Scans  Navigates to Scans &rarr; New Scan &rarr; Advanced Scan, insert 
   </header>
 
   <p>
-  Port-independent, P2P, and encrypted protocols and packets have made the conventional network traffics analysis that based on packet header (transport protocol and application ports) obsolete. Deep Packet Inspection (DPI) technology can be used to identify and classify these encrypted, port-independent, P2P protocols.
-This post explore the popular open source implementations:
- nDPI library [1] ndpi-netfilter [2]  Other similar open source DPI tools are:
- L7-filter [3], open source, GPLv2.
+  Table of Contents  Introduction nDPI  Build and install ndpi-netfilter   Realtime capture Iptables/netfilter  SSH Youtube Social Networks       Introduction Port-independent, P2P, and encrypted protocols and packets have made the conventional network traffics analysis that based on packet header (transport protocol and application ports) obsolete. Deep Packet Inspection (DPI) technology can be used to identify and classify these encrypted, port-independent, P2P protocols.
   </p>
 
   
@@ -373,11 +376,8 @@ This post explore the popular open source implementations:
   </header>
 
   <p>
-  Base system used to perform the scans:
-root@192.168.1.11:~# uname -a Linux kali 4.9.0-kali3-amd64 #1 SMP Debian 4.9.13-1kali2 (2017-03-07) x86_64 GNU/Linux  Scan large IP block Scan the entire 175.0.0.0/8 for port 22, 80, 445:
-Note: It&rsquo;s risky to perform such as scan as it may trigger some IDS/IPS and get your IP blocked/blacklisted from accessing them permanently.
-Scan a Yahoo IP block for port tcp/80:
- Trace the Yahoo&rsquo;s IP block:
+  Table of Contents  Scan large IP block Exclude IP blocks of sensitive part of the Internet Include IP blocks for targeted IP blocks Transmission Rates Specify ports and ranges Pull the services and banners Output formats Manage config for different scanning strategies     The base system used to perform the scans:
+root@192.168.1.11:~# uname -a Linux kali 4.9.0-kali3-amd64 #1 SMP Debian 4.9.13-1kali2 (2017-03-07) x86_64 GNU/Linux Scan large IP block Scan the entire 175.
   </p>
 
   
@@ -437,8 +437,7 @@ Scan a Yahoo IP block for port tcp/80:
   </header>
 
   <p>
-  Introduction Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &ldquo;knock&rdquo; sequences of port-hits.
-A client system makes these port-hits by sending a TCP (or UDP) packet to a port on the server. When the server detects a specific sequence of port-hits, it runs a command defined in its configuration file.
+  Table of Contents  Introduction Enabling knockd Port-knocking  Open the port Close the port   Using Hping3 / Nmap  Open the port Close the port   Alternatives     Introduction Port-knocking is a stealth method to open ports that the firewall keeps closed by default. A port-knock server listens to all traffic on an ethernet (or PPP) interface, looking for a special &ldquo;knock&rdquo; sequences of port-hits.
   </p>
 
   
@@ -492,10 +491,10 @@ A client system makes these port-hits by sending a TCP (or UDP) packet to a port
   </header>
 
   <p>
-  In the Nmap Network Scanning book, chapter 15, section Port Specification and Scan Order, quote &ldquo;By default, Nmap scans the most common 1,000 ports for each protocol.&rdquo; [1]
+  In the  Nmap Network Scanning  book, chapter 15 , section  Port Specification and Scan Order , to quote &ldquo;By default, Nmap scans the most common 1,000 ports for each protocol.&rdquo; [1]
 However, the documentation did not mention the list of 1000 ports.
-How to identify and show those ports ?
---top-ports n: the n highest-ratio ports found in nmap-services. n must be 1 or greater -v: verbose level, to print the -oG: grepable output - : output to stdout nmap --top-ports 1000 -v -oG - localhost  Note: refer to /usr/share/nmap/nmap-services file for the service name and protocol.
+So, how to identify and show those 1000 ports ?
+--top-ports n: the n highest-ratio ports found in nmap-services. n must be 1 or greater -v: verbose level, to print the -oG: grepable output - : output to stdout $ nmap --top-ports 1000 -v -oG - localhost Note: refer to /usr/share/nmap/nmap-services file for the service name and protocol.
   </p>
 
   
@@ -551,7 +550,7 @@ How to identify and show those ports ?
   </header>
 
   <p>
-  Scan A Network/Subnet Host Discovery HOST DISCOVERY: -sL: List Scan - simply list targets to scan, without sending any packets to the target hosts, useful to generate list of target hosts and dns resolution. -sn: Ping Scan - disable port scan. -Pn: Treat all hosts as online -- skip host discovery. -PS/PA/PU/PY[portlist]: TCP SYN/ACK, UDP or SCTP discovery to given ports. -PE/PP/PM: ICMP echo, timestamp, and netmask request discovery probes.
+  Table of Contents  Scan a Network/Subnet  Host Discovery Scan a large public network Scan a private network: 192.168.1.0/24   Scan a Single Target Remote OS and Service Detection  Host and Port State Reason   List of Examples     Scan a Network/Subnet Host Discovery HOST DISCOVERY: -sL: List Scan - simply list targets to scan, without sending any packets to the target hosts, useful to generate list of target hosts and dns resolution.
   </p>
 
   
@@ -603,10 +602,8 @@ How to identify and show those ports ?
   </header>
 
   <p>
-  Runs wireshark and starts capturing the network packets until the statistic builds.
-Quick drill into errors and connection issues  Navigates to Analyze &rarr; Expert Info, a high number of errors and warnings indicates problems.
-  Identify the protocols with high traffic  Navigates to Statistics &rarr; Protocol Hierarchy:
- Observes the resulting Protocol Hierarchy Statistic and pins down the suspicious/troubling protocol (e.g., high percentage of P2P or broadcast), right-click and select Apply As Filter &rarr; Selected to apply the filter for further analysis.
+  Table of Contents  Quick drill into errors and connection issues Identify the protocols with high traffic Get the connection speed to a site Get the time spent in waiting for a response Identify the bad packets (TCP errors) ratio    Generate the statistic:- runs wireshark and starts capturing the network packets until the statistic builds.
+ Quick drill into errors and connection issues   Navigates to &#39;Analyze&#39; → &#39;Expert Info&#39; , a high number of errors and warnings indicates problems.
   </p>
 
   
@@ -666,10 +663,10 @@ Quick drill into errors and connection issues  Navigates to Analyze &rarr; Exper
   </header>
 
   <p>
-  Quick peek: Monitor activities on device eth0 port 80:
+  Table of Contents  Quick peek Sorts out unique User-Agent (devices) Monitor the occurrence of the keywords Monitor HTTP GET | POST traffic by IP addresses DNS     Quick peek Monitor activities on device eth0 port 80:
 -W byline: linefeeds (LF) are printed as linefeeds, more readable.
 -qt: quiet mode and print human-readable timestamp.
-# ngrep -d eth0 -W byline -qt port 80  Sorts out unique User-Agent (devices): In corporate environment, desktop/laptop OS build is often standardized. However, with the BYOD initiative, the network has becomes even more vulnerable. To quickly identify the type of devices on the network, we could do:
+# ngrep -d eth0 -W byline -qt port 80  Sorts out unique User-Agent (devices) In corporate environment, desktop/laptop OS build is often standardized.
   </p>
 
   
@@ -725,9 +722,9 @@ Quick drill into errors and connection issues  Navigates to Analyze &rarr; Exper
   </header>
 
   <p>
-  Tcpxtract  Supports 26 file formats, extensible (/etc/tcpxtract.conf), however it requires the clear start and end markers. Supports only TCP packets, no UDP.  Live capture from an interface and extract:
-$ mkdir -p /tmp/enp0s3-tcpxtract-output $ sudo tcpxtract -d enp0s3 -o /tmp/enp0s3-tcpxtract-output  Extract from pcap file:
-Tcpextract  Similar to both tcpflow and tcpxtract, it extracts all files it recognized from a pcap file or interface. Extracts files with their original names, instead of the index names i.
+  Table of Contents  Tcpxtract Tcpextract     Tcpxtract  Supports 26 file formats, extensible (/etc/tcpxtract.conf), however it requires the clear start and end markers. Supports only TCP packets, no UDP.    Live capture from an interface and extract:
+$ mkdir -p /tmp/enp0s3-tcpxtract-output $ sudo tcpxtract -d enp0s3 -o /tmp/enp0s3-tcpxtract-output   Extract from the pcap file:
+   Tcpextract   Similar to both tcpflow and tcpxtract, tcpextract extracts all files it recognized from a pcap file or interface.
   </p>
 
   
@@ -785,11 +782,8 @@ Tcpextract  Similar to both tcpflow and tcpxtract, it extracts all files it reco
   </header>
 
   <p>
-  Introduction The process is mostly the same in network packets data-carving:
- Gain access and collect the raw bytes Strip the protocol information Extract and write the data to file  The difference of these tools are the capability i.e., supported protocols and file formats.
-Wireshark HTTP objects/files:
-Navigate to File &rarr; Export Objects and select the type, currently it supports four protocols:
-Then select the target filename followed by Save or simply Save All:
+  Table of Contents  Introduction Wireshark  HTTP objects and files Binary files   Tcpflow &amp; Foremost     Introduction The process is mostly the same in network packets data-carving, which comprises of:
+ Gain access and collect the raw bytes Strip the protocol information Extract and write the data to file  The differences of these tools are their capabilities i.e., the supported protocols and file formats.
   </p>
 
   
@@ -802,7 +796,7 @@ Then select the target filename followed by Save or simply Save All:
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the default column display</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the Default Column Display</a></h2>
 
     <div class="post-meta">
 
@@ -839,9 +833,8 @@ Then select the target filename followed by Save or simply Save All:
   </header>
 
   <p>
-  The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: No (Packet number), Time, Source, Destination, Protocol, Length, and Info.
-Changing the column display To change the default column display, navigate to Preferences :
-From the Preferences, expands Appearance and select Columns, then add the new desired column e.g., Src port of type Src port (unresolved):
+  Background The following setup is intended to streamline the column display for effective analysis when looking at HTTP and HTTPS traffic. The default columns are: &lsquo;No (Packet number)&rsquo;, &lsquo;Time&rsquo;, &lsquo;Source&rsquo;, &lsquo;Destination&rsquo;, &lsquo;Protocol&rsquo;, &lsquo;Length&rsquo;, and &lsquo;Info&rsquo;.
+  Table of Contents  Background Changing the column display Changing the Time Display Format Adding HTTP Server Names Adding HTTPS Server Names     Changing the column display   To change the default column display, navigate to &lsquo;Preferences&rsquo;:
   </p>
 
   
@@ -854,7 +847,7 @@ From the Preferences, expands Appearance and select Columns, then add the new de
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/encrypting-dns-traffic/">Encrypting DNS traffic</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/encrypting-dns-traffic/">Encrypting DNS Traffic</a></h2>
 
     <div class="post-meta">
 
@@ -895,8 +888,7 @@ From the Preferences, expands Appearance and select Columns, then add the new de
   </header>
 
   <p>
-  DNSCrypt can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.
-Install # apt-get install dnscrypt-proxy  Select a resolver Note: An up-to-date dnscrypt-resolvers.csv is also available from https://github.
+  Table of Contents  DNSCrypt  Install Select a resolver Modify resolv.conf Start systemd service Verify the DNS traffic is encrypted       DNSCrypt can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.
   </p>
 
   
@@ -948,8 +940,8 @@ Install # apt-get install dnscrypt-proxy  Select a resolver Note: An up-to-date 
   </header>
 
   <p>
-  dig &amp; grep A straightforward way is by using the dig util from the dnsutils package and grep the results. This works well for quick debug on-the-go:
-# apt-get install dnsutils  $ dig @202.188.0.132 archive.org | grep &quot;Query time:&quot; ;; Query time: 356 msec $ dig @8.8.8.8 archive.org | grep &quot;Query time:&quot; ;; Query time: 48 msec  202.188.0.132 is ISP TMnet&rsquo;s name server, and 8.8.8.8 is from Google public name server.
+  Table of Contents  dig &amp; grep namebench     dig &amp; grep A straightforward way is by using the dig util from the dnsutils package and grep the results. This works well for quick debug on-the-go:
+# apt-get install dnsutils $ dig @202.188.0.132 archive.org | grep &quot;Query time:&quot; ;; Query time: 356 msec $ dig @8.8.8.8 archive.org | grep &quot;Query time:&quot; ;; Query time: 48 msec Note: 202.
   </p>
 
   
@@ -1001,8 +993,8 @@ Install # apt-get install dnscrypt-proxy  Select a resolver Note: An up-to-date 
   </header>
 
   <p>
-  Tcpkill enables priviledged user to kill TCP connections, it uses the tcpdump expression. It&rsquo;s part of the dsniff package. The default degree of brute force to use in killing a connection is 3, fast connections may require a higher number in order to land a RST in the moving receive window.
-tcpkill [-i interface] [-1...9] expression  For example, to kill the established and also to prevent any connections from 192.
+  Table of Contents  Tcpkill GDB     Tcpkill enables priviledged user to kill TCP connections, it uses the tcpdump expression. It&rsquo;s part of the dsniff package. The default degree of brute force to use in killing a connection is 3, fast connections may require a higher number in order to land a RST in the moving receive window.
+tcpkill [-i interface] [-1...9] expression For example, to kill the established and also to prevent any connections from 192.
   </p>
 
   
@@ -1015,7 +1007,7 @@ tcpkill [-i interface] [-1...9] expression  For example, to kill the established
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/tracing-malicious-network-traffic/">Tracing malicious network traffic</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/tracing-malicious-network-traffic/">Tracing Malicious Network Traffic</a></h2>
 
     <div class="post-meta">
 
@@ -1064,9 +1056,8 @@ tcpkill [-i interface] [-1...9] expression  For example, to kill the established
   </header>
 
   <p>
-  Nettop Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - Sniff DNS queries:
+  Table of Contents  Nettop  Google Transparency Report: Safe Browsing Tool   Netstat Flowtop    Nettop Assuming an unknown/suspicious output (i.e., no chat client is being used, but random chat domain appeared: vmp.boldchat.com) is spotted from a DNS monitoring such as in previous post titled - Sniff DNS queries:
 Under macOS, the nettop util provides list of sockets and routes in details that help to trace down the process that established the connection to the unknown domain:
-# use keys to toggle: # d, delta output # c, collapse all # e, expand all # j, bring up the column selection menu # h, help $ nettop  Google Transparency Report: Safe Browsing Tool Since the process is from Firefox on port https (443), the Google Transparency Report Safe Browsing tool can be used to check if the site is malicious and unsafe.
   </p>
 
   
@@ -1079,7 +1070,7 @@ Under macOS, the nettop util provides list of sockets and routes in details that
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS queries</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS Queries</a></h2>
 
     <div class="post-meta">
 
@@ -1126,10 +1117,9 @@ Under macOS, the nettop util provides list of sockets and routes in details that
   </header>
 
   <p>
-  Dnstop is a console libpcap application that displays various tables of DNS traffic on a network including:
+  Table of Contents  Dnstop Tcpdump Wireshark / Tshark     Dnstop is a console libpcap application that displays various tables of DNS traffic on a network including:
  Source IP addresses Destination IP addresses Query types Top level domains Second level domains  # dnstop enp0s3 -l 3  Use ctrl-r to reset the counter/refresh the history to get the latest queries.
-Tcpdump Capture packets on port 53 (DNS):
--i: interface -v: verbose -s: snaplen, snap n bytes length from each packet (default 262144).
+  Tcpdump Capture packets from port 53 (DNS):
   </p>
 
   
@@ -1142,7 +1132,7 @@ Tcpdump Capture packets on port 53 (DNS):
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/">Capture network traffic on WLAN (macOS)</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/capture-network-traffic-on-wlan-macos/">Capture Network Traffic on WLAN (macOS)</a></h2>
 
     <div class="post-meta">
 
@@ -1185,9 +1175,10 @@ Tcpdump Capture packets on port 53 (DNS):
   </header>
 
   <p>
-  MacOS&rsquo;s Airport is a built-in wireless utility comes preinstalled in MacOS.
-$ ll /usr/local/bin/airport lrwxr-xr-x 1 root wheel 89 Jun 22 2016 /usr/local/bin/airport@ -&gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport  Perform a wireless broadcast scan to get the list of access points in the neighborhood: Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:
-$ airport en0 sniff 1 Capturing 802.11 frames on en0. ^CSession saved to /tmp/airportSniffwUKb60.
+  Table of Contents  MacOS&rsquo;s Airport Wireshark    MacOS&rsquo;s Airport is a built-in wireless utility comes preinstalled in MacOS.
+$ ll /usr/local/bin/airport lrwxr-xr-x 1 root wheel 89 Jun 22 2016 /usr/local/bin/airport@ -&gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport Perform a wireless broadcast scan to get the list of access points in the neighborhood:
+Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:
+$ airport en0 sniff 1 Capturing 802.
   </p>
 
   
@@ -1240,7 +1231,7 @@ $ airport en0 sniff 1 Capturing 802.11 frames on en0. ^CSession saved to /tmp/ai
 
   <p>
   mtr Often times, troublesome networks won&rsquo;t show up in the results of a few packets. mtr combines the functionality of the traceroute and ping utils and enables user to constantly poll a remote server to see the latency and performance changes over time. It&rsquo;s not installed by default on most linux systems, simply get it from the distribution and package manager of choice:
-$ sudo apt-get install mtr  To debug remotely over ssh where no GUI is available, use the --curses or -t option:
+$ sudo apt-get install mtr To debug remotely over ssh where no GUI is available, use the --curses or -t option:
   </p>
 
   
@@ -1293,7 +1284,7 @@ $ sudo apt-get install mtr  To debug remotely over ssh where no GUI is available
 
   <p>
   This post extends the discussion on traceroute in previous post Traceroute, Firewalls &amp; Geo-IP, and focused on intepreting the traceroute report.
-Output format explanation: v--- the router/ip-addr traversed by the packet [Hop] [Hostname/(IP-addr)] [RTT1] [RTT2] [RTT3] ^--- transit no. of the route ^---- round-trip time  The round-trip time (RTT) is the latency (delay between sending the packet and getting the response).
+Output format explanation:  v--- the router/ip-addr traversed by the packet [Hop] [Hostname/(IP-addr)] [RTT1] [RTT2] [RTT3] ^--- transit no. of the route ^---- round-trip time The round-trip time (RTT) is the latency (delay between sending the packet and getting the response).
 By default, traceroute sends 3 packets per TTL increment.
   </p>
 
@@ -1352,7 +1343,7 @@ By default, traceroute sends 3 packets per TTL increment.
   </header>
 
   <p>
-  Traceroute Traceroute is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with ping. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.
+  Table of Contents  Traceroute  ICMP mode UDP mode TCP mode Output format explanation   Hping3 InTrace Nmap: traceroute-geolocation script    Traceroute Traceroute is useful for diagnosing networking problems, e.g., end-to-end connectivty, complement with ping. It can also be used to pinpoint the location of devices, routers and firewalls. The tracerouting tools fundamentally rely on the IP packet&rsquo;s field - TTL (Time-To-Live, decremented at each hop, dies at 0), they send short-life IP packets and wait for Time Exceeded ICMP packets reporting the death of these packets from a router, consequently reveal the route.
   </p>
 
   
@@ -1365,7 +1356,7 @@ By default, traceroute sends 3 packets per TTL increment.
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/hping3-use-cases/">Hping3 use cases</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/hping3-use-cases/">Hping3: Use Cases</a></h2>
 
     <div class="post-meta">
 
@@ -1408,8 +1399,7 @@ By default, traceroute sends 3 packets per TTL increment.
   </header>
 
   <p>
-  hping3 and the firewall Mode default mode TCP -0 --rawip RAW IP mode -1 --icmp ICMP mode -2 --udp UDP mode -8 --scan SCAN mode. Example: hping --scan 1-30,70-90 -S www.target.host -9 --listen listen mode  ICMP mode: The typical ping utility and the hping3 equivalent, sending ICMP-echo and receiving ICMP-reply:
-$ ping google.com -c 3 PING google.com (216.58.196.14) 56(84) bytes of data. 64 bytes from google.com (216.58.196.14): icmp_seq=1 ttl=57 time=23.
+  Table of Contents  hping3 and the firewall  ICMP mode TCP mode UDP mode SCAN mode      hping3 and the firewall Mode default mode TCP -0 --rawip RAW IP mode -1 --icmp ICMP mode -2 --udp UDP mode -8 --scan SCAN mode. Example: hping --scan 1-30,70-90 -S www.target.host -9 --listen listen mode ICMP mode The typical ping utility and the hping3 equivalent, sending ICMP-echo and receiving ICMP-reply:
   </p>
 
   
@@ -1422,7 +1412,7 @@ $ ping google.com -c 3 PING google.com (216.58.196.14) 56(84) bytes of data. 64 
   
     <article>
   <header>
-    <h2><a href="https://tzyluen.github.io/post/firewall-iptables-ufw-enablement/">Firewall: iptables/ufw enablement</a></h2>
+    <h2><a href="https://tzyluen.github.io/post/firewall-iptables-ufw-enablement/">Firewall: Iptables and UFW Enablement</a></h2>
 
     <div class="post-meta">
 
@@ -1456,9 +1446,8 @@ $ ping google.com -c 3 PING google.com (216.58.196.14) 56(84) bytes of data. 64 
   </header>
 
   <p>
-  Iptables List the configured rules:
-# iptables -L # iptables -L -t nat  iptables contains 5 tables, (-t, --tables): raw, filter, nat, mangle and security. In common use cases, filter and nat is used, where filter is associated with the firewall and nat is used for network address translation such as port forwarding.
-Enabling ufw (uncomplicated firewall) # ufw enable # ufw disable  Check the service is running:
+  Table of Contents  Iptables UFW  Manage ufw by predefined service names Extended syntax Reorders firewall rules      Iptables List the configured rules:
+# iptables -L # iptables -L -t nat iptables contains 5 tables, (-t, --tables): raw, filter, nat, mangle and security. In common use cases, filter and nat is used, where filter is associated with the firewall and nat is used for network address translation such as port forwarding.
   </p>
 
   
@@ -1474,9 +1463,18 @@ Enabling ufw (uncomplicated firewall) # ufw enable # ufw disable  Check the serv
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
+
+
+
+
+
+
+
 
 
 
 
 </body>
 </html>
+

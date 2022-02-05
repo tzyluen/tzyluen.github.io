@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Deep packet inspection &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Deep packet inspection</h1>
-  <h2></h2>
+  <h2>Deep packet inspection</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -243,71 +247,57 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#ndpi">nDPI</a>
-<ul>
-<li><a href="#build-and-install-ndpi-netfilter">Build and install ndpi-netfilter</a></li>
-</ul></li>
-<li><a href="#testing">Testing</a>
-<ul>
-<li><a href="#realtime-capture">Realtime capture</a></li>
-<li><a href="#iptables-netfilter">Iptables/netfilter</a>
-<ul>
-<li><a href="#ssh">SSH</a></li>
-<li><a href="#youtube">Youtube</a></li>
-<li><a href="#social-networks">Social Networks</a></li>
-</ul></li>
-</ul></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#ndpi">nDPI</a>
+      <ul>
+        <li><a href="#build-and-install-ndpi-netfilter">Build and install ndpi-netfilter</a></li>
+      </ul>
+    </li>
+    <li><a href="#realtime-capture">Realtime capture</a></li>
+    <li><a href="#iptablesnetfilter">Iptables/netfilter</a>
+      <ul>
+        <li><a href="#ssh">SSH</a></li>
+        <li><a href="#youtube">Youtube</a></li>
+        <li><a href="#social-networks">Social Networks</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
+<hr>
+<h2 id="introduction">Introduction</h2>
 <p>Port-independent, P2P, and encrypted protocols and packets have made the conventional network traffics analysis that based on packet header (transport protocol and application ports) obsolete. Deep Packet Inspection (DPI) technology can be used to identify and classify these encrypted, port-independent, P2P protocols.</p>
-
 <p>This post explore the popular open source implementations:</p>
-
 <ul>
 <li>nDPI library [1]</li>
 <li>ndpi-netfilter [2]</li>
 </ul>
-
 <p>Other similar open source DPI tools are:</p>
-
 <ul>
 <li>L7-filter [3], open source, GPLv2.</li>
 <li>Libprotoident [4], open source, LGPL.</li>
 <li>PACE (Protocol and Application Classification Engine) [5], commercial.</li>
 <li>NBAR (Network Based Application Recognition) by Cisco [6], commercial.</li>
 </ul>
-
-<p><strong>Note:</strong> ndpi-netfilter tested only on Ubuntu 14.04.1 LTS (kernel 3.13.0-37-generic). During the initial experiment of this setup on machine with kernel v4.x, it did not work. The following Debian/wheezy machine with kernel v3.2 were used instead:</p>
-
+<p>Note: ndpi-netfilter tested only on Ubuntu 14.04.1 LTS (kernel 3.13.0-37-generic). During the initial experiment of this setup on machine with kernel v4.x, it did not work. The following Debian/wheezy machine with kernel v3.2 were used instead:</p>
 <p>OS/kernel version:</p>
-
-<pre><code class="language-bash">tzy@192.168.1.12:~$ uname -a
+<pre tabindex="0"><code>tzy@192.168.1.12:~$ uname -a
 Linux blackstar 3.2.0-4-amd64 #1 SMP Debian 3.2.63-2+deb7u2 x86_64 GNU/Linux
-</code></pre>
-
-<hr />
-
-<h1 id="ndpi">nDPI</h1>
-
-<h2 id="build-and-install-ndpi-netfilter">Build and install ndpi-netfilter</h2>
-
+</code></pre><hr>
+<h2 id="ndpi">nDPI</h2>
+<h3 id="build-and-install-ndpi-netfilter">Build and install ndpi-netfilter</h3>
 <ol>
-<li>Download ndpi-netfilter from <a href="https://github.com/betolj/ndpi-netfilter">https://github.com/betolj/ndpi-netfilter</a> and extract to <code>/usr/src</code></li>
-
-<li><p>Install dependencies:</p>
-
-<pre><code class="language-bash">root@192.168.1.12:~# apt-get install linux-source
+<li>
+<p>Download <code>ndpi-netfilter</code> from <a href="https://github.com/betolj/ndpi-netfilter">https://github.com/betolj/ndpi-netfilter</a> and extract to <code>/usr/src</code>.</p>
+</li>
+<li>
+<p>Install dependencies:</p>
+<pre tabindex="0"><code>root@192.168.1.12:~# apt-get install linux-source
 root@192.168.1.12:~# apt-get install libtool
 root@192.168.1.12:~# apt-get install autoconf
 root@192.168.1.12:~# apt-get install pkg-config
@@ -315,51 +305,50 @@ root@192.168.1.12:~# apt-get install subversion
 root@192.168.1.12:~# apt-get install libpcap-dev 
 root@192.168.1.12:~# apt-get install iptables-dev 
 </code></pre></li>
-
-<li><p>Build and install nDPI:</p>
-
-<pre><code class="language-bash">root@192.168.1.12:~# cd /usr/src/ndpi-netfilter-master
+<li>
+<p>Build and install nDPI:</p>
+<pre tabindex="0"><code>root@192.168.1.12:~# cd /usr/src/ndpi-netfilter-master
 root@192.168.1.12:/usr/src/ndpi-netfilter-master# tar xvzf nDPI.tar.gz
 root@192.168.1.12:/usr/src/ndpi-netfilter-master# cd nDPI
 root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# ./autogen.sh
 root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# make
 root@192.168.1.12:/usr/src/ndpi-netfilter-master/nDPI# make install
 </code></pre></li>
-
-<li><p>Build and install ndpi-netfilter:</p>
-
-<pre><code class="language-bash">root@192.168.1.12:~# cd ..
+<li>
+<p>Build and install ndpi-netfilter:</p>
+<pre tabindex="0"><code>root@192.168.1.12:~# cd ..
 root@192.168.1.12:~# NDPI_PATH=/usr/src/ndpi-netfilter-master/nDPI make
 root@192.168.1.12:~# make modules_install
 root@192.168.1.12:~# cp /usr/src/ndpi-netfilter-master/ipt/libxt_ndpi.so /lib/xtables/
 </code></pre></li>
 </ol>
-
-<hr />
-
-<h1 id="testing">Testing</h1>
-
+<hr>
 <h2 id="realtime-capture">Realtime capture</h2>
-
+<p>Use the <code>ndpiReader</code> utility to capture and classify network packets in realtime.</p>
 <ol>
-<li><p>Runs SSH server 192.168.1.12 on port <code>26/tcp</code> instead of the default <code>22/tcp</code>:</p>
+<li>
+<p>Runs SSH server <code>192.168.1.12</code> on port <code>26/tcp</code> instead of the default <code>22/tcp</code>:</p>
 
-<p><img src="https://tzyluen.github.io/img/ndpi-deep-packet-inspection-03.png" alt="ndpi-deep-packet-inspection-02" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/ndpi-deep-packet-inspection-03.png" alt="">
 
-<li><p>From a client host 192.168.1.9, port scans 192.168.1.12, it shows as <code>26/tcp rsftp</code> service:</p>
+</li>
+<li>
+<p>From a client host <code>192.168.1.9</code>, port scans <code>192.168.1.12</code>, it shows as <code>26/tcp rsftp</code> service:</p>
 
-<p><img src="https://tzyluen.github.io/img/ndpi-deep-packet-inspection-04.png" alt="ndpi-deep-packet-inspection-02" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/ndpi-deep-packet-inspection-04.png" alt="">
 
-<li><p>SSH on non-standard port 26, and non-port based packets e.g., Facebook, Twitter, GMail, Youtube, Google, Apple, Cloudflare and etc were detected.</p>
+</li>
+<li>
+<p>SSH on non-standard port 26, and non-port based packets e.g., Facebook, Twitter, GMail, Youtube, Google, Apple, Cloudflare, etc., were detected.</p>
 
-<p><img src="https://tzyluen.github.io/img/ndpi-deep-packet-inspection-02.png" alt="ndpi-deep-packet-inspection-02" /></p></li>
+<img class="pure-img" src="https://tzyluen.github.io/img/ndpi-deep-packet-inspection-02.png" alt="">
+
+</li>
 </ol>
-
-<h2 id="iptables-netfilter">Iptables/netfilter</h2>
-
+<hr>
+<h2 id="iptablesnetfilter">Iptables/netfilter</h2>
 <p>To filter port-independent packets, get the list of supported protocols as shown below. Below are some popular protocols supported by ndpi:</p>
-
-<pre><code class="language-bash">root@192.168.1.12:~# iptables -m ndpi -h
+<pre tabindex="0"><code>root@192.168.1.12:~# iptables -m ndpi -h
 ...
 ndpi match options:
 --ssh Match for SSH protocol packets.
@@ -374,48 +363,35 @@ ndpi match options:
 --snapchat Match for SNAPCHAT protocol packets.
 --youtube Match for YOUTUBE protocol packets.
 ...
-</code></pre>
-
-<h3 id="ssh">SSH</h3>
-
+</code></pre><h3 id="ssh">SSH</h3>
 <p>To drop all incoming ssh packets, do:</p>
-
-<pre><code class="language-bash">root@192.168.1.12:~# iptables -I INPUT -m ndpi --ssh -j DROP
+<pre tabindex="0"><code>root@192.168.1.12:~# iptables -I INPUT -m ndpi --ssh -j DROP
 
 iptables -A INPUT -m limit --limit 2/min -j LOG --log-prefix &quot;[IPTABLES-INPUT-DROPPED] &quot; --log-level 4
 iptables -A OUTPUT -m limit --limit 2/min -j LOG --log-prefix &quot;[IPTABLES-OUTPUT-DROPPED] &quot; --log-level 4
-</code></pre>
-
-<p><strong>Note:</strong> the last two lines are for logging purposes.</p>
-
+</code></pre><p>Note: the last two lines are for logging purposes.</p>
 <h3 id="youtube">Youtube</h3>
-
 <p>To drop all incoming youtube based packets, do:</p>
-
-<pre><code class="language-bash">iptables -A INPUT -m ndpi --youtube -j DROP
-</code></pre>
-
-<h3 id="social-networks">Social Networks</h3>
-
+<pre tabindex="0"><code>iptables -A INPUT -m ndpi --youtube -j DROP
+</code></pre><h3 id="social-networks">Social Networks</h3>
 <p>To drop all incoming and outgoing social networks, do:</p>
-
-<pre><code class="language-bash">iptables -A INPUT -m ndpi --twitter -j DROP
+<pre tabindex="0"><code>iptables -A INPUT -m ndpi --twitter -j DROP
 iptables -A OUTPUT -m ndpi --twitter -j DROP
 iptables -A INPUT -m ndpi --facebook -j DROP
 iptables -A OUTPUT -m ndpi --facebook -j DROP
-</code></pre>
-
-<hr />
-
+</code></pre><hr>
 <p><strong>References:</strong></p>
+<ol>
+<li>nDPI - <a href="http://www.ntop.org/products/deep-packet-inspection/ndpi/">http://www.ntop.org/products/deep-packet-inspection/ndpi/</a></li>
+<li>ndpi-netfilter - <a href="https://github.com/betolj/ndpi-netfilter/README">https://github.com/betolj/ndpi-netfilter/README</a></li>
+<li>L7-filter - <a href="http://l7-filter.clearos.com">http://l7-filter.clearos.com</a></li>
+<li>Libprotoident - <a href="https://research.wand.net.nz/software/libprotoident.php">https://research.wand.net.nz/software/libprotoident.php</a></li>
+<li>PACE (Protocol and Application Classification Engine) - <a href="https://www.ipoque.com/products/dpi-engine-rsrpace-2">https://www.ipoque.com/products/dpi-engine-rsrpace-2</a></li>
+<li>NBAR (Network Based Application Recognition) - <a href="http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html">http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html</a></li>
+</ol>
 
-<p>[1] nDPI -  <a href="http://www.ntop.org/products/deep-packet-inspection/ndpi/">http://www.ntop.org/products/deep-packet-inspection/ndpi/</a> <br>
-[2] ndpi-netfilter - <a href="https://github.com/betolj/ndpi-netfilter/README">https://github.com/betolj/ndpi-netfilter/README</a> <br>
-[3] L7-filter - <a href="http://l7-filter.clearos.com">http://l7-filter.clearos.com</a> <br>
-[4] Libprotoident - <a href="https://research.wand.net.nz/software/libprotoident.php">https://research.wand.net.nz/software/libprotoident.php</a> <br>
-[5] PACE (Protocol and Application Classification Engine) - <a href="https://www.ipoque.com/products/dpi-engine-rsrpace-2">https://www.ipoque.com/products/dpi-engine-rsrpace-2</a> <br>
-[6] NBAR (Network Based Application Recognition) - <a href="http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html">http://www.cisco.com/c/en/us/products/ios-nx-os-software/network-based-application-recognition-nbar/index.html</a></p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -449,15 +425,31 @@ iptables -A OUTPUT -m ndpi --facebook -j DROP
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

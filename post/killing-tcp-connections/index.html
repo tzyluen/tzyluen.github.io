@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Killing TCP connections &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Killing TCP connections</h1>
-  <h2></h2>
+  <h2>Killing TCP connections</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -239,41 +243,29 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#tcpkill">Tcpkill</a></li>
-<li><a href="#gdb">GDB</a></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tcpkill">Tcpkill</a></li>
+    <li><a href="#gdb">GDB</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="tcpkill">Tcpkill</h1>
-
-<p>enables priviledged user to kill TCP connections, it uses the tcpdump expression. It&rsquo;s part of the <strong>dsniff</strong> package. The default degree of brute force to use in killing a connection is 3, fast connections may require a higher number in order to land a RST in the moving receive window.</p>
-
-<pre><code class="language-bash">tcpkill [-i interface] [-1...9] expression
-</code></pre>
-
-<p>For example, to kill the established and also to prevent any connections from 192.168.1.7 (client) to 192.168.1.9 (server) on port 22, use the following parameters:</p>
-
-<pre><code class="language-bash">192.168.1.9:~$ sudo /usr/sbin/tcpkill -i enp0s3 src 192.168.1.7 and dst port 22
+<hr>
+<h2 id="tcpkill">Tcpkill</h2>
+<p>enables priviledged user to kill TCP connections, it uses the tcpdump expression. It&rsquo;s part of the <code>dsniff</code> package. The default degree of brute force to use in killing a connection is 3, fast connections may require a higher number in order to land a <code>RST</code> in the moving receive window.</p>
+<pre tabindex="0"><code>tcpkill [-i interface] [-1...9] expression
+</code></pre><p>For example, to kill the established and also to prevent any connections from 192.168.1.7 (client) to 192.168.1.9 (server) on port 22, use the following parameters:</p>
+<pre tabindex="0"><code>192.168.1.9:~$ sudo /usr/sbin/tcpkill -i enp0s3 src 192.168.1.7 and dst port 22
 tcpkill: listening on enp0s3 [src 192.168.1.7 and dst port 22] 
 192.168.1.7:57502 &gt; 192.168.1.9:22: R 462778052:462778052(0) win 0
 192.168.1.7:57502 &gt; 192.168.1.9:22: R 462782148:462782148(0) win 0
 192.168.1.7:57502 &gt; 192.168.1.9:22: R 462790340:462790340(0) win 0
 ...
-</code></pre>
-
-<p>On the receiving end 192.168.1.7 (client), connection is killed and new connection is denied:</p>
-
-<pre><code class="language-bash">192.168.1.9:~$ wpacket_write_wait: Connection to 192.168.1.9: Broken pipe
+</code></pre><p>On the receiving end 192.168.1.7 (client), connection is killed and new connection is denied:</p>
+<pre tabindex="0"><code>192.168.1.9:~$ wpacket_write_wait: Connection to 192.168.1.9: Broken pipe
 192.168.1.7:~$ 
 192.168.1.7:~$ ssh tzy@192.168.1.9
 192.168.1.9's password: 
@@ -281,52 +273,42 @@ ssh_dispatch_run_fatal: Connection to 192.168.1.9: Broken pipe
 192.168.1.7:~$ 
 </code></pre>
 
-<hr />
+<br/><br/>
 
-<h1 id="gdb">GDB</h1>
 
+<hr>
+<h2 id="gdb">GDB</h2>
 <p>If only the socket required to close but the process must keep alive, we could attach the process under a debugger and close the FD (file descriptor).</p>
-
 <p>To illustrate, open a simple client (192.168.1.7) and server (192.168.1.9) TCP connection:</p>
-
-<pre><code class="language-bash">192.168.1.9:~$ ncat -v -l -p 9999
+<pre tabindex="0"><code>192.168.1.9:~$ ncat -v -l -p 9999
 Ncat: Version 7.40 ( https://nmap.org/ncat )
 Ncat: Listening on :::9999
 Ncat: Listening on 0.0.0.0:9999
 Ncat: Connection from 192.168.1.7.
 Ncat: Connection from 192.168.1.7:65253.
 hello world
-</code></pre>
-
-<pre><code class="language-bash">192.168.1.7:~$ nc 192.168.1.9 9999
+</code></pre><pre tabindex="0"><code>192.168.1.7:~$ nc 192.168.1.9 9999
 hello world
-</code></pre>
-
-<pre><code class="language-bash">192.168.1.9:~$ netstat -ptuW
+</code></pre><pre tabindex="0"><code>192.168.1.9:~$ netstat -ptuW
 (Not all processes could be identified, non-owned process info
  will not be shown, you would have to be root to see it all.)
 Active Internet connections (w/o servers)
 Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
 tcp        0      0 192.168.1.9:9999        192.168.1.7:65253       ESTABLISHED 4050/ncat           
 ...
-</code></pre>
-
-<p>Locate and identify the target socket&rsquo;s file, <code>$pid</code>, i.e., <code>4050</code> and also the <code>FD</code>, i.e., <code>5u</code></p>
-
-<pre><code class="language-bash">192.168.1.9:~$ lsof -np $pid 
+</code></pre><p>Locate and identify the target socket&rsquo;s file, <code>$pid</code>, i.e., <code>4050</code> and also the <code>FD</code>, i.e., <code>5u</code></p>
+<pre tabindex="0"><code>192.168.1.9:~$ lsof -np $pid 
 COMMAND  PID USER   FD   TYPE DEVICE SIZE/OFF   NODE NAME
 ncat    4050  tzy    5u  IPv4  31028      0t0    TCP 192.168.1.9:9999-&gt;192.168.1.7:65253 (ESTABLISHED)
-</code></pre>
-
-<p>Then attach the process to gdb, close the socket with the <code>FD</code> identifier and detach the debugger with quit:</p>
-
-<pre><code class="language-bash">192.168.1.9:~$ gdb -p $pid
+</code></pre><p>Then attach the process to gdb, close the socket with the <code>FD</code> identifier and detach the debugger with quit:</p>
+<pre tabindex="0"><code>192.168.1.9:~$ gdb -p $pid
 ...
 (gdb) call close(5u)
 $1 = 0
 (gdb) quit
 </code></pre>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -338,7 +320,7 @@ $1 = 0
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://tzyluen.github.io/post/tracing-malicious-network-traffic/">Tracing malicious network traffic</a>
+      <a href="https://tzyluen.github.io/post/tracing-malicious-network-traffic/">Tracing Malicious Network Traffic</a>
     </nav>
     
   </div>
@@ -360,15 +342,31 @@ $1 = 0
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

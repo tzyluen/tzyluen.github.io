@@ -1,93 +1,23 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Http on Technical Notes</title>
-    <link>https://tzyluen.github.io/tags/http/index.xml</link>
-    <description>Recent content in Http on Technical Notes</description>
+    <title>http on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/http/</link>
+    <description>Recent content in http on Technical Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
-    <atom:link href="https://tzyluen.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" />
-    
+    <copyright>&amp;copy; 2015 - 2022. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 16 Apr 2016 00:00:00 +0800</lastBuildDate><atom:link href="https://tzyluen.github.io/tags/http/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Ngrep: quick peek at http traffic</title>
       <link>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</link>
       <pubDate>Sat, 16 Apr 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/ngrep-quick-peek-at-http-traffic/</guid>
-      <description>
-
-&lt;h3 id=&#34;quick-peek&#34;&gt;Quick peek:&lt;/h3&gt;
-
-&lt;p&gt;Monitor activities on device &lt;code&gt;eth0 port 80&lt;/code&gt;:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;-W byline&lt;/code&gt;: linefeeds (LF) are printed as linefeeds, more readable.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;-qt&lt;/code&gt;: quiet mode and print human-readable timestamp.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -W byline -qt port 80
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;sorts-out-unique-user-agent-devices&#34;&gt;Sorts out unique User-Agent (devices):&lt;/h3&gt;
-
-&lt;p&gt;In corporate environment, desktop/laptop OS build is often standardized. However, with the BYOD initiative, the network has becomes even more vulnerable. To quickly identify the type of devices on the network, we could do:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo ngrep -qt -W single -d eth0 -P~ &#39;User-Agent:&#39; &#39;port 80&#39; &amp;gt; http-user-agent.txt
-$ sed &#39;s/.*User-Agent/User-Agent/&#39; http-user-agent.txt | sed &#39;s/~.*//&#39; | sed &#39;/^$/d&#39; &amp;gt; user-agents.txt
-$ cat user-agents.txt | sort | uniq -c | sort -rn
-  28 User-Agent: Chrome 20.0.1092.0 (Win 7)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1092.0 Safari/536.6
-   7 User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36
-   5 User-Agent: Chrome 15.0.874.120 (Vista)&amp;quot; useragent=&amp;quot;Mozilla/5.0 (Windows NT 6.0) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.120 Safari/535.2
-   4 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Or use &lt;code&gt;tshark&lt;/code&gt; :&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo tshark -i eth0 -f &amp;quot;port 80&amp;quot; -Y &amp;quot;http contains \&amp;quot;User-Agent:\&amp;quot;&amp;quot; -Tfields -e http.user_agent &amp;gt; user-agents.txt
-$ cat user-agents.txt | sort | uniq -c | sort -rn
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;monitor-the-occurrence-of-the-keywords&#34;&gt;Monitor the occurrence of the keywords:&lt;/h3&gt;
-
-&lt;p&gt;Capture network traffic matches tcp port 80 (HTTP) on GET/POST methods:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -q -i &amp;quot;^GET |^POST &amp;quot; tcp and port 80
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Monitor the occurrence of the words &lt;code&gt;user&lt;/code&gt; or &lt;code&gt;pass&lt;/code&gt;, case insensitive:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -d eth0 -wi &#39;user | pass&#39; port 80
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Read from a pcap file, search for &lt;code&gt;GET&lt;/code&gt; and &lt;code&gt;POST&lt;/code&gt; requests:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -I capture.pcap | grep &#39;GET\|POST&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;ip-address&#34;&gt;IP address:&lt;/h3&gt;
-
-&lt;p&gt;Matches all headers containing pattern string &amp;lsquo;HTTP&amp;rsquo; sent to/from ip address starting with 172.16&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -I capture.pcap &#39;HTTP&#39; &#39;host 172.16&#39; | grep &#39;GET\|POST&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;https://tzyluen.github.io/img/ngrep-quick-peek-at-http-traffic-01.png&#34; alt=&#34;ngrep-quick-peek-at-http-traffic-01&#34; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;h3 id=&#34;dns&#34;&gt;DNS:&lt;/h3&gt;
-
-&lt;p&gt;Capture incoming/outgoing to/from eth0 matches DNS queries/responses&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# ngrep -qt -W byline -d eth0 udp and port 53
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Table of Contents  Quick peek Sorts out unique User-Agent (devices) Monitor the occurrence of the keywords Monitor HTTP GET | POST traffic by IP addresses DNS     Quick peek Monitor activities on device eth0 port 80:
+-W byline: linefeeds (LF) are printed as linefeeds, more readable.
+-qt: quiet mode and print human-readable timestamp.
+# ngrep -d eth0 -W byline -qt port 80  Sorts out unique User-Agent (devices) In corporate environment, desktop/laptop OS build is often standardized.</description>
     </item>
     
   </channel>

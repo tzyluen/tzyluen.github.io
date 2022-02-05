@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
-  <title>Encrypting DNS traffic &middot; Technical Notes</title>
+  <title>Encrypting DNS Traffic &middot; Technical Notes</title>
+
+    
 
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Encrypting DNS traffic</h1>
-  <h2></h2>
+  <h2>Encrypting DNS Traffic</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -241,108 +245,84 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#dnscrypt">DNSCrypt</a>
-<ul>
-<li><a href="#install">Install</a></li>
-<li><a href="#select-a-resolver">Select a resolver</a></li>
-<li><a href="#modify-resolv-conf">Modify resolv.conf</a></li>
-<li><a href="#start-systemd-service">Start systemd service</a></li>
-<li><a href="#verify-the-dns-traffic-is-encrypted">Verify the DNS traffic is encrypted</a></li>
-</ul></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dnscrypt">DNSCrypt</a>
+      <ul>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#select-a-resolver">Select a resolver</a></li>
+        <li><a href="#modify-resolvconf">Modify resolv.conf</a></li>
+        <li><a href="#start-systemd-service">Start systemd service</a></li>
+        <li><a href="#verify-the-dns-traffic-is-encrypted">Verify the DNS traffic is encrypted</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="dnscrypt">DNSCrypt</h1>
-
+<hr>
+<h2 id="dnscrypt">DNSCrypt</h2>
 <p>can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.</p>
-
-<h2 id="install">Install</h2>
-
-<pre><code class="language-bash"># apt-get install dnscrypt-proxy
-</code></pre>
-
-<h2 id="select-a-resolver">Select a resolver</h2>
-
+<h3 id="install">Install</h3>
+<pre tabindex="0"><code># apt-get install dnscrypt-proxy
+</code></pre><h3 id="select-a-resolver">Select a resolver</h3>
 <p>Note: An up-to-date dnscrypt-resolvers.csv is also available from <a href="https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv">https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv</a></p>
-
 <ol>
-<li><p>Select a resolver from <code>/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv</code>.</p></li>
-
-<li><p>Filter and print the list of resolvers from the dnscrypt-resolvers.csv</p>
-
-<pre><code class="language-bash">$ awk -F'[,]' '{print $1 &quot;|&quot; $4 &quot;|&quot; $12}' &lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+<li>
+<p>Select a resolver from <code>/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv</code>.</p>
+</li>
+<li>
+<p>Filter and print the list of resolvers from the dnscrypt-resolvers.csv</p>
+<pre tabindex="0"><code>$ awk -F'[,]' '{print $1 &quot;|&quot; $4 &quot;|&quot; $12}' &lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
 </code></pre></li>
-
-<li><p>Get a distinct list by country:</p>
-
-<pre><code class="language-bash">$ awk -F'[,]' '!($4 in arr){print $4} {arr[$4]++}' &lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
+<li>
+<p>Get a distinct list by country:</p>
+<pre tabindex="0"><code>$ awk -F'[,]' '!($4 in arr){print $4} {arr[$4]++}' &lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
 </code></pre></li>
-
-<li><p>Pick a reliable server such as:</p>
-
+<li>
+<p>Pick a reliable server such as:</p>
 <ul>
 <li>fvz-anyone (by OpenNIC)</li>
 <li>fvz-anyone-ipv6</li>
 <li>adguard-dns-family-ns1 (Adguard DNS with safesearch and adult content blocking)</li>
 <li>adguard-dns-ns1 (Remove ads and protect your computer from malware)</li>
-</ul></li>
-
-<li><p>Update the dnscrypt-proxy.conf with the target resolver:</p>
-
-<pre><code class="language-bash">$ vim /etc/dnscrypt-proxy/dnscrypt-proxy.conf
+</ul>
+</li>
+<li>
+<p>Update the <code>dnscrypt-proxy.conf</code> with the target resolver:</p>
+<pre tabindex="0"><code>$ vim /etc/dnscrypt-proxy/dnscrypt-proxy.conf
 ...
 ResolverName fvz-anyone
 </code></pre></li>
 </ol>
-
-<h2 id="modify-resolv-conf">Modify resolv.conf</h2>
-
+<h3 id="modify-resolvconf">Modify resolv.conf</h3>
 <ol>
-<li><p>Modify the resolv.conf file and replace the current resolver addresses with address that the dnscrypt-proxy daemon listening on, as defined in the following files:</p>
-
-<pre><code class="language-bash">/etc/dnscrypt-proxy/dnscrypt-proxy.conf
+<li>
+<p>Modify the resolv.conf file and replace the current resolver addresses with address that the dnscrypt-proxy daemon listening on, as defined in the following files:</p>
+<pre tabindex="0"><code>/etc/dnscrypt-proxy/dnscrypt-proxy.conf
 /etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket
-</code></pre>
-
-<p>resolv.conf:</p>
-
-<pre><code class="language-bash">nameserver 127.0.2.1
+</code></pre><p>resolv.conf:</p>
+<pre tabindex="0"><code>nameserver 127.0.2.1
 </code></pre></li>
 </ol>
-
-<h2 id="start-systemd-service">Start systemd service</h2>
-
-<pre><code class="language-bash">$ sudo systemctl start dnscrypt-proxy
+<h3 id="start-systemd-service">Start systemd service</h3>
+<pre tabindex="0"><code>$ sudo systemctl start dnscrypt-proxy
 $ sudo systemctl status dnscrypt-proxy
-</code></pre>
-
-<h2 id="verify-the-dns-traffic-is-encrypted">Verify the DNS traffic is encrypted</h2>
-
+</code></pre><h3 id="verify-the-dns-traffic-is-encrypted">Verify the DNS traffic is encrypted</h3>
 <p>Use wireshark and set the capture filter as:</p>
+<pre tabindex="0"><code>host 192.168.1.9 and not broadcast
+</code></pre><p>And set the display filter as:</p>
+<pre tabindex="0"><code>ip.addr == 185.121.177.177
+</code></pre><p>Note: <code>fvz-anyone</code> resolver ip address is <code>185.121.177.177</code></p>
+<p>The encrypted DNS traffic will appear as malformed packet (in red) and was mistakenly identified as QUIC protocol during the test:</p>
 
-<pre><code class="language-bash">host 192.168.1.9 and not broadcast
-</code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/dnscrypt-encrypted-traffic-wireshark-01.png" alt="">
 
-<p>And set the display filter as:</p>
 
-<pre><code class="language-bash">ip.addr == 185.121.177.177
-</code></pre>
-
-<p>Note: fvz-anyone resolver ip address is 185.121.177.177</p>
-
-<p>The encrypted DNS traffic will appear as malformed packet (in red) and was mistakenly identified as QUIC protocol during the test:
-<img src="https://tzyluen.github.io/img/dnscrypt-encrypted-traffic-wireshark-01.png" alt="dnscrypt-encrypted-traffic-wireshark-01" style="width: 800px;" /></p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -364,7 +344,7 @@ $ sudo systemctl status dnscrypt-proxy
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the default column display</a>
+      <a href="https://tzyluen.github.io/post/wireshark-changing-the-default-column-display/">Wireshark: Changing the Default Column Display</a>
     </nav>
     
   </div>
@@ -376,15 +356,31 @@ $ sudo systemctl status dnscrypt-proxy
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

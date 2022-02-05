@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Scan the Internet with Nmap &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Scan the Internet with Nmap</h1>
-  <h2></h2>
+  <h2>Scan the Internet with Nmap</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -243,38 +247,32 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#scan-a-network-subnet">Scan A Network/Subnet</a>
-<ul>
-<li><a href="#host-discovery">Host Discovery</a>
-<ul>
-<li><a href="#scan-a-large-public-network">Scan a large public network</a></li>
-<li><a href="#scan-a-private-network-192-168-1-0-24">Scan a private network: 192.168.1.0/24</a></li>
-</ul></li>
-</ul></li>
-<li><a href="#scan-a-single-target">Scan A Single Target</a></li>
-<li><a href="#remote-os-and-service-detection">Remote OS and Service Detection</a>
-<ul>
-<li><a href="#host-and-port-state-reason">Host and Port State Reason</a></li>
-</ul></li>
-<li><a href="#list-of-examples">List of Examples</a></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#scan-a-networksubnet">Scan a Network/Subnet</a>
+      <ul>
+        <li><a href="#host-discovery">Host Discovery</a></li>
+        <li><a href="#scan-a-large-public-network">Scan a large public network</a></li>
+        <li><a href="#scan-a-private-network-1921681024">Scan a private network: 192.168.1.0/24</a></li>
+      </ul>
+    </li>
+    <li><a href="#scan-a-single-target">Scan a Single Target</a></li>
+    <li><a href="#remote-os-and-service-detection">Remote OS and Service Detection</a>
+      <ul>
+        <li><a href="#host-and-port-state-reason">Host and Port State Reason</a></li>
+      </ul>
+    </li>
+    <li><a href="#list-of-examples">List of Examples</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="scan-a-network-subnet">Scan A Network/Subnet</h1>
-
-<h2 id="host-discovery">Host Discovery</h2>
-
-<pre><code class="language-bash">HOST DISCOVERY:
+<hr>
+<h2 id="scan-a-networksubnet">Scan a Network/Subnet</h2>
+<h3 id="host-discovery">Host Discovery</h3>
+<pre tabindex="0"><code>HOST DISCOVERY:
 -sL: List Scan - simply list targets to scan, without sending any packets to the target hosts,
                  useful to generate list of target hosts and dns resolution.
 -sn: Ping Scan - disable port scan.
@@ -286,80 +284,204 @@ ga('send', 'pageview');
 nmap -sn 192.168.1.1/24                                     # ping scan
 nmap -sn -PS22-25,80,113,1050,8080,35000 192.168.1.1/24     # custom TCP SYN scan
 nmap -sn -PU82,9001,9030,9050-9051 192.168.1.1/24           # custom UDP scan
-</code></pre>
-
-<h3 id="scan-a-large-public-network">Scan a large public network</h3>
-
+</code></pre><h3 id="scan-a-large-public-network">Scan a large public network</h3>
 <ol>
-<li><p>Identify the IP block:</p>
-
-<pre><code class="language-bash">mtr -brw -y1 target
+<li>
+<p>Identify the IP block:</p>
+<pre tabindex="0"><code>mtr -brw -y1 target
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-01.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-01.png" alt="scan-the-internet-with-nmap-01" /></p></li>
+</li>
+<li>
+<p>Do a ping scan only (<code>-sn</code>) and write three output formats/results (<code>-oA</code>) to three files:</p>
+<pre tabindex="0"><code>nmap -v -sn target -oA output
+</code></pre><ol>
+<li>
+<p>
+<span class="glow-text-app-menu">Ping Scan</span>
+ for 
+<span class="glow-text-app-menu">4096 hosts</span>
+ completed in 
+<span class="glow-text-app-menu">191.33s.</span>
+</p>
+</li>
+<li>
+<p>
+<span class="glow-text-app-menu">DNS resolution</span>
+ takes approx. additional 
+<span class="glow-text-app-menu">1158.11s.</span>
+</p>
 
-<li><p>Do a ping scan only (<code>-sn</code>) and write three output formats/results (<code>-oA</code>) to three files:</p>
 
-<pre><code class="language-bash">nmap -v -sn target -oA output
-</code></pre>
+<div class="pure-g">
 
-<ol>
-<li>Ping Scan for 4096 hosts completed in 191.33s.</li>
-<li>DNS resolution takes approx. additional 1158.11s.</li>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-02.png"
+        alt="">
+    </div>
+  </div>
+  
+
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-03.png"
+        alt="">
+    </div>
+  </div>
+  
+
+</div>
+
+</li>
 </ol>
+<p>Note: the DNS resolution phase prolonged the total time (<code>-n</code> to disable DNS resolution):</p>
+</li>
+<li>
+<p>Ping scan without DNS resolution (<code>-n</code>):</p>
+<pre tabindex="0"><code># nmap -v -sn -n target -oA output
+</code></pre><ol>
+<li>
+<p>
+<span class="glow-text-app-menu">Ping Scan</span>
+ without DNS resolution completed in 
+<span class="glow-text-app-menu">146.49s.</span>
+</p>
+</li>
+<li>
+<p>Total time is 
+<span class="glow-text-app-menu">147.67s</span>
+, approx 
+<span class="glow-text-app-menu">10x</span>
+ of speedup.</p>
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-02.png" alt="scan-the-internet-with-nmap-02" /></p>
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-03.png" alt="scan-the-internet-with-nmap-03" /></p>
+<div class="pure-g">
 
-<p><strong>Note:</strong> the DNS resolution phase prolonged the total time (<code>-n</code> to disable DNS resolution):</p></li>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-04.png"
+        alt="">
+    </div>
+  </div>
+  
 
-<li><p>Ping scan without DNS resolution (<code>-n</code>):</p>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-05.png"
+        alt="">
+    </div>
+  </div>
+  
 
-<pre><code class="language-bash">nmap -v -sn -n target -oA output
-</code></pre>
+</div>
 
-<ol>
-<li>Ping Scan without DNS resolution completed in 146.49s.</li>
-<li>Total time is 147.67s, approx 10x of speedup.</li>
+</li>
 </ol>
-
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-04.png" alt="scan-the-internet-with-nmap-04" /></p>
-
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-05.png" alt="scan-the-internet-with-nmap-05" /></p></li>
+</li>
 </ol>
-
-<h3 id="scan-a-private-network-192-168-1-0-24">Scan a private network: 192.168.1.0/24</h3>
-
+<h3 id="scan-a-private-network-1921681024">Scan a private network: 192.168.1.0/24</h3>
 <ol>
-<li><p>Do a TCP SYN scan (<code>-sS</code>) with OS detection (<code>-O</code>) and output results in three major formats (<code>-oA</code>):</p>
-
-<pre><code class="language-bash">-v: increase verbosity level
+<li>
+<p>Do a TCP SYN scan (<code>-sS</code>) with OS detection (<code>-O</code>) and output results in three major formats (<code>-oA</code>):</p>
+<pre tabindex="0"><code>-v: increase verbosity level
 -sS: TCP SYN scan
 -O: enable OS detection
 -n: do not do DNS resolution
 -oA: output in the three major formats (nmap, gnmap, xml) at once 
-nmap -v -sS -O -n target -oA output
+
+# nmap -v -sS -O -n target -oA output
 </code></pre>
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-06.png" alt="scan-the-internet-with-nmap-06" /></p>
+<div class="pure-g">
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-07.png" alt="scan-the-internet-with-nmap-07" /></p>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-06.png"
+        alt="">
+    </div>
+  </div>
+  
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-08.png" alt="scan-the-internet-with-nmap-08" /></p>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-07.png"
+        alt="">
+    </div>
+  </div>
+  
+
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-08.png"
+        alt="">
+    </div>
+  </div>
+  
+
+</div>
 
 <ol>
-<li>Completed TCP SYN scan (<code>-sS</code>) on 192.168.1.0/24 in approx. 1.94s.</li>
-<li>The default most commong 1000 ports [1], plus OS detection for 4 hosts took approx. 12.76s.</li>
-<li>Total time is 14.70s.</li>
-</ol></li>
+<li>Completed TCP SYN scan (<code>-sS</code>) on 
+<span class="glow-text-app-menu">192.168.1.0/24</span>
+ in approx. 
+<span class="glow-text-app-menu">1.94s.</span>
+</li>
+<li>The default most commong 1000 ports [1], plus OS detection for 4 hosts took approx. 
+<span class="glow-text-app-menu">12.76s.</span>
+</li>
+<li>Total time is 
+<span class="glow-text-app-menu">14.70s.</span>
+</li>
 </ol>
-
-<hr />
-
-<h1 id="scan-a-single-target">Scan A Single Target</h1>
-
-<pre><code class="language-bash">SCAN TECHNIQUES:
+</li>
+</ol>
+<hr>
+<h2 id="scan-a-single-target">Scan a Single Target</h2>
+<pre tabindex="0"><code>SCAN TECHNIQUES:
  -sS/sT/sA/sW/sM: TCP SYN/Connect()/ACK/Window/Maimon scans
  -sU: UDP Scan
  -sN/sF/sX: TCP Null, FIN, and Xmas scans
@@ -368,68 +490,86 @@ nmap -v -sS -O -n target -oA output
  -sY/sZ: SCTP INIT/COOKIE-ECHO scans
  -sO: IP protocol scan
  -b &lt;FTP relay host&gt;: FTP bounce scan
-</code></pre>
-
-<pre><code class="language-bash">-A: Aggressive scan options, equivalent to -O, -sV, -sC, --traceroute.
+</code></pre><pre tabindex="0"><code>-A: Aggressive scan options, equivalent to -O, -sV, -sC, --traceroute.
     OS and version detection, script scanning, and traceroute.
 -T&lt;0-5&gt;: paranoid|sneaky|polite|normal|aggressive|insane, timing template (higher is faster)
          0 and 1 is slow but useful to evade IDS alerts
 -O: OS detection
 -sV: Probe open ports to determine service/version info
-nmap -A -T4 target
-nmap -sS -O -sV -T4 target
-nmap -p 1-65535 -sS -sV -T4 target			# full TCP port scan
+
+# nmap -A -T4 target
+# nmap -sS -O -sV -T4 target
+# nmap -p 1-65535 -sS -sV -T4 target			&lt;- full TCP port scan
+</code></pre><h2 id="remote-os-and-service-detection">Remote OS and Service Detection</h2>
+<pre tabindex="0"><code># nmap -sS -n -O -sV --version-intensity [0-9] -T[0-5] target
 </code></pre>
 
-<h1 id="remote-os-and-service-detection">Remote OS and Service Detection</h1>
+<div class="pure-g">
 
-<pre><code class="language-bash">nmap -sS -n -O -sV --version-intensity [0-9] -T[0-5] target
-</code></pre>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-09.png"
+        alt="">
+    </div>
+  </div>
+  
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-09.png" alt="scan-the-internet-with-nmap-09" /></p>
+  
+  
+  
+  
+  <div class="">
+    <div style="padding: 0 .2em">
+      <img
+        class="pure-img-responsive"
+        src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-10.png"
+        alt="">
+    </div>
+  </div>
+  
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-10.png" alt="scan-the-internet-with-nmap-10" /></p>
+</div>
 
-<h2 id="host-and-port-state-reason">Host and Port State Reason</h2>
-
-<pre><code class="language-bash">--reason (Host and port state reasons)
+<h3 id="host-and-port-state-reason">Host and Port State Reason</h3>
+<pre tabindex="0"><code>--reason (Host and port state reasons)
    Display the reason a port is in a particular state:
    For e.g., a RST packet from a closed port or an echo reply from an alive host.
 </code></pre>
+<img class="pure-img" src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-11.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/scan-the-internet-with-nmap-11.png" alt="scan-the-internet-with-nmap-11" /></p>
-
-<hr />
-
-<h1 id="list-of-examples">List of Examples</h1>
-
+<hr>
+<h2 id="list-of-examples">List of Examples</h2>
 <p>A full-scan to see whether the which ports/packets can pass through the firewall unfiltered:</p>
-
-<pre><code class="language-bash">-sA: TCP ACK scan, to map out firewall rulesets: stateful or not and which ports are filtered.
+<pre tabindex="0"><code>-sA: TCP ACK scan, to map out firewall rulesets: stateful or not and which ports are filtered.
 -f: fragmet packets, splits the packets into 8 bytes or less after the IP header.
     A 20-byte TCP header would be split into 3 packets. 2 with 8 bytes of the TCP header,
     and 1 with the final 4.
     Specify -ff to use 16 bytes per fragment (reducing the number of fragments).
     The purpose is to make it harder for packet filters, IDS.
 -r: do not randomize port, scan in numerical order
-nmap -v -p 1-65535 -sA -ff -r -n 192.168.1.1/24
-</code></pre>
 
-<p>Scan the network for suspicious malware infected open ports:</p>
-
-<pre><code>-PE: ICMP Echo			# ICMP ping echo (host discovery)
+# nmap -v -p 1-65535 -sA -ff -r -n 192.168.1.1/24
+</code></pre><p>Scan the network for suspicious malware infected open ports:</p>
+<pre tabindex="0"><code>-PE: ICMP Echo          &lt;- ICMP ping echo (host discovery)
 -sS: TCP SYN Scan
 -sU: UDP Scan
--p U:2140,T:2745		# UDP port 2140, TCP port 2745
-nmap -PE -sS -sU -sV -p U:2140,T:2745 172.16.0.0/12
-</code></pre>
+-p U:2140,T:2745        &lt;- UDP port 2140, TCP port 2745
 
-<hr />
-
+# nmap -PE -sS -sU -sV -p U:2140,T:2745 172.16.0.0/12
+</code></pre><hr>
 <p><strong>References:</strong></p>
+<ol>
+<li><a href="https://nmap.org/book/man-port-specification.html">https://nmap.org/book/man-port-specification.html</a></li>
+</ol>
 
-<p>[1] <a href="https://nmap.org/book/man-port-specification.html">https://nmap.org/book/man-port-specification.html</a></p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -463,14 +603,27 @@ nmap -PE -sS -sU -sV -p U:2140,T:2745 172.16.0.0/12
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
+
+
+
+
+
+
+
 
 
 

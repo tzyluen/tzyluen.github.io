@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
-  <title>Capture network traffic on WLAN (macOS) &middot; Technical Notes</title>
+  <title>Capture Network Traffic on WLAN (macOS) &middot; Technical Notes</title>
+
+    
 
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Capture network traffic on WLAN (macOS)</h1>
-  <h2></h2>
+  <h2>Capture Network Traffic on WLAN (macOS)</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -243,68 +247,59 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#macos-s-airport">MacOS&rsquo;s Airport</a></li>
-<li><a href="#wireshark">Wireshark</a></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#macoss-airport">MacOS&rsquo;s Airport</a></li>
+    <li><a href="#wireshark">Wireshark</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="macos-s-airport">MacOS&rsquo;s Airport</h1>
-
+<h2 id="macoss-airport">MacOS&rsquo;s Airport</h2>
 <p>is a built-in wireless utility comes preinstalled in MacOS.</p>
-
-<pre><code class="language-bash">$ ll /usr/local/bin/airport 
+<pre tabindex="0"><code>$ ll /usr/local/bin/airport 
 lrwxr-xr-x  1 root  wheel  89 Jun 22  2016 /usr/local/bin/airport@ -&gt; /System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
-</code></pre>
+</code></pre><p>Perform a wireless broadcast scan to get the list of access points in the neighborhood:</p>
 
-<p>Perform a wireless broadcast scan to get the list of access points in the neighborhood:
-<img src="https://tzyluen.github.io/img/airport-wireless-broadcast-scan-01.png" alt="airport-wireless-broadcast-scan-01" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/airport-wireless-broadcast-scan-01.png" alt="">
 
 <p>Sniff 802.11 frames on channel 1, the output is in pcap format and can be opened with tcpdump/wireshark:</p>
-
-<pre><code class="language-bash">$ airport en0 sniff 1
+<pre tabindex="0"><code>$ airport en0 sniff 1
 Capturing 802.11 frames on en0.
 ^CSession saved to /tmp/airportSniffwUKb60.cap.
 </code></pre>
 
-<hr />
+<br/><br/>
 
-<h1 id="wireshark">Wireshark</h1>
 
-<p>can also be used directly to capture wireless network traffic. To do that, open the wireshark&rsquo;s capture option and select the Promiscuous and Monitor checkbox, optionally add capture filter <code>not broadcast and not multicast</code> to filter out noises:
-<img src="https://tzyluen.github.io/img/wlan-wireshark-capture-options-01.png" alt="wlan-wireshark-capture-options-01" /></p>
+<hr>
+<h2 id="wireshark">Wireshark</h2>
+<p>can also be used to capture wireless network traffic. To do that, open the wireshark&rsquo;s capture option and select the Promiscuous and Monitor checkbox, optionally add capture filter <code>'not broadcast and not multicast'</code> to filter out noises:</p>
 
-<p>Since the wireless traffic is encrypted with WPA2, it won&rsquo;t be useful unless decrypted. To enable decryption on-the-fly, navigate to <code>Preferences</code> &rarr; <code>Protocols</code> &rarr; <code>IEEE 802.11</code>, and select <code>Enable decryption</code> and add the decryption keys.</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/wlan-wireshark-capture-options-01.png" alt="">
 
+<p>Since the wireless traffic is encrypted with WPA2, it won&rsquo;t be useful unless decrypted. To enable decryption on-the-fly, navigate to Preferences → Protocols → IEEE 802.11, and select Enable decryption and add the decryption keys.</p>
 <p>Depends on the type of encryption used, the following lists the WEP, WPA-PWD and WPA-PSK format:</p>
-
 <ul>
 <li><code>wep:a1:b2:c3:d4:e5</code></li>
 <li><code>wpa-pwd:myPassword:mySSID</code></li>
 <li><code>wpa-psk:0102030405060708091011...6061626364</code></li>
 </ul>
-
 <p>To generate the WPA-PSK of your wireless credentials, use the <a href="https://www.wireshark.org/tools/wpa-psk.html">WPA-PSK Generator</a>[1] provided by Wireshark.</p>
-
 <p>In order to capture the handshake for a machine, force the machine to (re-)join the network while the capture is in progress. Repeat this for all machines whose traffic you want to see. Figure below shows the captured/decrypted DNS traffic.</p>
 
-<p><img src="https://tzyluen.github.io/img/wlan-wireshark-sniff-dns-decrypted-01.png" alt="wlan-wireshark-sniff-dns-decrypted-01" /></p>
+<img class="pure-img" src="https://tzyluen.github.io/img/wlan-wireshark-sniff-dns-decrypted-01.png" alt="">
 
-<hr />
-
+<hr>
 <p><strong>References:</strong></p>
+<ol>
+<li><a href="https://www.wireshark.org/tools/wpa-psk.html">https://www.wireshark.org/tools/wpa-psk.html</a></li>
+</ol>
 
-<p>[1] <a href="https://www.wireshark.org/tools/wpa-psk.html">https://www.wireshark.org/tools/wpa-psk.html</a></p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -326,7 +321,7 @@ Capturing 802.11 frames on en0.
   <div class="pure-u-10-24">
     
     <nav class="next">
-      <a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS queries</a>
+      <a href="https://tzyluen.github.io/post/sniff-dns-queries/">Sniff DNS Queries</a>
     </nav>
     
   </div>
@@ -338,15 +333,31 @@ Capturing 802.11 frames on en0.
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

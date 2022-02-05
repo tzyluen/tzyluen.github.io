@@ -4,20 +4,22 @@
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="description" content="Stealth scan and firewall evasion host discovery">
+  <meta name="generator" content="Hugo 0.91.2" />
 
-  <title>Hping3 use cases &middot; Technical Notes</title>
+  <title>Hping3: Use Cases &middot; Technical Notes</title>
+
+    
 
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Hping3 use cases</h1>
-  <h2></h2>
+  <h2>Hping3: Use Cases</h2>
+  <h3>Stealth scan and firewall evasion host discovery</h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -243,29 +247,24 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#hping3-and-the-firewall">hping3 and the firewall</a>
-<ul>
-<li><a href="#icmp-mode">ICMP mode:</a></li>
-<li><a href="#tcp-mode">TCP mode:</a></li>
-<li><a href="#udp-mode">UDP mode:</a></li>
-<li><a href="#scan-mode">SCAN mode:</a></li>
-</ul></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#hping3-and-the-firewall">hping3 and the firewall</a>
+      <ul>
+        <li><a href="#icmp-mode">ICMP mode</a></li>
+        <li><a href="#tcp-mode">TCP mode</a></li>
+        <li><a href="#udp-mode">UDP mode</a></li>
+        <li><a href="#scan-mode">SCAN mode</a></li>
+      </ul>
+    </li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="hping3-and-the-firewall">hping3 and the firewall</h1>
-
-<pre><code class="language-bash">Mode
+<h2 id="hping3-and-the-firewall">hping3 and the firewall</h2>
+<pre tabindex="0"><code>Mode
   default mode     TCP
   -0  --rawip      RAW IP mode
   -1  --icmp       ICMP mode
@@ -273,13 +272,9 @@ ga('send', 'pageview');
   -8  --scan       SCAN mode.
                    Example: hping --scan 1-30,70-90 -S www.target.host
   -9  --listen     listen mode
-</code></pre>
-
-<h2 id="icmp-mode">ICMP mode:</h2>
-
-<p>The typical <code>ping</code> utility and the hping3 equivalent, sending ICMP-echo and receiving ICMP-reply:</p>
-
-<pre><code class="language-bash">$ ping google.com -c 3
+</code></pre><h3 id="icmp-mode">ICMP mode</h3>
+<p>The typical <code>ping</code> utility and the <code>hping3</code> equivalent, sending ICMP-echo and receiving ICMP-reply:</p>
+<pre tabindex="0"><code>$ ping google.com -c 3
 PING google.com (216.58.196.14) 56(84) bytes of data.
 64 bytes from google.com (216.58.196.14): icmp_seq=1 ttl=57 time=23.0 ms
 64 bytes from google.com (216.58.196.14): icmp_seq=2 ttl=57 time=21.9 ms
@@ -295,23 +290,16 @@ PING utm.my (161.139.21.51) 56(84) bytes of data.
 
 --- utm.my ping statistics ---
 5 packets transmitted, 0 received, 100% packet loss, time 4103ms
-
-
-$ sudo hping3 -1 utm.my -c 5
+</code></pre><pre tabindex="0"><code>$ sudo hping3 -1 utm.my -c 5
 HPING utm.my (eth0 161.139.21.51): icmp mode set, 28 headers + 0 data bytes
 
 --- utm.my hping statistic ---
 5 packets transmitted, 0 packets received, 100% packet loss
 round-trip min/avg/max = 0.0/0.0/0.0 ms
-</code></pre>
-
-<p>If the default ping &lsquo;ICMP echo&rsquo; request was blocked, use other modes and ports.</p>
-
-<h2 id="tcp-mode">TCP mode:</h2>
-
+</code></pre><p>Note: if the default ping &lsquo;ICMP echo&rsquo; request was blocked, use other modes and ports, e.g., TCP, UDP.</p>
+<h3 id="tcp-mode">TCP mode</h3>
 <p>TCP ping to port 80</p>
-
-<pre><code class="language-bash">-S, set SYN flag
+<pre tabindex="0"><code>-S, set SYN flag
 -p, set port number
 -c, count
 
@@ -324,75 +312,102 @@ len=46 ip=161.139.21.51 ttl=57 DF id=0 sport=80 flags=SA seq=2 win=14600 rtt=135
 --- utm.my hping statistic ---
 3 packets transmitted, 3 packets received, 0% packet loss
 round-trip min/avg/max = 27.6/64.7/135.1 ms
-</code></pre>
+</code></pre><p>the ping responses with <code>flags=SA</code>, the abbreviated flags are <code>SYN/ACK</code> from the TCP flags:</p>
 
-<p>the ping responses with <strong><code>flags=SA</code></strong>, the abbreviated flags are <strong><code>SYN/ACK</code></strong> from the TCP flags:</p>
 
-<table>
-<thead>
-<tr>
-<th>Flag</th>
-<th>Description</th>
-</tr>
-</thead>
 
-<tbody>
-<tr>
-<td>CWR</td>
-<td>Congestion Window Reduced (CWR) flag is set by the sending host to indicate that it received a TCP segment with the ECE flag set.</td>
-</tr>
-
-<tr>
-<td>ECE (ECN-Echo)</td>
-<td>indicate that the TCP peer is ECN capable during 3-way handshake.</td>
-</tr>
-
-<tr>
-<td>URG</td>
-<td>indicates that the URGent pointer field is significant</td>
-</tr>
-
-<tr>
-<td>ACK</td>
-<td>indicates that the ACKnowledgment field is significant (Sometimes abbreviated by tcpdump as &ldquo;.&rdquo;)</td>
-</tr>
-
-<tr>
-<td>PSH</td>
-<td>Push function</td>
-</tr>
-
-<tr>
-<td>RST</td>
-<td>Reset the connection (Seen on rejected connections)</td>
-</tr>
-
-<tr>
-<td>SYN</td>
-<td>Synchronize sequence numbers (Seen on new connections)</td>
-</tr>
-
-<tr>
-<td>FIN</td>
-<td>No more data from sender (Seen after a connection is closed)</td>
-</tr>
-</tbody>
+<table class="compact-table">
+  <thead><tr class="compact-table">
+    
+      <th class="compact-table">Flag          </th>
+    
+      <th class="compact-table"> Description</th>
+    
+  </thead></tr>
+  <tbody class="compact-table">
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">CWR           </td>
+      
+        <td class="compact-table"> Congestion Window Reduced (CWR) flag is set by the sending host to indicate that it received a TCP segment with the ECE flag set.</td>
+      
+    </tr>
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">ECE (ECN-Echo)</td>
+      
+        <td class="compact-table"> indicate that the TCP peer is ECN capable during 3-way handshake.</td>
+      
+    </tr>
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">URG           </td>
+      
+        <td class="compact-table"> indicates that the URGent pointer field is significant</td>
+      
+    </tr>
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">ACK           </td>
+      
+        <td class="compact-table"> indicates that the ACKnowledgment field is significant (Sometimes abbreviated by tcpdump as &#34;.&#34;)</td>
+      
+    </tr>
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">PSH           </td>
+      
+        <td class="compact-table"> Push function</td>
+      
+    </tr>
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">RST           </td>
+      
+        <td class="compact-table"> Reset the connection (Seen on rejected connections)</td>
+      
+    </tr>
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">SYN           </td>
+      
+        <td class="compact-table"> Synchronize sequence numbers (Seen on new connections)</td>
+      
+    </tr>
+  
+    <tr class="compact-table">
+      
+      
+        <td class="compact-table">FIN           </td>
+      
+        <td class="compact-table"> No more data from sender (Seen after a connection is closed)</td>
+      
+    </tr>
+  
+  </tbody>
 </table>
 
 <p>source: <a href="https://doc.pfsense.org/index.php/What_are_TCP_Flags">https://doc.pfsense.org/index.php/What_are_TCP_Flags</a></p>
-
-<h2 id="udp-mode">UDP mode:</h2>
-
-<p>UDP ping to port 53 (DNS)</p>
-
-<p>If port 53 (DNS) is not filtered, but closed/not listening on the server:</p>
-
-<pre><code class="language-bash">host: 192.168.1.9
+<h3 id="udp-mode">UDP mode</h3>
+<p>UDP ping to port 53 (DNS), if port 53 (DNS) is not filtered, but closed/not listening on the server:</p>
+<pre tabindex="0"><code>host: 192.168.1.9
 53                         ALLOW IN    Anywhere                  
 53 (v6)                    ALLOW IN    Anywhere (v6)             
-</code></pre>
-
-<pre><code class="language-bash">192.168.1.10:~# nmap -sT -sU 192.168.1.9
+</code></pre><pre tabindex="0"><code>192.168.1.10:~# nmap -sT -sU 192.168.1.9
 ...
 Not shown: 999 open|filtered ports, 995 filtered ports
 PORT     STATE  SERVICE
@@ -403,11 +418,8 @@ PORT     STATE  SERVICE
 8080/tcp open   http-proxy
 53/udp   closed domain
 ...
-</code></pre>
-
-<p>And the TCP responses with <code>RA</code>, similarly the UDP ping also reponse and both with 0 packet loss.</p>
-
-<pre><code class="language-bash">192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+</code></pre><p>And the TCP responses with <code>flags=RA</code>, i.e., <code>RST/ACK</code>, similarly the UDP ping response and both with 0 packet loss.</p>
+<pre tabindex="0"><code>192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
 HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
 len=46 ip=192.168.1.9 ttl=64 DF id=21027 sport=53 flags=RA seq=0 win=0 rtt=5.8 ms
 
@@ -424,18 +436,13 @@ status=0 port=2391 seq=0
 --- 192.168.1.9 hping statistic ---
 1 packets transmitted, 1 packets received, 0% packet loss
 round-trip min/avg/max = 30.5/30.5/30.5 ms
-</code></pre>
-
-<p>Likewise, if port 53 (DNS) is filtered (rejected), the response flags would also be <code>RA</code>.</p>
-
-<pre><code class="language-bash">host: 192.168.1.9
+</code></pre><p>Likewise, if port 53 (DNS) is filtered (rejected), the response flags would also be <code>RA</code>.</p>
+<pre tabindex="0"><code>host: 192.168.1.9
 53/tcp                     REJECT IN   Anywhere                  
 53/udp                     REJECT IN   Anywhere                  
 53/tcp (v6)                REJECT IN   Anywhere (v6)             
 53/udp (v6)                REJECT IN   Anywhere (v6)
-</code></pre>
-
-<pre><code class="language-bash">192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
+</code></pre><pre tabindex="0"><code>192.168.1.10:~# hping3 -S 192.168.1.9 -p 53 -c 1
 HPING 192.168.1.9 (eth0 192.168.1.9): S set, 40 headers + 0 data bytes
 len=46 ip=192.168.1.9 ttl=64 DF id=0 sport=53 flags=RA seq=0 win=0 rtt=6.2 ms
 
@@ -452,13 +459,9 @@ status=0 port=1480 seq=0
 --- 192.168.1.9 hping statistic ---
 1 packets transmitted, 1 packets received, 0% packet loss
 round-trip min/avg/max = 63.7/63.7/63.7 ms
-</code></pre>
-
-<h2 id="scan-mode">SCAN mode:</h2>
-
-<p>low-level automated port scanner (port range), possible to uncover subtle aspects of hosts behind the firewall.</p>
-
-<pre><code class="language-bash">192.168.1.10:~# hping3 -8 21-80 -S 192.168.1.9
+</code></pre><h3 id="scan-mode">SCAN mode</h3>
+<p><code>-8  --scan</code> mode can be used to automated low-level port scanner (port range), possibly to uncover subtle aspects of hosts behind the firewall.</p>
+<pre tabindex="0"><code>192.168.1.10:~# hping3 -8 21-80 -S 192.168.1.9
 Scanning 192.168.1.9 (192.168.1.9), port 21-80
 60 ports to scan, use -V to see all the replies
 +----+-----------+---------+---+-----+-----+-----+
@@ -468,7 +471,8 @@ Scanning 192.168.1.9 (192.168.1.9), port 21-80
    80 http       : .S..A...  64     0 29200    46
 All replies received. Done.
 </code></pre>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -480,7 +484,7 @@ All replies received. Done.
   <div class="pure-u-10-24">
     
     <nav class="prev">
-      <a href="https://tzyluen.github.io/post/firewall-iptables-ufw-enablement/">Firewall: iptables/ufw enablement</a>
+      <a href="https://tzyluen.github.io/post/firewall-iptables-ufw-enablement/">Firewall: Iptables and UFW Enablement</a>
     </nav>
     
   </div>
@@ -502,15 +506,31 @@ All replies received. Done.
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 

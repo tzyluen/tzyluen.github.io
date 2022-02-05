@@ -1,103 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Privacy on Technical Notes</title>
-    <link>https://tzyluen.github.io/tags/privacy/index.xml</link>
-    <description>Recent content in Privacy on Technical Notes</description>
+    <title>privacy on Technical Notes</title>
+    <link>https://tzyluen.github.io/tags/privacy/</link>
+    <description>Recent content in privacy on Technical Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>&amp;copy; 2015. All rights reserved.</copyright>
-    <atom:link href="https://tzyluen.github.io/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
-    
+    <copyright>&amp;copy; 2015 - 2022. All rights reserved.</copyright>
+    <lastBuildDate>Sat, 19 Mar 2016 00:00:00 +0800</lastBuildDate><atom:link href="https://tzyluen.github.io/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Encrypting DNS traffic</title>
+      <title>Encrypting DNS Traffic</title>
       <link>https://tzyluen.github.io/post/encrypting-dns-traffic/</link>
       <pubDate>Sat, 19 Mar 2016 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/encrypting-dns-traffic/</guid>
-      <description>
-
-&lt;h1 id=&#34;dnscrypt&#34;&gt;DNSCrypt&lt;/h1&gt;
-
-&lt;p&gt;can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.&lt;/p&gt;
-
-&lt;h2 id=&#34;install&#34;&gt;Install&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# apt-get install dnscrypt-proxy
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;select-a-resolver&#34;&gt;Select a resolver&lt;/h2&gt;
-
-&lt;p&gt;Note: An up-to-date dnscrypt-resolvers.csv is also available from &lt;a href=&#34;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&#34;&gt;https://github.com/jedisct1/dnscrypt-proxy/blob/master/dnscrypt-resolvers.csv&lt;/a&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Select a resolver from &lt;code&gt;/usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv&lt;/code&gt;.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Filter and print the list of resolvers from the dnscrypt-resolvers.csv&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;{print $1 &amp;quot;|&amp;quot; $4 &amp;quot;|&amp;quot; $12}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Get a distinct list by country:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ awk -F&#39;[,]&#39; &#39;!($4 in arr){print $4} {arr[$4]++}&#39; &amp;lt; /usr/share/dnscrypt-proxy/dnscrypt-resolvers.csv
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Pick a reliable server such as:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;fvz-anyone (by OpenNIC)&lt;/li&gt;
-&lt;li&gt;fvz-anyone-ipv6&lt;/li&gt;
-&lt;li&gt;adguard-dns-family-ns1 (Adguard DNS with safesearch and adult content blocking)&lt;/li&gt;
-&lt;li&gt;adguard-dns-ns1 (Remove ads and protect your computer from malware)&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Update the dnscrypt-proxy.conf with the target resolver:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ vim /etc/dnscrypt-proxy/dnscrypt-proxy.conf
-...
-ResolverName fvz-anyone
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;modify-resolv-conf&#34;&gt;Modify resolv.conf&lt;/h2&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Modify the resolv.conf file and replace the current resolver addresses with address that the dnscrypt-proxy daemon listening on, as defined in the following files:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;/etc/dnscrypt-proxy/dnscrypt-proxy.conf
-/etc/systemd/system/sockets.target.wants/dnscrypt-proxy.socket
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;resolv.conf:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;nameserver 127.0.2.1
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&#34;start-systemd-service&#34;&gt;Start systemd service&lt;/h2&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo systemctl start dnscrypt-proxy
-$ sudo systemctl status dnscrypt-proxy
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;verify-the-dns-traffic-is-encrypted&#34;&gt;Verify the DNS traffic is encrypted&lt;/h2&gt;
-
-&lt;p&gt;Use wireshark and set the capture filter as:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;host 192.168.1.9 and not broadcast
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;And set the display filter as:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;ip.addr == 185.121.177.177
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Note: fvz-anyone resolver ip address is 185.121.177.177&lt;/p&gt;
-
-&lt;p&gt;The encrypted DNS traffic will appear as malformed packet (in red) and was mistakenly identified as QUIC protocol during the test:
-&lt;img src=&#34;https://tzyluen.github.io/img/dnscrypt-encrypted-traffic-wireshark-01.png&#34; alt=&#34;dnscrypt-encrypted-traffic-wireshark-01&#34; style=&#34;width: 800px;&#34; /&gt;&lt;/p&gt;
-</description>
+      <description>Table of Contents  DNSCrypt  Install Select a resolver Modify resolv.conf Start systemd service Verify the DNS traffic is encrypted       DNSCrypt can be used to increase web browsing privacy and thwart DNS traffic sniffing. It enables encryption and authentication on DNS traffic between the local computer and the remote DNS resolver. It helps to mask the domain resolution (sent in clear text) to the DNS server, before the HTTPS connection initiated to the target website.</description>
     </item>
     
     <item>
@@ -106,33 +23,9 @@ $ sudo systemctl status dnscrypt-proxy
       <pubDate>Sat, 28 Nov 2015 00:00:00 +0800</pubDate>
       
       <guid>https://tzyluen.github.io/post/privacy-remove-metadata-from-images/</guid>
-      <description>&lt;p&gt;Digital cameras (including smartphones) and computers (screenshots) embed technical metadata into image files. It serves great purpose to record image profiles but it could exposed some private information i.e., device profiles, GPS coordinates, etc and thus caused privacy issues.&lt;/p&gt;
-
-&lt;p&gt;Before share images online, strip clean the image EXIF (Exchangeable Image File) metadata. The &lt;code&gt;libimage-exiftool-perl&lt;/code&gt; package contains the library and program to read and write meta information in multimedia files.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ sudo apt-get install libimage-exiftool-perl
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To view the exif metadata:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ exiftool /path/to/image.jpg
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;A single file:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ exiftool -all= /path/to/image.jpg
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;All under the target directory:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ exiftool -all= /path/to/images/*.jpg
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To set a property e.g., Copyright:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ exiftool -Copyright=your-copyrighted-text image.jpg
-&lt;/code&gt;&lt;/pre&gt;
-</description>
+      <description>Digital cameras (including smartphones) and computers (screenshots) embed technical metadata into image files. It serves great purpose to record image profiles but it could exposed some private information i.e., device profiles, GPS coordinates, etc and thus caused privacy issues.
+Before share images online, strip clean the image EXIF (Exchangeable Image File) metadata. The libimage-exiftool-perl package contains the library and program to read and write meta information in multimedia files.
+$ sudo apt-get install libimage-exiftool-perl To view the exif metadata:</description>
     </item>
     
   </channel>

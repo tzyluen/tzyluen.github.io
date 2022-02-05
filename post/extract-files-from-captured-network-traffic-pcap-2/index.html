@@ -5,19 +5,21 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.91.2" />
 
   <title>Extract files from captured network traffic pcap (2) &middot; Technical Notes</title>
 
+    
+
   
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/pure-min.css">
 
   <!--[if lte IE 8]>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-old-ie-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-old-ie-min.css">
   <![endif]-->
   <!--[if gt IE 8]><!-->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/grids-responsive-min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/2.0.6/grids-responsive-min.css">
   <!--<![endif]-->
 
   <!--[if lte IE 8]>
@@ -30,36 +32,32 @@
   <link rel="stylesheet" href="https://tzyluen.github.io/css/blackburn.css">
 
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 
   
-  <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet" type="text/css">
 
   
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
-ga('create', 'UA-99983797-1', 'auto');
-ga('send', 'pageview');
-</script>
-
-
-  
+ 
   
 
   
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/styles/androidstudio.min.css">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.1.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/styles/androidstudio.min.css">
+  <script async src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+  
+  
   
 
   <link rel="shortcut icon" href="https://tzyluen.github.io/img/favicon.ico" type="image/x-icon" />
 
   
-    <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
+        <link rel="stylesheet" href="https://tzyluen.github.io/css/my.css">
+    
   
   
 
@@ -77,7 +75,7 @@ ga('send', 'pageview');
 <div id="menu">
 
   
-  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">Notes</a>
+  <a class="pure-menu-heading brand" href="https://tzyluen.github.io/">NOTES</a>
 
 
   <div class="pure-menu">
@@ -98,6 +96,12 @@ ga('send', 'pageview');
       
         <li class="pure-menu-item">
           <a class="pure-menu-link" href="https://tzyluen.github.io/tags/"><i class='fa fa-list fa-fw'></i>Tags</a>
+      
+        </li>
+      
+      
+        <li class="pure-menu-item">
+          <a class="pure-menu-link" href="https://tzyluen.github.io/links/"><i class='fa fa-list fa-fw'></i>Links</a>
       
         </li>
       
@@ -177,17 +181,19 @@ ga('send', 'pageview');
 
     
 
+    
+
   </ul>
 </div>
 
 
   <div>
   <div class="small-print">
-    <small>&copy; 2015. All rights reserved.</small>
+    <small>&copy; 2015 - 2022. All rights reserved.</small>
   </div>
   <div class="small-print">
     <small>Built with&nbsp;<a href="https://gohugo.io/" target="_blank">Hugo</a></small>
-    <small>Theme&nbsp;<a href="https://github.com/yoshiharuyamashita/blackburn" target="_blank">Blackburn</a></small>
+    
   </div>
 </div>
 
@@ -198,11 +204,9 @@ ga('send', 'pageview');
 
 
 <div class="header">
-  <h1>Extract files from captured network traffic pcap (2)</h1>
-  <h2></h2>
+  <h2>Extract files from captured network traffic pcap (2)</h2>
+  <h3></h3>
 </div>
-
-
 <div class="content">
 
   <div class="post-meta">
@@ -243,64 +247,64 @@ ga('send', 'pageview');
 
 </div>
 
-    
-    <div id="TableOfContents" class="toc col-lg-offset-6">
-      <h2>Table of Contents</h2>
-      <nav id="TableOfContents">
-<ul>
-<li><a href="#tcpxtract">Tcpxtract</a></li>
-<li><a href="#tcpextract">Tcpextract</a></li>
-</ul>
+  <div>
+    <h3>Table of Contents</h3>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#tcpxtract">Tcpxtract</a></li>
+    <li><a href="#tcpextract">Tcpextract</a></li>
+  </ul>
 </nav>
-    </div>
-    <hr>
-    
+</div>
 
-  
-
-<h1 id="tcpxtract">Tcpxtract</h1>
-
+<hr>
+<h2 id="tcpxtract">Tcpxtract</h2>
 <ul>
 <li>Supports 26 file formats, extensible (<code>/etc/tcpxtract.conf</code>), however it requires the clear start and end markers.</li>
 <li>Supports only TCP packets, no UDP.</li>
 </ul>
-
+<ol>
+<li>
 <p>Live capture from an interface and extract:</p>
-
-<pre><code class="language-bash">$ mkdir -p /tmp/enp0s3-tcpxtract-output
+<pre tabindex="0"><code>$ mkdir -p /tmp/enp0s3-tcpxtract-output
 $ sudo tcpxtract -d enp0s3 -o /tmp/enp0s3-tcpxtract-output
-</code></pre>
+</code></pre></li>
+<li>
+<p>Extract from the pcap file:</p>
 
-<p>Extract from pcap file:</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-tcpxtract-01.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-tcpxtract-01.png" alt="extracting-files-tcpxtract-01" /></p>
-
-<hr />
-
-<h1 id="tcpextract">Tcpextract</h1>
-
+</li>
+</ol>
+<hr>
+<h2 id="tcpextract">Tcpextract</h2>
 <ul>
-<li>Similar to both <code>tcpflow</code> and <code>tcpxtract</code>, it extracts all files it recognized from a pcap file or interface.</li>
-<li>Extracts files with their original names, instead of the index names i.e., 0000001.htm.</li>
-</ul>
-
-<pre><code class="language-bash">$ sudo apt-get install python-nids
+<li>
+<p>Similar to both <code>tcpflow</code> and <code>tcpxtract</code>, <code>tcpextract</code> extracts all files it recognized from a pcap file or interface.</p>
+</li>
+<li>
+<p>It also extracts files with their original names, instead of the index names i.e., 0000001.htm.</p>
+<pre tabindex="0"><code>$ sudo apt-get install python-nids
 $ git clone https://github.com/faust/tcpextract.git
 $ cd tcpextract/
 $ sudo python setup.py install
-</code></pre>
+</code></pre></li>
+</ul>
+<ol>
+<li>
+<p>During the experiment, it failed to extract http traffic, the package is not well supported, and still unstable with error.</p>
+</li>
+<li>
+<p>After a few attempts, e.g., attempted to convert between <code>pcapng</code> and <code>pcap</code> format, it still failed silently with zero file extracted.</p>
 
-<p>However, it is not well supported, or unstable.  It failed to extract http traffic during the experiment:</p>
+<img class="pure-img" src="https://tzyluen.github.io/img/extracting-files-tcpextract-01.png" alt="">
 
-<p><img src="https://tzyluen.github.io/img/extracting-files-tcpextract-01.png" alt="extracting-files-tcpextract-01" /></p>
+<pre tabindex="0"><code>$ editcap http_espn.pcapng http_espn.pcap
+</code></pre></li>
+</ol>
 
-<p>So, converts <code>pcapng</code> to <code>pcap</code> file format:</p>
-
-<pre><code class="language-bash">$ editcap http_espn.pcapng http_espn.pcap
-</code></pre>
-
-<p>After a few attempt, it still failed silently with zero file extracted.</p>
-
+  
+  
 
   
 <div class="prev-next-post pure-g">
@@ -334,15 +338,31 @@ $ sudo python setup.py install
 </div>
 
 
+  
+  
+  
+  
 
   
+
 
 </div>
 
 </div>
 </div>
 <script src="https://tzyluen.github.io/js/ui.js"></script>
+<script src="https://tzyluen.github.io/js/menus.js"></script>
 
+
+
+
+
+
+
+
+<script src="https://tzyluen.github.io/js/math-code.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+  
 
 
 
